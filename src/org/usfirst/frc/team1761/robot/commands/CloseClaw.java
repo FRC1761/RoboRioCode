@@ -14,6 +14,7 @@ import org.usfirst.frc.team1761.robot.Robot;
  * Closes the claw for one second. Real robots should use sensors, stalling
  * motors is BAD!
  */
+/*
 public class CloseClaw extends Command {
 	public CloseClaw() {
 		requires(Robot.m_claw);
@@ -43,3 +44,4 @@ public class CloseClaw extends Command {
 		}
 	}
 }
+*/

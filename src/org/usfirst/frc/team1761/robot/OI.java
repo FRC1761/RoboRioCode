@@ -9,14 +9,15 @@ package org.usfirst.frc.team1761.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.usfirst.frc.team1761.robot.commands.Autonomous;
-import org.usfirst.frc.team1761.robot.commands.CloseClaw;
+//import org.usfirst.frc.team1761.robot.commands.Autonomous;
+/*import org.usfirst.frc.team1761.robot.commands.CloseClaw;
 import org.usfirst.frc.team1761.robot.commands.OpenClaw;
 import org.usfirst.frc.team1761.robot.commands.Pickup;
 import org.usfirst.frc.team1761.robot.commands.Place;
 import org.usfirst.frc.team1761.robot.commands.PrepareToPickup;
 import org.usfirst.frc.team1761.robot.commands.SetElevatorSetpoint;
 import org.usfirst.frc.team1761.robot.commands.SetWristSetpoint;
+*/
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -24,11 +25,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private Joystick m_joystick = new Joystick(0);
+	private Joystick left_joystick = new Joystick(0);
+	private Joystick right_joystick = new Joystick(1);
 
 	public OI() {
 		// Put Some buttons on the SmartDashboard
-		SmartDashboard.putData("Elevator Bottom", new SetElevatorSetpoint(0));
+		/*SmartDashboard.putData("Elevator Bottom", new SetElevatorSetpoint(0));
 		SmartDashboard.putData("Elevator Platform", new SetElevatorSetpoint(0.2));
 		SmartDashboard.putData("Elevator Top", new SetElevatorSetpoint(0.3));
 
@@ -60,9 +62,15 @@ public class OI {
 		r2.whenPressed(new Pickup());
 		l1.whenPressed(new Place());
 		l2.whenPressed(new Autonomous());
+		*/
 	}
 
-	public Joystick getJoystick() {
-		return m_joystick;
+	public Joystick getLeftJoystick() {
+		return left_joystick;
 	}
+
+	public Joystick getRightJoystick() {
+		return right_joystick;
+	}
+
 }

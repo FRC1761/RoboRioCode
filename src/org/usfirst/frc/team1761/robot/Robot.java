@@ -6,7 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team1761.robot;
-
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Initialize all subsystems
+		CameraServer.getInstance().startAutomaticCapture(0);
 		m_drivetrain = new DriveTrain();
 /*		m_elevator = new Elevator();
 		m_wrist = new Wrist();
@@ -80,6 +82,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		m_autonomousCommand.cancel();
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**

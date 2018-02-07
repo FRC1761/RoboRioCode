@@ -7,18 +7,19 @@
 
 package org.usfirst.frc.team1761.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Encoder;
+//import edu.wpi.first.wpilibj.AnalogGyro;
+//import edu.wpi.first.wpilibj.AnalogInput;
+//import edu.wpi.first.wpilibj.Encoder;
+import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import org.usfirst.frc.team1761.robot.Robot;
+//import org.usfirst.frc.team1761.robot.Robot;
 import org.usfirst.frc.team1761.robot.commands.TankDriveWithJoystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The DriveTrain subsystem incorporates the sensors and actuators attached to
@@ -27,18 +28,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveTrain extends Subsystem {
 	private SpeedController m_leftMotor
-			= new SpeedControllerGroup(new Spark(0), new Spark(1));
+			= new SpeedControllerGroup(new WPI_TalonSRX(10),new WPI_TalonSRX(12));
 	private SpeedController m_rightMotor
-			= new SpeedControllerGroup(new Spark(2), new Spark(3));
+			= new SpeedControllerGroup(new WPI_TalonSRX(11),new WPI_TalonSRX(13));
 
 	private DifferentialDrive m_drive
 			= new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-	private Encoder m_leftEncoder = new Encoder(1, 2);
+	/*private Encoder m_leftEncoder = new Encoder(1, 2);
 	private Encoder m_rightEncoder = new Encoder(3, 4);
 	private AnalogInput m_rangefinder = new AnalogInput(6);
 	private AnalogGyro m_gyro = new AnalogGyro(1);
-
+*/
 	public DriveTrain() {
 		super();
 
@@ -47,7 +48,7 @@ public class DriveTrain extends Subsystem {
 		// per tick in the real world, but the simulated encoders
 		// simulate 360 tick encoders. This if statement allows for the
 		// real robot to handle this difference in devices.
-		if (Robot.isReal()) {
+	/*	if (Robot.isReal()) {
 			m_leftEncoder.setDistancePerPulse(0.042);
 			m_rightEncoder.setDistancePerPulse(0.042);
 		} else {
@@ -61,7 +62,7 @@ public class DriveTrain extends Subsystem {
 		addChild("Left Encoder", m_leftEncoder);
 		addChild("Right Encoder", m_rightEncoder);
 		addChild("Rangefinder", m_rangefinder);
-		addChild("Gyro", m_gyro);
+		addChild("Gyro", m_gyro);*/
 	}
 
 	/**
@@ -77,11 +78,11 @@ public class DriveTrain extends Subsystem {
 	 * The log method puts interesting information to the SmartDashboard.
 	 */
 	public void log() {
-		SmartDashboard.putNumber("Left Distance", m_leftEncoder.getDistance());
+/*		SmartDashboard.putNumber("Left Distance", m_leftEncoder.getDistance());
 		SmartDashboard.putNumber("Right Distance", m_rightEncoder.getDistance());
 		SmartDashboard.putNumber("Left Speed", m_leftEncoder.getRate());
 		SmartDashboard.putNumber("Right Speed", m_rightEncoder.getRate());
-		SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
+		SmartDashboard.putNumber("Gyro", m_gyro.getAngle());*/
 	}
 
 	/**
@@ -110,17 +111,17 @@ public class DriveTrain extends Subsystem {
 	 *
 	 * @return The robots heading in degrees.
 	 */
-	public double getHeading() {
-		return m_gyro.getAngle();
-	}
+//	public double getHeading() {
+//		return m_gyro.getAngle();
+//	}
 
 	/**
 	 * Reset the robots sensors to the zero states.
 	 */
 	public void reset() {
-		m_gyro.reset();
+	/*	m_gyro.reset();
 		m_leftEncoder.reset();
-		m_rightEncoder.reset();
+		m_rightEncoder.reset();*/
 	}
 
 	/**
@@ -128,17 +129,17 @@ public class DriveTrain extends Subsystem {
 	 *
 	 * @return The distance driven (average of left and right encoders).
 	 */
-	public double getDistance() {
-		return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
-	}
+//	public double getDistance() {
+//		return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
+//	}
 
 	/**
 	 * Get the distance to the obstacle.
 	 *
 	 * @return The distance to the obstacle detected by the rangefinder.
 	 */
-	public double getDistanceToObstacle() {
+/*	public double getDistanceToObstacle() {
 		// Really meters in simulation since it's a rangefinder...
 		return m_rangefinder.getAverageVoltage();
-	}
+	}*/
 }
