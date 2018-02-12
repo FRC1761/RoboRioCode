@@ -20,6 +20,7 @@ import org.usfirst.frc.team1761.robot.subsystems.Claw;
 import org.usfirst.frc.team1761.robot.subsystems.Elevator;
 import org.usfirst.frc.team1761.robot.subsystems.Wrist;
 /**/
+import org.usfirst.frc.team1761.robot.subsystems.FourBar;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static Wrist m_wrist;
 	public static Claw m_claw; /**/
 	public static OI m_oi;
+	public static FourBar m_fourbar;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -46,6 +48,7 @@ public class Robot extends IterativeRobot {
 		// Initialize all subsystems
 		CameraServer.getInstance().startAutomaticCapture(0);
 		m_drivetrain = new DriveTrain();
+		m_fourbar    = new FourBar();
 /*		m_elevator = new Elevator();
 		m_wrist = new Wrist();
 		m_claw = new Claw(); /**/
