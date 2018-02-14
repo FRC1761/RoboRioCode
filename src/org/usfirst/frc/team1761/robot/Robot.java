@@ -85,7 +85,6 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		m_autonomousCommand.cancel();
-		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**
