@@ -6,6 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team1761.robot;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -15,11 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1761.robot.commands.Autonomous;
 import org.usfirst.frc.team1761.robot.subsystems.DriveTrain;
-/*
-import org.usfirst.frc.team1761.robot.subsystems.Claw;
-import org.usfirst.frc.team1761.robot.subsystems.Elevator;
-import org.usfirst.frc.team1761.robot.subsystems.Wrist;
-/**/
 import org.usfirst.frc.team1761.robot.subsystems.FourBar;
 
 /**
@@ -46,7 +43,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Initialize all subsystems
-		CameraServer.getInstance().startAutomaticCapture(0);
+		UsbCamera myCamera;
+		myCamera = CameraServer.getInstance().startAutomaticCapture(0);
+		myCamera.setFPS(30);
+		myCamera.setResolution(680,420);
 		m_drivetrain = new DriveTrain();
 		m_fourbar    = new FourBar();
 /*		m_elevator = new Elevator();
