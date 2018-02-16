@@ -106,6 +106,13 @@ public class DriveTrain extends Subsystem {
 		drive(-joy.getY(), -joy.getThrottle());
 	}
 
+	public void disableSafety() {
+		m_drive.setSafetyEnabled(false);
+	}
+	
+	public void enableSafety() {
+		m_drive.setSafetyEnabled(true);
+	}
 	/**
 	 * Get the robot's heading.
 	 *
