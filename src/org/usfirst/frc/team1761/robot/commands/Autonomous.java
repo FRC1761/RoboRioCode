@@ -9,6 +9,7 @@ package org.usfirst.frc.team1761.robot.commands;
 
 import org.usfirst.frc.team1761.robot.Robot;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -16,18 +17,24 @@ import edu.wpi.first.wpilibj.command.Command;
  * The main autonomous command to pickup and deliver the soda to the box.
  */
 public class Autonomous extends Command {
+	double autoDelay;
+	double autoSpeed;
+	
 	public Autonomous() {
 		requires(Robot.m_drivetrain);
 	}
 	
 	protected void initialize() {
 		Robot.m_drivetrain.disableSafety();
+		Preferences prefs = Preferences.getInstance();
+		autoDelay = prefs.getDouble("Auto Delay", 3.0);
+		autoSpeed = prefs.getDouble("Auto Speed",.75);
     }
 	
 	protected void execute() {
 		
-		Robot.m_drivetrain.drive(.75,.75);
-		Timer.delay(3);
+		Robot.m_drivetrain.drive(autoSpeed,autoSpeed);
+		Timer.delay(autoDelay);
 		Robot.m_drivetrain.drive(0,0);
 		
 	}
