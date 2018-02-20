@@ -66,7 +66,7 @@ public class OI {
 		JoystickButton buttonB = new JoystickButton(gamepad, 2);
 		JoystickButton buttonX = new JoystickButton(gamepad, 3);
 		JoystickButton buttonY = new JoystickButton(gamepad, 4);
-		
+		JoystickButton buttonStart = new JoystickButton(gamepad, 8);
 		
 		lBumper.whenPressed(new ExtendArms());
 		rBumper.whenPressed(new RetractArms());
