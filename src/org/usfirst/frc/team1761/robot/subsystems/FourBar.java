@@ -11,17 +11,19 @@ public class FourBar extends Subsystem {
 	
 	private DoubleSolenoid m_leftArm;
 	private DoubleSolenoid m_rightArm;
-	private DoubleSolenoid m_lifterPiston;
+	private DoubleSolenoid m_lifterPiston1;
+	private DoubleSolenoid m_lifterPiston2;	
 	private DoubleSolenoid m_kickerPiston;
 	
 	private boolean isExtended; 
 	public FourBar() {
 		super();
-		m_leftArm = new DoubleSolenoid(0, 1);
-		m_rightArm = new DoubleSolenoid(2, 3);
-		m_lifterPiston = new DoubleSolenoid(4,5);
-		m_kickerPiston = new DoubleSolenoid(6,7);
+		m_leftArm = new DoubleSolenoid(0,0,1);
+		m_rightArm = new DoubleSolenoid(0,2,3);
+		m_lifterPiston1 = new DoubleSolenoid(0,4,5);
+		m_lifterPiston2= new DoubleSolenoid(0,6,7);
 		
+		m_kickerPiston= new DoubleSolenoid(1,0,1);
 		//We should initialize the arms in the retracted position.
 		// by firing both pistons with right setting.
 		//TODO fire pistons
@@ -57,12 +59,16 @@ public class FourBar extends Subsystem {
 	}
 	
 	public void lift( ) {
-		m_lifterPiston.set(DoubleSolenoid.Value.kForward);
+		m_lifterPiston1.set(DoubleSolenoid.Value.kForward);
+		m_lifterPiston2.set(DoubleSolenoid.Value.kForward);
+		
 		
 	}
 	
 	public void lower( ) {
-		m_lifterPiston.set(DoubleSolenoid.Value.kReverse);		
+		m_lifterPiston1.set(DoubleSolenoid.Value.kReverse);
+		m_lifterPiston2.set(DoubleSolenoid.Value.kReverse);
+		
 	}
 	
 	public void kick() {
