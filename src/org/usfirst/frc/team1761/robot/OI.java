@@ -11,15 +11,7 @@ import org.usfirst.frc.team1761.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-//import org.usfirst.frc.team1761.robot.commands.Autonomous;
-/*import org.usfirst.frc.team1761.robot.commands.CloseClaw;
-import org.usfirst.frc.team1761.robot.commands.OpenClaw;
-import org.usfirst.frc.team1761.robot.commands.Pickup;
-import org.usfirst.frc.team1761.robot.commands.Place;
-import org.usfirst.frc.team1761.robot.commands.PrepareToPickup;
-import org.usfirst.frc.team1761.robot.commands.SetElevatorSetpoint;
-import org.usfirst.frc.team1761.robot.commands.SetWristSetpoint;
-*/
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -34,13 +26,7 @@ public class OI {
 	public OI() {
 		// Put Some buttons on the SmartDashboard
 		/*SmartDashboard.putData("Elevator Bottom", new SetElevatorSetpoint(0));
-		SmartDashboard.putData("Elevator Platform", new SetElevatorSetpoint(0.2));
-		SmartDashboard.putData("Elevator Top", new SetElevatorSetpoint(0.3));
-		SmartDashboard.putData("Wrist Horizontal", new SetWristSetpoint(0));
-		SmartDashboard.putData("Raise Wrist", new SetWristSetpoint(-45));
-		SmartDashboard.putData("Open Claw", new OpenClaw());
-		SmartDashboard.putData("Close Claw", new CloseClaw());
-		SmartDashboard.putData("Deliver Soda", new Autonomous()); /**/
+		 /**/
 
 		/*
 		// Create some buttons
@@ -48,17 +34,6 @@ public class OI {
 		JoystickButton dpadRight = new JoystickButton(m_joystick, 6);
 		JoystickButton dpadDown = new JoystickButton(m_joystick, 7);
 		JoystickButton dpadLeft = new JoystickButton(m_joystick, 8);
-		
-		// Connect the buttons to commands
-		dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
-		dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
-		dpadRight.whenPressed(new CloseClaw());
-		dpadLeft.whenPressed(new OpenClaw());
-
-		r1.whenPressed(new PrepareToPickup());
-		r2.whenPressed(new Pickup());
-		l1.whenPressed(new Place());
-		l2.whenPressed(new Autonomous());
 		/**/
 		JoystickButton lBumper = new JoystickButton(gamepad, 5);
 		JoystickButton rBumper = new JoystickButton(gamepad, 6);
