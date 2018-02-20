@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
 		UsbCamera myCamera;
 		myCamera = CameraServer.getInstance().startAutomaticCapture(0);
 		myCamera.setFPS(30);
-		myCamera.setResolution(680,420);
+		myCamera.setResolution(680,480);
 		m_drivetrain = new DriveTrain();
 		m_fourbar    = new FourBar();
 /*		m_elevator = new Elevator();
@@ -101,6 +101,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
+		//test everything here
+		
 	}
 
 	/**
