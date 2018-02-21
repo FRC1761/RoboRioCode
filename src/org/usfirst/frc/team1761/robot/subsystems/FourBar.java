@@ -23,8 +23,7 @@ public class FourBar extends Subsystem {
 		m_lifterPiston1 = new DoubleSolenoid(0, 4, 5);
 		m_lifterPiston2 = new DoubleSolenoid(0, 6, 7);
 		m_kickerPiston = new DoubleSolenoid(1, 0, 1);
-		
-		m_kickerPiston= new DoubleSolenoid(1,0,1);
+
 		//We should initialize the arms in the retracted position.
 		// by firing both pistons with right setting.
 		//TODO fire pistons

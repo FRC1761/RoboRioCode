@@ -9,6 +9,7 @@ package org.usfirst.frc.team1761.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,9 +25,9 @@ import org.usfirst.frc.team1761.robot.commands.TankDriveWithJoystick;
  */
 public class DriveTrain extends Subsystem {
 	private SpeedController m_leftMotor
-			= new SpeedControllerGroup(new WPI_TalonSRX(10),new WPI_TalonSRX(12));
-	private SpeedController m_rightMotor
 			= new SpeedControllerGroup(new WPI_TalonSRX(11),new WPI_TalonSRX(13));
+	private SpeedController m_rightMotor
+			= new SpeedControllerGroup(new WPI_TalonSRX(10),new WPI_TalonSRX(12));
 
 	private DifferentialDrive m_drive
 			= new DifferentialDrive(m_leftMotor, m_rightMotor);

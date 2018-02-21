@@ -31,8 +31,7 @@ public class KickBox extends Command {
     	//release arms
     	Robot.m_fourbar.extendArms();    	
     	//retract kicker
-    	Robot.m_fourbar.windup();
-       	
+    	Robot.m_fourbar.windup();	
     }
 
     // Make this return true when this Command no longer needs to run execute()
