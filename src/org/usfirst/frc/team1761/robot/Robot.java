@@ -7,14 +7,10 @@
 
 package org.usfirst.frc.team1761.robot;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team1761.robot.commands.Autonomous;
 import org.usfirst.frc.team1761.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1761.robot.subsystems.FourBar;
