@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1761.robot.commands.Autonomous;
 import org.usfirst.frc.team1761.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1761.robot.subsystems.FourBar;
+import org.usfirst.frc.team1761.robot.subsystems.LastYearsDriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,9 +31,7 @@ public class Robot extends IterativeRobot {
 	Command m_autonomousCommand;
 
 	public static DriveTrain m_drivetrain;
-/*	public static Elevator m_elevator;
-	public static Wrist m_wrist;
-	public static Claw m_claw; /**/
+	public static LastYearsDriveTrain m_olddrivetrain;
 	public static OI m_oi;
 	public static FourBar m_fourbar;
 
@@ -47,7 +46,8 @@ public class Robot extends IterativeRobot {
 		myCamera = CameraServer.getInstance().startAutomaticCapture(0);
 		myCamera.setFPS(30);
 		myCamera.setResolution(680,480);
-		m_drivetrain = new DriveTrain();
+		//m_drivetrain = new DriveTrain();
+		m_olddrivetrain = new LastYearsDriveTrain();
 		m_fourbar    = new FourBar();
 /*		m_elevator = new Elevator();
 		m_wrist = new Wrist();

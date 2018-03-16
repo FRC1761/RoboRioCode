@@ -9,6 +9,9 @@ package org.usfirst.frc.team1761.robot.commands;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 import org.usfirst.frc.team1761.robot.Robot;
 
 /**
@@ -16,13 +19,15 @@ import org.usfirst.frc.team1761.robot.Robot;
  */
 public class TankDriveWithJoystick extends Command {
 	private double driveLimiter;
+	private DifferentialDrive myDrive;
 	
-	public TankDriveWithJoystick() {
-		requires(Robot.m_drivetrain);
+	public TankDriveWithJoystick(Subsystem mySubsystem,DifferentialDrive myDrive) {
+		requires(mySubsystem);
+		this.myDrive = myDrive;		
 	}
 
 	protected void initialize() {
-		Robot.m_drivetrain.disableSafety();
+		myDrive.setSafetyEnabled(false);
 		Preferences prefs = Preferences.getInstance();
 		driveLimiter = prefs.getDouble("Drive Limiter", 1.0);
     }
@@ -30,7 +35,7 @@ public class TankDriveWithJoystick extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.m_drivetrain.drive(Robot.m_oi.getLeftJoystick().getY() * driveLimiter,
+		myDrive.tankDrive(Robot.m_oi.getLeftJoystick().getY() * driveLimiter,
 				                 Robot.m_oi.getRightJoystick().getY() * driveLimiter);
 	}
 
@@ -43,6 +48,7 @@ public class TankDriveWithJoystick extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.m_drivetrain.drive(0, 0);
+		myDrive.tankDrive(0, 0);
+		myDrive.setSafetyEnabled(true);
 	}
 }
