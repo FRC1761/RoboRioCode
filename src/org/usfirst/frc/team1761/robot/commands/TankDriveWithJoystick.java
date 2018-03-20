@@ -25,6 +25,7 @@ public class TankDriveWithJoystick extends Command {
 		Robot.m_drivetrain.disableSafety();
 		Preferences prefs = Preferences.getInstance();
 		driveLimiter = prefs.getDouble("Drive Limiter", 1.0);
+		prefs.putDouble("Drive Limiter",driveLimiter);
     }
 	
 	// Called repeatedly when this Command is scheduled to run

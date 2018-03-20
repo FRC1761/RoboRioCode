@@ -28,7 +28,9 @@ public class Autonomous extends Command {
 		Robot.m_drivetrain.disableSafety();
 		Preferences prefs = Preferences.getInstance();
 		autoDelay = prefs.getDouble("Auto Delay", 3.0);
+		prefs.putDouble("Auto Delay", autoDelay);
 		autoSpeed = prefs.getDouble("Auto Speed",.75);
+		prefs.putDouble("Auto Speed", autoSpeed);
     }
 	
 	protected void execute() {
