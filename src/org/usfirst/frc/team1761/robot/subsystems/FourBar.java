@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1761.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class FourBar extends Subsystem {
@@ -10,6 +11,7 @@ public class FourBar extends Subsystem {
 	private DoubleSolenoid m_lifterPiston1;
 	private DoubleSolenoid m_lifterPiston2;	
 	private DoubleSolenoid m_kickerPiston;
+	private Compressor myCompressor;
 	
 	private boolean isExtended; 
 	public FourBar() {
@@ -19,7 +21,8 @@ public class FourBar extends Subsystem {
 		m_lifterPiston1 = new DoubleSolenoid(0, 4, 5);
 		m_lifterPiston2 = new DoubleSolenoid(0, 6, 7);
 		m_kickerPiston = new DoubleSolenoid(1, 0, 1);
-
+		myCompressor = new Compressor(1);
+		myCompressor.stop();
 		//We should initialize the arms in the retracted position.
 		// by firing both pistons with right setting.
 		//TODO fire pistons
@@ -54,6 +57,10 @@ public class FourBar extends Subsystem {
 	    }		
 	}
 	
+	public boolean getStatus() {
+		return myCompressor.getPressureSwitchValue();
+	}
+	
 	public void lift( ) {
 		m_lifterPiston1.set(DoubleSolenoid.Value.kForward);
 		m_lifterPiston2.set(DoubleSolenoid.Value.kForward);
@@ -72,9 +79,4 @@ public class FourBar extends Subsystem {
 		m_kickerPiston.set(DoubleSolenoid.Value.kReverse);	
 	}
 	
-	
-	
-
-	
-
 }

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import org.usfirst.frc.team1761.robot.Robot;
+import org.usfirst.frc.team1761.robot.subsystems.FourBar;
 
 /**
  * Have the robot drive tank style using the PS3 Joystick until interrupted.
@@ -20,7 +21,7 @@ import org.usfirst.frc.team1761.robot.Robot;
 public class TankDriveWithJoystick extends Command {
 	private double driveLimiter;
 	private DifferentialDrive myDrive;
-	
+	private Preferences myPrefs;
 	public TankDriveWithJoystick(Subsystem mySubsystem,DifferentialDrive myDrive) {
 		requires(mySubsystem);
 		this.myDrive = myDrive;		
@@ -28,14 +29,20 @@ public class TankDriveWithJoystick extends Command {
 
 	protected void initialize() {
 		myDrive.setSafetyEnabled(false);
-		Preferences prefs = Preferences.getInstance();
-		driveLimiter = prefs.getDouble("Drive Limiter", 1.0);
-		prefs.putDouble("Drive Limiter",driveLimiter);
+		myPrefs = Preferences.getInstance();
+		driveLimiter = myPrefs.getDouble("Drive Limiter", 1.0);
+		myPrefs.putDouble("Drive Limiter",driveLimiter);
     }
 	
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		if(Robot.m_fourbar.getStatus())
+		{
+			myPrefs.putDouble("Drive Limiter",.75);
+		} else {
+			myPrefs.putDouble("Drive Limiter",1.0);
+		} 
 		myDrive.tankDrive(Robot.m_oi.getLeftJoystick().getY() * driveLimiter,
 				                 Robot.m_oi.getRightJoystick().getY() * driveLimiter);
 	}
