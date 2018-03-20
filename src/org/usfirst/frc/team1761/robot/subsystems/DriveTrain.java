@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-//import org.usfirst.frc.team1761.robot.Robot;
 import org.usfirst.frc.team1761.robot.commands.TankDriveWithJoystick;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -68,7 +67,7 @@ public class DriveTrain extends Subsystem {
 	 */
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new TankDriveWithJoystick());
+		setDefaultCommand(new TankDriveWithJoystick(this,m_drive));
 	}
 
 	/**

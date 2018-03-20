@@ -12,7 +12,7 @@ import org.usfirst.frc.team1761.robot.commands.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -41,7 +41,7 @@ public class OI {
 		JoystickButton buttonB = new JoystickButton(gamepad, 2);
 		JoystickButton buttonX = new JoystickButton(gamepad, 3);
 		JoystickButton buttonY = new JoystickButton(gamepad, 4);
-		JoystickButton buttonStart = new JoystickButton(gamepad, 8);
+		//JoystickButton buttonStart = new JoystickButton(gamepad, 8);
 		
 		lBumper.whenPressed(new ExtendArms());
 		rBumper.whenPressed(new RetractArms());

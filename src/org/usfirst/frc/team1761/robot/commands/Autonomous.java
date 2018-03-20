@@ -21,11 +21,11 @@ public class Autonomous extends Command {
 	double autoSpeed;
 	
 	public Autonomous() {
-		requires(Robot.m_drivetrain);
+		requires(Robot.m_olddrivetrain);
 	}
 	
 	protected void initialize() {
-		Robot.m_drivetrain.disableSafety();
+		Robot.m_olddrivetrain.disableSafety();
 		Preferences prefs = Preferences.getInstance();
 		autoDelay = prefs.getDouble("Auto Delay", 3.0);
 		prefs.putDouble("Auto Delay", autoDelay);
@@ -50,7 +50,7 @@ public class Autonomous extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.m_drivetrain.drive(0, 0);
-		Robot.m_drivetrain.enableSafety();
+		Robot.m_olddrivetrain.drive(0, 0);
+		Robot.m_olddrivetrain.enableSafety();
 	}
 }

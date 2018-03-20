@@ -27,7 +27,7 @@ public class KickBox extends Command {
     	//keep arms retracted while we fire kicker
     	Robot.m_fourbar.kick();
     	//wait about .5 seconds
-    	Timer.delay(.5);
+    	Timer.delay(1.0);
     	//release arms
     	Robot.m_fourbar.extendArms();    	
     	//retract kicker
