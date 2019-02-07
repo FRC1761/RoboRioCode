@@ -16,6 +16,7 @@ import edu.wpi.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 //import frc.robot.subsystems.Elevator;
 
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
   public static DriveTrain m_drivetrain;
   //public static Elevator m_elevator;
   public static Wrist m_wrist;
+  public static Arm m_arm;
   public static Intake m_intake;
   public static OI m_oi;
 
@@ -42,14 +44,16 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     //initialize the camera
-    UsbCamera myCamera;
-		myCamera = CameraServer.getInstance().startAutomaticCapture(0);
-		myCamera.setFPS(30);
-		myCamera.setResolution(680,480);
-
+    UsbCamera frontCamera,rearCamera;
+		frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
+		frontCamera.setFPS(30);
+		frontCamera.setResolution(320,240);
+    rearCamera  = CameraServer.getInstance().startAutomaticCapture(1);
+    rearCamera.setFPS(30);
+		rearCamera.setResolution(320,240);
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
-    //m_elevator = new Elevator();
+    m_arm = new Arm();
     m_wrist = new Wrist();
     m_intake = new Intake();
     m_oi = new OI();
@@ -107,6 +111,7 @@ public class Robot extends TimedRobot {
    * The log method puts interesting information to the SmartDashboard.
    */
   private void log() {
+    m_arm.log();
     m_wrist.log();
     //m_elevator.log();
     m_drivetrain.log();

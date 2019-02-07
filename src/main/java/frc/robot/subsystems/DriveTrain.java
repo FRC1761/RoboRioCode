@@ -7,18 +7,14 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Preferences;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.Robot;
 import frc.robot.commands.TankDriveWithJoystick;
 
 /**
@@ -27,6 +23,14 @@ import frc.robot.commands.TankDriveWithJoystick;
  * and a gyro.
  */
 public class DriveTrain extends Subsystem {
+  /*
+  Settings for True RObot
+  private final SpeedController m_leftMotor
+      = new SpeedControllerGroup(new WPI_TalonSRX(1), new WPI_TalonSRX(2));
+  private final SpeedController m_rightMotor
+      = new SpeedControllerGroup(new WPI_TalonSRX(3), new WPI_TalonSRX(4));
+  /**/
+  //Settings for Test Robot
   private final SpeedController m_leftMotor
       = new SpeedControllerGroup(new WPI_TalonSRX(10), new WPI_TalonSRX(12));
   private final SpeedController m_rightMotor
@@ -35,7 +39,8 @@ public class DriveTrain extends Subsystem {
   private final DifferentialDrive m_drive
       = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-  //private final Encoder m_leftEncoder = new Encoder(1, 2);
+  private double driveLimiter = Preferences.getInstance().getDouble("DriveTrain Factor", 1.0);
+      //private final Encoder m_leftEncoder = new Encoder(1, 2);
   //private final Encoder m_rightEncoder = new Encoder(3, 4);
   //private final AnalogInput m_rangefinder = new AnalogInput(6);
   //private final AnalogGyro m_gyro = new AnalogGyro(1);
@@ -100,7 +105,7 @@ public class DriveTrain extends Subsystem {
    * @param right Speed in range [-1,1]
    */
   public void drive(double left, double right) {
-    m_drive.tankDrive(left, right);
+    m_drive.tankDrive(left*driveLimiter, right*driveLimiter);
   }
 
   /**
@@ -109,7 +114,7 @@ public class DriveTrain extends Subsystem {
    * @param joy The ps3 style joystick to use to drive tank style.
    */
   public void drive(Joystick joy) {
-    drive(-joy.getY(), -joy.getThrottle());
+    drive(-joy.getY()*driveLimiter, -joy.getThrottle()*driveLimiter);
   }
 
   /**

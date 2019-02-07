@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
@@ -15,10 +16,10 @@ import frc.robot.Robot;
  * motors is BAD!
  */
 public class TimedLiftWrist extends TimedCommand {
-
+  private static double timeOut = Preferences.getInstance().getDouble("TimedLiftWrist timeout", .60);
 
   public TimedLiftWrist() {
-    super(.60);
+    super(timeOut);
     requires(Robot.m_wrist);
   }
 

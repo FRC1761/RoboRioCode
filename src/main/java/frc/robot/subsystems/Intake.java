@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 //import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
   //spark is on PWM 1
   private final Spark m_motor = new Spark(1);
+  private double driveFactor = Preferences.getInstance().getDouble("Intake Factor", 1.0);
   //There is one limit switch on this Spark that are hardwired
   // so no programming is necessary if they are wired correctly
   
@@ -45,7 +47,7 @@ public class Intake extends Subsystem {
    * Set the claw motor to move in the open direction.
    */
   public void open() {
-    m_motor.set(-1);
+    m_motor.set(-1*driveFactor);
   }
 
   /**
@@ -53,7 +55,7 @@ public class Intake extends Subsystem {
    */
   @Override
   public void close() {
-    m_motor.set(1);
+    m_motor.set(1*driveFactor);
   }
 
   /**

@@ -11,7 +11,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.AnalogTrigger;
 
 
 /**
@@ -26,21 +25,14 @@ public class Wrist extends Subsystem {
   //private final DigitalInput m_hallEffectSensor = new Counter(0);
   //There are two limit switches on this Spark that are hardwired
   // so no programming is necessary if they are wired correctly
-  private Counter hallSensorCounter;
-  private AnalogTrigger hallSensor;
+  //private Counter hallSensorCounter;
   
   /**
    * Create a new claw subsystem.
    */
   public Wrist() {
     super();
-    hallSensor = new AnalogTrigger(0);
-    hallSensor.setLimitsVoltage(3.6, 4.9);
-    hallSensorCounter = new Counter(hallSensor);
-    hallSensorCounter.setUpDownCounterMode();
-    hallSensorCounter.setDistancePerPulse(2);
-    hallSensorCounter.setMaxPeriod(10);
-
+    
     // Let's name everything on the LiveWindow
     //addChild("Motor", m_motor);
     //addChild("Limit Switch", m_contact);
@@ -51,7 +43,7 @@ public class Wrist extends Subsystem {
   }
 
   public void log() {
-    System.out.println("The Hall Encoder count is:" + hallSensorCounter.get());
+//    System.out.println("The Hall Encoder count is:" + hallSensorCounter.get());
   }
 
   /**

@@ -9,14 +9,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.commands.Autonomous;
 import frc.robot.commands.TimedLowerWrist;
 import frc.robot.commands.TimedLiftWrist;
 import frc.robot.commands.TakeInCargo;
 import frc.robot.commands.TakeOutCargo;
-import frc.robot.commands.Pickup;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -49,7 +47,7 @@ public class OI {
     final JoystickButton dpadRight = new JoystickButton(m_gamepad, 1);
     final JoystickButton dpadDown = new JoystickButton(m_gamepad, 4);
     final JoystickButton dpadLeft = new JoystickButton(m_gamepad, 2);
-    final JoystickButton l2 = new JoystickButton(m_gamepad, 9);
+    /*final JoystickButton l2 = new JoystickButton(m_gamepad, 9);
     final JoystickButton r2 = new JoystickButton(m_gamepad, 10);
     final JoystickButton l1 = new JoystickButton(m_gamepad, 11);
     final JoystickButton r1 = new JoystickButton(m_gamepad, 12);
