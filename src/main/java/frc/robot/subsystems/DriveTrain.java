@@ -39,7 +39,7 @@ public class DriveTrain extends Subsystem {
   private final DifferentialDrive m_drive
       = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-  private double driveLimiter = Preferences.getInstance().getDouble("DriveTrain Factor", 1.0);
+  private double driveLimiter;
       //private final Encoder m_leftEncoder = new Encoder(1, 2);
   //private final Encoder m_rightEncoder = new Encoder(3, 4);
   //private final AnalogInput m_rangefinder = new AnalogInput(6);
@@ -50,9 +50,15 @@ public class DriveTrain extends Subsystem {
    */
   public DriveTrain() {
     super();
+    //get key value or use default 1.0;
+    driveLimiter = Preferences.getInstance().getDouble("DriveTrain Factor", 1.0);
+    //Push value back to Preferences widget so it forces
+    //correct key to show up with default value if not set. 
+    Preferences.getInstance().putDouble("DriveTrain Factor",driveLimiter);
     m_drive.setSafetyEnabled(false);
     m_rightMotor.setInverted(true);
     m_leftMotor.setInverted(true);
+
     // Encoders may measure differently in the real world and in
     // simulation. In this example the robot moves 0.042 barleycorns
     // per tick in the real world, but the simulated encoders
