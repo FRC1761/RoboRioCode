@@ -29,7 +29,7 @@ public class Arm extends Subsystem {
   //These values represent the different encoder target values
   // to reach different levels of the Hatch Portal or Cargo. 
   //seven in total, ground + 1 for each cargo and hatch height. 
-  private double[] encoderTargets;
+  private double[] encoderTargets =new double[7];
   private int targetIndex;
 
   public Arm(){
@@ -57,6 +57,8 @@ public class Arm extends Subsystem {
   }
 
   public void drive(double armValue) {
+    //TODO must set control method to Voltage or change target 
+    // in PID Control method.  
     armMotor.set(armValue*driveFactor);
   }
 
@@ -64,12 +66,37 @@ public class Arm extends Subsystem {
     armMotor.set(joy.getY()*driveFactor);
   }
 
+  public void lowerArm() {
+    //TODO set control method on Talon to be PID controlled
 
+    //Set Target to be next lowest index if we are not at 0
+    double currentTarget;
+    if(targetIndex > 0){
+      targetIndex--;
+      currentTarget = this.encoderTargets[targetIndex];
+      //TODO set currentTarget on Talon now.. 
+      
+    }
+
+  }
+
+  public void raiseArm() {
+    //TODO set control method on Talon to be PID controlled
+
+    //Set Target to be next lowest index if we are not at 0
+    double currentTarget;
+    if(targetIndex > 0){
+      targetIndex--;
+      currentTarget = this.encoderTargets[targetIndex];
+      //TODO set currentTarget on Talon now.. 
+      
+    }
+
+  }
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
      setDefaultCommand(new ArmDriveWithJoystick());
-
   }
 
   public double getDistance(){
