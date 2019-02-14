@@ -23,22 +23,21 @@ import frc.robot.commands.TankDriveWithJoystick;
  * and a gyro.
  */
 public class DriveTrain extends Subsystem {
-  /*
-  Settings for True RObot
+  
+  //Settings for True RObot
   private final SpeedController m_leftMotor
       = new SpeedControllerGroup(new WPI_TalonSRX(1), new WPI_TalonSRX(2));
   private final SpeedController m_rightMotor
       = new SpeedControllerGroup(new WPI_TalonSRX(3), new WPI_TalonSRX(4));
   /**/
   //Settings for Test Robot
-  private final SpeedController m_leftMotor
+  /*private final SpeedController m_leftMotor
       = new SpeedControllerGroup(new WPI_TalonSRX(10), new WPI_TalonSRX(12));
   private final SpeedController m_rightMotor
       = new SpeedControllerGroup(new WPI_TalonSRX(11), new WPI_TalonSRX(13));
-
+ /**/
   private final DifferentialDrive m_drive
       = new DifferentialDrive(m_leftMotor, m_rightMotor);
-
   private double driveLimiter;
       //private final Encoder m_leftEncoder = new Encoder(1, 2);
   //private final Encoder m_rightEncoder = new Encoder(3, 4);
