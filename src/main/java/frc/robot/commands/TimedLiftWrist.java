@@ -16,10 +16,11 @@ import frc.robot.Robot;
  * motors is BAD!
  */
 public class TimedLiftWrist extends TimedCommand {
-  private static double timeOut = Preferences.getInstance().getDouble("TimedLiftWrist timeout", .60);
+  private static double timeOut = Preferences.getInstance().getDouble("TimedWrist timeout", .10);
 
   public TimedLiftWrist() {
     super(timeOut);
+    Preferences.getInstance().putDouble("TimedWrist timeout",timeOut);
     requires(Robot.m_wrist);
   }
 

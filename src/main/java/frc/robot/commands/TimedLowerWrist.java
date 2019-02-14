@@ -18,7 +18,7 @@ import frc.robot.Robot;
  */
 public class TimedLowerWrist extends TimedCommand {
 
-  private static double timeOut = Preferences.getInstance().getDouble("TimedLowerWrist timeout", .60);
+  private static double timeOut = Preferences.getInstance().getDouble("TimedWrist timeout", .10);
 
   public TimedLowerWrist() {
     super(timeOut);
