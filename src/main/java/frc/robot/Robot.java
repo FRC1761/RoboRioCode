@@ -14,7 +14,6 @@ import edu.wpi.first.cameraserver.*;
 import edu.wpi.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.DriveTrain;
-//import frc.robot.subsystems.Elevator;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,13 +35,16 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     //initialize the camera
-    UsbCamera frontCamera,rearCamera;
+    UsbCamera frontCamera;
 		frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
 		frontCamera.setFPS(30);
 		frontCamera.setResolution(320,240);
+    /* Setting two usb cameras is as simple as this.
+
     rearCamera  = CameraServer.getInstance().startAutomaticCapture(1);
     rearCamera.setFPS(30);
-		rearCamera.setResolution(320,240);
+    rearCamera.setResolution(320,240);
+    */
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
     m_oi = new OI();

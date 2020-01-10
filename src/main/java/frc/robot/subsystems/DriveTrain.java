@@ -76,16 +76,15 @@ public class DriveTrain extends Subsystem {
    * @param right Speed in range [-1,1]
    */
   public void drive(double left, double right,double rotation) {
-    m_drive.drivePolar(left, right, rotation);
-  }
-
+    m_drive.driveCartesian(left, right, rotation);
+    //m_drive.drivePolar(left, right, rotation);
   /**
    * Tank style driving for the DriveTrain.
    *
    * @param joy The ps3 style joystick to use to drive tank style.
    */
   public void drive(Joystick joy) {
-    m_drive.drivePolar(joy.getX(),joy.getY(),joy.getZ());
+    m_drive.driveCartesian(joy.getX(),joy.getY(),joy.getZ());
   }
 
   /**
