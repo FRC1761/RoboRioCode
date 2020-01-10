@@ -10,13 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.cameraserver.*;
 import edu.wpi.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 //import frc.robot.subsystems.Elevator;
 
@@ -31,10 +27,6 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
 
   public static DriveTrain m_drivetrain;
-  //public static Elevator m_elevator;
-  public static Wrist m_wrist;
-  public static Arm m_arm;
-  public static Intake m_intake;
   public static OI m_oi;
 
   /**
@@ -53,19 +45,10 @@ public class Robot extends TimedRobot {
 		rearCamera.setResolution(320,240);
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
-    m_arm = new Arm();
-    m_wrist = new Wrist();
-    m_intake = new Intake();
     m_oi = new OI();
 
     // instantiate the command used for the autonomous period
     m_autonomousCommand = new Autonomous();
-
-    // Show what command your subsystem is running on the SmartDashboard
-    SmartDashboard.putData(m_drivetrain);
-    //SmartDashboard.putData(m_elevator);
-    //SmartDashboard.putData(m_wrist);
-    SmartDashboard.putData(m_intake);
   }
 
   @Override
@@ -111,10 +94,5 @@ public class Robot extends TimedRobot {
    * The log method puts interesting information to the SmartDashboard.
    */
   private void log() {
-    m_arm.log();
-    m_wrist.log();
-    //m_elevator.log();
-    m_drivetrain.log();
-    m_intake.log();
   }
 }

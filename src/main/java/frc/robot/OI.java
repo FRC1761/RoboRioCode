@@ -9,12 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.commands.TimedLowerWrist;
-import frc.robot.commands.TimedLiftWrist;
-import frc.robot.commands.TakeInCargo;
-import frc.robot.commands.TakeOutCargo;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -29,19 +23,6 @@ public class OI {
    * Construct the OI and all of the buttons on it.
    */
   public OI() {
-    // Put Some buttons on the SmartDashboard
-    /*SmartDashboard.putData("Elevator Bottom", new SetElevatorSetpoint(0));
-    SmartDashboard.putData("Elevator Platform", new SetElevatorSetpoint(0.2));
-    SmartDashboard.putData("Elevator Top", new SetElevatorSetpoint(0.3));
-
-    SmartDashboard.putData("Wrist Horizontal", new SetWristSetpoint(0));
-    SmartDashboard.putData("Raise Wrist", new SetWristSetpoint(-45));
-
-    SmartDashboard.putData("Open Claw", new OpenClaw());
-    SmartDashboard.putData("Close Claw", new CloseClaw());
-
-    SmartDashboard.putData("Deliver Soda", new Autonomous());
-    /**/
     // Create some buttons
     final JoystickButton dpadUp = new JoystickButton(m_gamepad, 3);
     final JoystickButton dpadRight = new JoystickButton(m_gamepad, 1);
@@ -52,22 +33,6 @@ public class OI {
     final JoystickButton l1 = new JoystickButton(m_gamepad, 11);
     final JoystickButton r1 = new JoystickButton(m_gamepad, 12);
     /* */
-    // Connect the buttons to commands
-    /*dpadUp.whenPressed(new SetElevatorSetpoint(0.2));
-    dpadDown.whenPressed(new SetElevatorSetpoint(-0.2));
-    */
-    dpadRight.whenPressed(new TimedLowerWrist());
-    dpadLeft.whenPressed(new TimedLiftWrist());
-
-    dpadUp.whileHeld(new TakeInCargo());
-    dpadDown.whileHeld(new TakeOutCargo());
-
-    /* */
-    /*r1.whenPressed(new PrepareToPickup());
-    r2.whenPressed(new Pickup());
-    l1.whenPressed(new Place());
-    l2.whenPressed(new Autonomous());
-    */
   }
 
   public Joystick getLeftJoystick() {
