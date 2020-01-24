@@ -35,13 +35,9 @@ public class DriveTrain extends Subsystem {
    private final MecanumDrive m_drive
       = new MecanumDrive(m_leftFrontMotor,m_rightFrontMotor,m_leftRearMotor,m_rightRearMotor);
   private double driveLimiter;
-      //private final Encoder m_leftEncoder = new Encoder(1, 2);
-  //private final Encoder m_rightEncoder = new Encoder(3, 4);
-  //private final AnalogInput m_rangefinder = new AnalogInput(6);
-  //private final AnalogGyro m_gyro = new AnalogGyro(1);
-
+ 
   /**
-   * Create a new drive train subsystem.
+   * Create a new drive train subsystem.(constructor function)
    */
   public DriveTrain() {
     super();
@@ -70,9 +66,10 @@ public class DriveTrain extends Subsystem {
   }
   
   /**
-   * Tank style driving for the DriveTrain.
-   *
-   * @param left Speed in range [-1,1]
+   * Mechanum Drive system
+   * left controls the speed in the x-direction
+   * right controls the speed in the y-direction
+   * rotation controls speed in the clockwise direction (+ CW, - CCW)
    * @param right Speed in range [-1,1]
    */
   public void drive(double left, double right,double rotation) {
@@ -87,42 +84,4 @@ public class DriveTrain extends Subsystem {
   public void drive(Joystick joy) {
     m_drive.driveCartesian(joy.getRawAxis(1),joy.getRawAxis(0),joy.getRawAxis(4));
   }
-
-  /**
-   * Get the robot's heading.
-   *
-   * @return The robots heading in degrees.
-   */
-  /*public double getHeading() {
-    return m_gyro.getAngle();
-  }*/
-
-  /**
-   * Reset the robots sensors to the zero states.
-   */
-  public void reset() {
-    /*m_gyro.reset();
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
-    */
-  }
-
-  /**
-   * Get the average distance of the encoders since the last reset.
-   *
-   * @return The distance driven (average of left and right encoders).
-   */
-/*  public double getDistance() {
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
-  }*/
-
-  /**
-   * Get the distance to the obstacle.
-   *
-   * @return The distance to the obstacle detected by the rangefinder.
-   */
-  /*public double getDistanceToObstacle() {
-    // Really meters in simulation since it's a rangefinder...
-    return m_rangefinder.getAverageVoltage();
-  }*/
 }
