@@ -23,7 +23,7 @@ public class Constants {
   public static final int IntakeCamera = 1;
 
   //GameController Addresses
-  public static final int DriverControllerPort 0;
-  public static final int ShooterControllerPort 2;
+  public static final int DriverControllerPort = 0;
+  public static final int ShooterControllerPort = 2;
 
 }
