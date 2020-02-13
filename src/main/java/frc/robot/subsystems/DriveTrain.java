@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-
+import frc.robot.Constants;
 import frc.robot.commands.MecanumDriveWithJoystick;
 
 /**
@@ -24,7 +24,7 @@ public class DriveTrain extends Subsystem {
   
   //Settings for True RObot
   private final WPI_TalonSRX m_leftFrontMotor 
-      = new WPI_TalonSRX(10);
+      = new WPI_TalonSRX(Constants.FrontLeftVictor);
   private final WPI_TalonSRX m_rightFrontMotor 
       = new WPI_TalonSRX(13);
   private final WPI_TalonSRX m_leftRearMotor 
@@ -82,6 +82,8 @@ public class DriveTrain extends Subsystem {
    * @param joy The ps3 style joystick to use to drive tank style.
    */
   public void drive(Joystick joy) {
-    m_drive.driveCartesian(joy.getRawAxis(1),joy.getRawAxis(0),joy.getRawAxis(4));
+    m_drive.driveCartesian(joy.getRawAxis(Constants.StrafeYaxis),
+                           joy.getRawAxis(Constants.StrafeYaxis),
+                           joy.getRawAxis(Constants.RotateZaxis));
   }
 }
