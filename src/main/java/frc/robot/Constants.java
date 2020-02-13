@@ -27,8 +27,8 @@ public class Constants {
   public static final int ShooterControllerPort = 2;
 
   //addresses based on gamepad
-  public static final int StrafeXaxis 0;
-  public static final int StrafeYaxis 1;
-  public static final int RotateZaxis 4;
+  public static final int StrafeXaxis = 0;
+  public static final int StrafeYaxis = 1;
+  public static final int RotateZaxis = 4;
   
 }
