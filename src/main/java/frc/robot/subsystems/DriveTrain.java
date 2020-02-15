@@ -9,9 +9,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.Constants;
@@ -25,14 +25,14 @@ import frc.robot.commands.MecanumDriveWithJoystick;
 public class DriveTrain extends Subsystem {
   
   //Settings for True RObot
-  private final WPI_TalonSRX m_leftFrontMotor 
-      = new WPI_TalonSRX(Constants.FrontLeftVictor);
-  private final WPI_TalonSRX m_rightFrontMotor 
-      = new WPI_TalonSRX(13);
-  private final WPI_TalonSRX m_leftRearMotor 
-      = new WPI_TalonSRX(8);
-  private final WPI_TalonSRX m_rightRearMotor 
-      = new WPI_TalonSRX(11);
+  private final WPI_VictorSPX m_leftFrontMotor 
+      = new WPI_VictorSPX(Constants.FrontLeftVictor);
+  private final WPI_VictorSPX m_rightFrontMotor 
+      = new WPI_VictorSPX(13);
+  private final WPI_VictorSPX m_leftRearMotor 
+      = new WPI_VictorSPX(8);
+  private final WPI_VictorSPX m_rightRearMotor 
+      = new WPI_VictorSPX(11);
 
    private final MecanumDrive m_drive
       = new MecanumDrive(m_leftFrontMotor,m_rightFrontMotor,m_leftRearMotor,m_rightRearMotor);

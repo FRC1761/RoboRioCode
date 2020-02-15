@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.RunConveyor;
+import frc.robot.commands.RunIntake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,10 +26,13 @@ public class OI {
    */
   public OI() {
     // Create some buttons
-    final JoystickButton dpadUp = new JoystickButton(m_gamepad, 3);
-    final JoystickButton dpadRight = new JoystickButton(m_gamepad, 1);
-    final JoystickButton dpadDown = new JoystickButton(m_gamepad, 4);
-    final JoystickButton dpadLeft = new JoystickButton(m_gamepad, 2);
+    final JoystickButton dpadUp = new JoystickButton(m_gamepad, Constants.RunConveyorButton);
+    final JoystickButton dpadRight = new JoystickButton(m_gamepad, Constants.RunIntakeButton );
+   // final JoystickButton dpadDown = new JoystickButton(m_gamepad, 4);
+   // final JoystickButton dpadLeft = new JoystickButton(m_gamepad, 2);
+
+    dpadUp.whileHeld( new RunConveyor() );
+    dpadRight.whileHeld( new RunIntake() );
     /*final JoystickButton l2 = new JoystickButton(m_gamepad, 9);
     final JoystickButton r2 = new JoystickButton(m_gamepad, 10);
     final JoystickButton l1 = new JoystickButton(m_gamepad, 11);

@@ -1,4 +1,5 @@
 package frc.robot;
+//Control file for all addresses and parameters for program.
 
 public class Constants {
   //DriveTrain Addresses on CAN bus
@@ -13,7 +14,7 @@ public class Constants {
 
   // Intake /Conveyor/ Shooter addresses (PWM)
   public static final int IntakeSP = 0;
-  public static final int ConveryorSP = 1;
+  public static final int ConveyorSP = 1;
   public static final int ShooterTargeterSP = 2;
   public static final int climberSP = 3;
   
@@ -26,6 +27,9 @@ public class Constants {
   public static final int DriverControllerPort = 0;
   public static final int ShooterControllerPort = 2;
 
+  public static final int RunConveyorButton = 1;
+  public static final int RunIntakeButton = 1;
+  
   //addresses based on gamepad
   public static final int StrafeXaxis = 0;
   public static final int StrafeYaxis = 1;

@@ -14,6 +14,8 @@ import edu.wpi.first.cameraserver.*;
 import edu.wpi.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Conveyor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +28,9 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
 
   public static DriveTrain m_drivetrain;
+  public static Conveyor m_conveyor;
   public static OI m_oi;
+  public static Intake m_intake;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -47,6 +51,9 @@ public class Robot extends TimedRobot {
     */
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
+    m_conveyor = new Conveyor();
+    m_intake = new Intake();
+    
     m_oi = new OI();
 
     // instantiate the command used for the autonomous period
