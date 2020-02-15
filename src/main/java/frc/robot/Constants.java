@@ -10,7 +10,7 @@ public class Constants {
 
   //Shotoer addresses CAN bus
   public static final int ShooterLeft = 10;
-  public static final int ShooterRight = 20;
+  public static final int ShooterRight = 24;
 
   // Intake /Conveyor/ Shooter addresses (PWM)
   public static final int IntakeSP = 0;
@@ -27,12 +27,18 @@ public class Constants {
   public static final int DriverControllerPort = 0;
   public static final int ShooterControllerPort = 2;
 
-  public static final int RunConveyorButton = 1;
-  public static final int RunIntakeButton = 1;
+  public static final int RunConveyorIn = 1;
+  public static final int RunConveyorOut= 2;
+  public static final int RunIntakeIn = 3;
+  public static final int RunIntakeOut= 4;
   
   //addresses based on gamepad
   public static final int StrafeXaxis = 0;
   public static final int StrafeYaxis = 1;
   public static final int RotateZaxis = 4;
+
+  public static final int ShooterAxis = 1;
+
+
   
 }

@@ -15,6 +15,7 @@ import edu.wpi.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Conveyor;
 
 /**
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
   public static Conveyor m_conveyor;
   public static OI m_oi;
   public static Intake m_intake;
+  public static Shooter m_shooter;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -53,7 +55,7 @@ public class Robot extends TimedRobot {
     m_drivetrain = new DriveTrain();
     m_conveyor = new Conveyor();
     m_intake = new Intake();
-    
+    m_shooter = new Shooter();
     m_oi = new OI();
 
     // instantiate the command used for the autonomous period

@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.commands.ShooterDriveWithJoystick;
 import edu.wpi.first.wpilibj.Preferences;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -29,6 +30,7 @@ public class Shooter extends Subsystem {
   private double driveLimiter;
 
   public Shooter(){
+    super();
     driveLimiter = Preferences.getInstance().getDouble("Shooter Factor", 1.0);
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set. 
@@ -39,6 +41,8 @@ public class Shooter extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new ShooterDriveWithJoystick());
+
   }
 
   public void drive(double speed) {
