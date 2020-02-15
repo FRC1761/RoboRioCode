@@ -28,11 +28,11 @@ public class DriveTrain extends Subsystem {
   private final WPI_VictorSPX m_leftFrontMotor 
       = new WPI_VictorSPX(Constants.FrontLeftVictor);
   private final WPI_VictorSPX m_rightFrontMotor 
-      = new WPI_VictorSPX(13);
+      = new WPI_VictorSPX(Constants.FrontRightVictor);
   private final WPI_VictorSPX m_leftRearMotor 
-      = new WPI_VictorSPX(8);
+      = new WPI_VictorSPX(Constants.RearLeftVictor);
   private final WPI_VictorSPX m_rightRearMotor 
-      = new WPI_VictorSPX(11);
+      = new WPI_VictorSPX(Constants.RearRightVictor);
 
    private final MecanumDrive m_drive
       = new MecanumDrive(m_leftFrontMotor,m_rightFrontMotor,m_leftRearMotor,m_rightRearMotor);
