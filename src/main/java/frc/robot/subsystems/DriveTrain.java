@@ -35,7 +35,7 @@ public class DriveTrain extends Subsystem {
       = new WPI_VictorSPX(Constants.RearRightVictor);
 
    private final MecanumDrive m_drive
-      = new MecanumDrive(m_leftFrontMotor,m_rightFrontMotor,m_leftRearMotor,m_rightRearMotor);
+      = new MecanumDrive(m_leftFrontMotor,m_leftRearMotor, m_rightFrontMotor, m_rightRearMotor);
   private double driveLimiter;
  
   /**
@@ -84,7 +84,7 @@ public class DriveTrain extends Subsystem {
    * @param joy The ps3 style joystick to use to drive tank style.
    */
   public void drive(Joystick joy) {
-    m_drive.driveCartesian(joy.getRawAxis(Constants.StrafeYaxis),
+    m_drive.driveCartesian(joy.getRawAxis(Constants.StrafeXaxis),
                            joy.getRawAxis(Constants.StrafeYaxis),
                            joy.getRawAxis(Constants.RotateZaxis));
   }

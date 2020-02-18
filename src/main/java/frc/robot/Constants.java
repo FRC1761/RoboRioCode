@@ -4,9 +4,9 @@ package frc.robot;
 public class Constants {
   //DriveTrain Addresses on CAN bus
   public static final int FrontLeftVictor = 1;
-  public static final int FrontRightVictor = 2;
-  public static final int RearLeftVictor = 3;
-  public static final int RearRightVictor = 4;
+  public static final int FrontRightVictor = 4;
+  public static final int RearLeftVictor = 2;
+  public static final int RearRightVictor = 3;
 
   //Shotoer addresses CAN bus
   public static final int ShooterLeft = 11;
