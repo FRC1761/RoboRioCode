@@ -33,8 +33,8 @@ public class OI {
 
     dpadUp.whileHeld( new RunConveyor(1.0) );
     dpadRight.whileHeld( new RunConveyor(-1.0) );
-    dpadDown.whileHeld( new RunIntake(1.0) );
-    dpadLeft.whileHeld( new RunIntake(-1.0) );
+    dpadDown.whileHeld( new RunIntake(-1.0) );
+    dpadLeft.whileHeld( new RunIntake(1.0) );
     /*final JoystickButton l2 = new JoystickButton(m_gamepad, 9);
     final JoystickButton r2 = new JoystickButton(m_gamepad, 10);
     final JoystickButton l1 = new JoystickButton(m_gamepad, 11);
