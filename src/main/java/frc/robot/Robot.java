@@ -16,6 +16,7 @@ import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Angler;
 import frc.robot.subsystems.Conveyor;
 
 /**
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static Intake m_intake;
   public static Shooter m_shooter;
+  public static Angler m_angler;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -56,6 +58,7 @@ public class Robot extends TimedRobot {
     m_conveyor = new Conveyor();
     m_intake = new Intake();
     m_shooter = new Shooter();
+    m_angler = new Angler();
     m_oi = new OI();
 
     // instantiate the command used for the autonomous period

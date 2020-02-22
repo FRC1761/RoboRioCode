@@ -31,6 +31,8 @@ public class Constants {
   public static final int RunConveyorOut= 2;
   public static final int RunIntakeIn = 3;
   public static final int RunIntakeOut= 4;
+  public static final int RunAnglerUp= 5;
+  public static final int RunAnglerDown= 6;
   
   //addresses based on gamepad
   public static final int StrafeXaxis = 0;
