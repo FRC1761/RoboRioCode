@@ -17,6 +17,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Angler;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Conveyor;
 
 /**
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
   public static Intake m_intake;
   public static Shooter m_shooter;
   public static Angler m_angler;
-
+  public static Climber m_climber;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot {
     m_shooter = new Shooter();
     m_angler = new Angler();
     m_oi = new OI();
+    m_climber= new Climber();
 
     // instantiate the command used for the autonomous period
     m_autonomousCommand = new Autonomous();
