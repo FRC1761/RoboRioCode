@@ -19,6 +19,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Angler;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.VelocityControlledShooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
