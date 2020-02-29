@@ -46,6 +46,7 @@ public class Shooter extends Subsystem {
   }
 
   public void drive(double speed) {
-    m_drive.arcadeDrive(speed, 0.0, true);
+    
+    this.m_drive.arcadeDrive(speed, 0.0, true);
   }
 }
