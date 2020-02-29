@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   public static Shooter m_shooter;
   public static Angler m_angler;
   public static Climber m_climber;
-  public static Velocity m_velocityshooter;
+  public static VelocityControlledShooter m_velocityshooter;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
