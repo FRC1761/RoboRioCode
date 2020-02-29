@@ -44,16 +44,16 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     //initialize the camera
-    UsbCamera frontCamera;
+    UsbCamera frontCamera,rearCamera;
 		frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
 		frontCamera.setFPS(30);
 		frontCamera.setResolution(320,240);
-    /* Setting two usb cameras is as simple as this.
+    /* Setting two usb cameras is as simple as this.*/
 
     rearCamera  = CameraServer.getInstance().startAutomaticCapture(1);
     rearCamera.setFPS(30);
     rearCamera.setResolution(320,240);
-    */
+    /**/
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
     m_conveyor = new Conveyor();
