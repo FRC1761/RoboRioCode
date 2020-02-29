@@ -37,8 +37,8 @@ public class OI {
 
     buttonA.whileHeld( new RunConveyor(1.0) );
     buttonB.whileHeld( new RunConveyor(-1.0) );
-    buttonX.whileHeld( new RunIntake(-1.0) );
-    buttonY.whileHeld( new RunIntake(1.0) );
+    buttonX.whileHeld( new RunIntake(-.60) );
+    buttonY.whileHeld( new RunIntake(0.60) );
     bumperL.whileHeld( new RunAngler(-1.0) );
     bumperR.whileHeld( new RunAngler(1.0) );
     /*final JoystickButton l2 = new JoystickButton(m_gamepad, 9);
