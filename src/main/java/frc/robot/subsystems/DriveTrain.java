@@ -86,6 +86,6 @@ public class DriveTrain extends Subsystem {
   public void drive(Joystick joy) {
     m_drive.driveCartesian(joy.getRawAxis(Constants.StrafeXaxis),
                            joy.getRawAxis(Constants.StrafeYaxis),
-                           joy.getRawAxis(Constants.RotateZaxis));
+                           Math.abs(joy.getRawAxis(Constants.RotateZaxis))*joy.getRawAxis(Constants.RotateZaxis));
   }
 }
