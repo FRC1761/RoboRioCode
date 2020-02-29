@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
   public static Shooter m_shooter;
   public static Angler m_angler;
   public static Climber m_climber;
+  public static Velocity m_velocityshooter;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -62,6 +63,7 @@ public class Robot extends TimedRobot {
     m_angler = new Angler();
     m_oi = new OI();
     m_climber= new Climber();
+  //m_velocityshooter = new VelocityControlledShooter();
 
     // instantiate the command used for the autonomous period
     m_autonomousCommand = new Autonomous();
