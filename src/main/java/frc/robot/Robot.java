@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
 
     rearCamera  = CameraServer.getInstance().startAutomaticCapture(1);
     rearCamera.setFPS(30);
-    rearCamera.setResolution(320,240);
+    rearCamera.setResolution(160,120);
     /**/
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
