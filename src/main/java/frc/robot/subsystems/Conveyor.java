@@ -25,26 +25,26 @@ import frc.robot.Constants;
  * the robots chassis. These include four drive motors, a left and right encoder
  * and a gyro.
  */
-public class Intake extends Subsystem {
+public class Conveyor extends Subsystem {
   
   //Settings for True RObot
-  private final VictorSP m_IntakeMotor = new VictorSP(Constants.IntakeSP);
+  private final VictorSP m_ConvMotor = new VictorSP(Constants.ConveyorSP);
 //  private final DigitalInput m_CoInput = new Victor(Constants.ConveyorSP);
 
   
-  private double IntakeLimiter;
+  private double ConveyorLimiter;
  
   /**
    * Create a new drive train subsystem.(constructor function)
    */
-  public Intake() {
+  public Conveyor() {
     super();
     //get key value or use default 1.0;
-    IntakeLimiter = Preferences.getInstance().getDouble("Intake Factor", 1.0);
+    ConveyorLimiter = Preferences.getInstance().getDouble("Conveyor Factor", 1.0);
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set. 
-    Preferences.getInstance().putDouble("Intake Factor",IntakeLimiter);
-    m_IntakeMotor.setSafetyEnabled(false);
+    Preferences.getInstance().putDouble("ConveyorTrain Factor",ConveyorLimiter);
+    m_ConvMotor.setSafetyEnabled(false);
   }
 
   @Override
@@ -53,7 +53,7 @@ public class Intake extends Subsystem {
   }
  
   public void drive(double speed) {
-    m_IntakeMotor.set(speed);
+    m_ConvMotor.set(speed);
   }
   
 }

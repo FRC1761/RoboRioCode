@@ -7,15 +7,21 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ArmDriveWithJoystick extends Command {
-  public ArmDriveWithJoystick() {
+public class RunClimber extends Command {
+  private Joystick controller;
+  private int axisIndex;
+  
+  public RunClimber(Joystick joy,int slot) {
+    controller = joy;
+    axisIndex=slot;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_arm);
-  }
+    requires(Robot.m_climber);
+    }
 
   // Called just before this Command runs the first time
   @Override
@@ -25,7 +31,7 @@ public class ArmDriveWithJoystick extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_arm.drive(Robot.m_oi.getGamepad().getY());
+    Robot.m_climber.drive(controller.getRawAxis(axisIndex));
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,12 +43,13 @@ public class ArmDriveWithJoystick extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_arm.drive(0);
+    Robot.m_climber.drive(0.0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.m_climber.drive(0.0);
   }
 }

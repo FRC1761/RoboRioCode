@@ -6,38 +6,32 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
 import edu.wpi.first.wpilibj.command.Command;
-
 import frc.robot.Robot;
 
 /**
- * Closes the claw for one second. Real robots should use sensors, stalling
- * motors is BAD!
+ * Have the robot drive tank style using the PS3 Joystick until interrupted.
  */
-public class TakeInCargo extends Command {
-  public TakeInCargo() {
-    requires(Robot.m_intake);
+public class MecanumDriveWithJoystick extends Command {
+  public MecanumDriveWithJoystick() {
+    requires(Robot.m_drivetrain);
   }
 
-  public boolean isFinished() {
-    return false;
-  }
-  // Called just before this Command runs the first time
+  // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void initialize() {
-  }
-@Override
-protected void interrupted(){
-  Robot.m_intake.stop();
-}
-
   protected void execute() {
-    Robot.m_intake.close();
-}
-// Called once after isFinished returns true
+    Robot.m_drivetrain.drive(Robot.m_oi.getLeftJoystick());
+  }
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false; // Runs until interrupted
+  }
+
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_intake.stop();
+    Robot.m_drivetrain.drive(0, 0, 0);
   }
 }

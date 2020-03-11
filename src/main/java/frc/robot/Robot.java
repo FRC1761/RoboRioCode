@@ -10,15 +10,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.cameraserver.*;
 import edu.wpi.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Wrist;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
-//import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Angler;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.VelocityControlledShooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,12 +32,13 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
 
   public static DriveTrain m_drivetrain;
-  //public static Elevator m_elevator;
-  public static Wrist m_wrist;
-  public static Arm m_arm;
-  public static Intake m_intake;
+  public static Conveyor m_conveyor;
   public static OI m_oi;
-
+  public static Intake m_intake;
+  public static Shooter m_shooter;
+  public static Angler m_angler;
+  public static Climber m_climber;
+  public static VelocityControlledShooter m_velocityshooter;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -48,24 +50,24 @@ public class Robot extends TimedRobot {
 		frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
 		frontCamera.setFPS(30);
 		frontCamera.setResolution(320,240);
+    /* Setting two usb cameras is as simple as this.*/
+
     rearCamera  = CameraServer.getInstance().startAutomaticCapture(1);
     rearCamera.setFPS(30);
-		rearCamera.setResolution(320,240);
+    rearCamera.setResolution(160,120);
+    /**/
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
-    m_arm = new Arm();
-    m_wrist = new Wrist();
+    m_conveyor = new Conveyor();
     m_intake = new Intake();
+    m_shooter = new Shooter();
+    m_angler = new Angler();
     m_oi = new OI();
+    m_climber= new Climber();
+  //m_velocityshooter = new VelocityControlledShooter();
 
     // instantiate the command used for the autonomous period
     m_autonomousCommand = new Autonomous();
-
-    // Show what command your subsystem is running on the SmartDashboard
-    SmartDashboard.putData(m_drivetrain);
-    //SmartDashboard.putData(m_elevator);
-    //SmartDashboard.putData(m_wrist);
-    SmartDashboard.putData(m_intake);
   }
 
   @Override
@@ -111,10 +113,5 @@ public class Robot extends TimedRobot {
    * The log method puts interesting information to the SmartDashboard.
    */
   private void log() {
-    m_arm.log();
-    m_wrist.log();
-    //m_elevator.log();
-    m_drivetrain.log();
-    m_intake.log();
   }
 }
