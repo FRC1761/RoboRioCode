@@ -19,9 +19,7 @@ public class Angler extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private final VictorSP m_AnglerMotor = new VictorSP(Constants.ShooterTargeterSP);
-  private final Encoder m_encoder = new Encoder(0,1);
-  private final StringBuilder sb = new StringBuilder();
- 
+  private final Encoder m_encoder = new Encoder(0,1); 
 
   public Angler(){
     super();
@@ -35,9 +33,6 @@ public class Angler extends Subsystem {
 
   public void drive(double speed) {
     m_AnglerMotor.set(speed);
-    sb.append("anglerPos:" + m_encoder.getDistance());
-    System.out.println(sb.toString());
-    sb.setLength(0);
+    SmartDashBoard.putNumber("AnglerDistance",m_encoder.getDistance());
   }
-
 }
