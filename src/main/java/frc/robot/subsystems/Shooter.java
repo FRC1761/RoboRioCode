@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.ShooterDriveWithJoystick;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.*;
 
@@ -30,7 +31,6 @@ public class Shooter extends Subsystem {
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
   private double driveLimiter;
 
-  private StringBuilder sb = new StringBuilder();
   public Shooter(){
     super();
     driveLimiter = Preferences.getInstance().getDouble("Shooter Factor", 1.0);
@@ -47,21 +47,14 @@ public class Shooter extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new ShooterDriveWithJoystick());
-
   }
 
   public void drive(double speed) {
     this.m_drive.arcadeDrive(speed, 0.0, true);
     //m_leftMotor.set(ControlMode.Velocity,speed*targetRPMS);
     //m_rightMotor.set(ControlMode.Velocity,-speed*targetRPMS);
-    sb.append("left speed:");
-    sb.append(m_leftMotor.getSelectedSensorVelocity(0));
-    sb.append("    right  speed:");
-    sb.append(m_rightMotor.getSelectedSensorVelocity(0));
-    if(false){
-      System.out.println(sb.toString());
-    }
-    sb.setLength(0);
+    SmartDashboard.putNumber("LeftSpeed",m_leftMotor.getSelectedSensorVelocity(0));
+    SmartDashboard.putNumber("RightSpeed",m_rightMotor.getSelectedSensorVelocity(0));
   }
 
   private void initTalon(TalonSRX tal,boolean sensorPhase){
