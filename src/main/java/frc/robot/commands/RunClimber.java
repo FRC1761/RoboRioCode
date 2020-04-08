@@ -14,7 +14,8 @@ import frc.robot.Robot;
 public class RunClimber extends Command {
   private Joystick controller;
   private int axisIndex;
-  
+  private double speed;
+
   public RunClimber(Joystick joy,int slot) {
     controller = joy;
     axisIndex=slot;
@@ -23,6 +24,9 @@ public class RunClimber extends Command {
     requires(Robot.m_climber);
     }
 
+  public RunClimber(double speed) {
+    this.speed = speed;
+  }
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -31,7 +35,11 @@ public class RunClimber extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_climber.drive(controller.getRawAxis(axisIndex));
+    if(controller != null) {
+      Robot.m_climber.drive(controller.getRawAxis(axisIndex));
+    } else {
+      Robot.m_climber.drive(this.speed);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

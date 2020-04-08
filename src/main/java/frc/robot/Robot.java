@@ -8,8 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.cameraserver.*;
 import edu.wpi.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
@@ -39,6 +42,9 @@ public class Robot extends TimedRobot {
   public static Angler m_angler;
   public static Climber m_climber;
   public static VelocityControlledShooter m_velocityshooter;
+
+  private final SendableChooser m_chooser = new SendableChooser<>();
+  private Encoder throughBore;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -49,13 +55,20 @@ public class Robot extends TimedRobot {
     UsbCamera frontCamera,rearCamera;
 		frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
 		frontCamera.setFPS(30);
-		frontCamera.setResolution(320,240);
+		frontCamera.setResolution(160,120);
     /* Setting two usb cameras is as simple as this.*/
 
     rearCamera  = CameraServer.getInstance().startAutomaticCapture(1);
     rearCamera.setFPS(30);
     rearCamera.setResolution(160,120);
     /**/
+
+    /* Settings for the Through Bore Encoder for the hex shaft */
+    m_chooser.setDefaultOption("Default Auto", "Default");
+    m_chooser.addOption("My Auto","My Auto");
+    SmartDashboard.putData("Auto choices", m_chooser);
+    throughBore = new Encoder(7, 8, 9);
+
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
     m_conveyor = new Conveyor();
@@ -68,6 +81,7 @@ public class Robot extends TimedRobot {
 
     // instantiate the command used for the autonomous period
     m_autonomousCommand = new Autonomous();
+
   }
 
   @Override

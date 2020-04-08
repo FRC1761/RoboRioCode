@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.RunAngler;
+import frc.robot.commands.RunClimber;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.RunIntake;
 
@@ -34,6 +35,9 @@ public class OI {
     final JoystickButton bumperL = new JoystickButton(m_gamepad, Constants.RunAnglerUp);
     final JoystickButton bumperR = new JoystickButton(m_gamepad, Constants.RunAnglerDown);
     
+    final JoystickButton driverButtonA  = new JoystickButton(m_driverStick,1);
+    final JoystickButton driverButtonB  = new JoystickButton(m_driverStick,2);
+    
 
     buttonA.whileHeld( new RunConveyor(1.0) );
     buttonB.whileHeld( new RunConveyor(-1.0) );
@@ -41,6 +45,11 @@ public class OI {
     buttonY.whileHeld( new RunIntake(0.60) );
     bumperL.whileHeld( new RunAngler(-1.0) );
     bumperR.whileHeld( new RunAngler(1.0) );
+
+    driverButtonA.whileHeld(new RunClimber(1.0));
+    driverButtonB.whileHeld(new RunClimber(-1.0));
+    
+    
     /*final JoystickButton l2 = new JoystickButton(m_gamepad, 9);
     final JoystickButton r2 = new JoystickButton(m_gamepad, 10);
     final JoystickButton l1 = new JoystickButton(m_gamepad, 11);
@@ -57,4 +66,5 @@ public class OI {
   public Joystick getGamepad() {
     return m_gamepad;
   }
+
 }

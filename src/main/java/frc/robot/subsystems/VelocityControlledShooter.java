@@ -22,8 +22,8 @@ import com.ctre.phoenix.motorcontrol.*;
 public class VelocityControlledShooter extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-    TalonSRX _talonL = new TalonSRX(Constants.ShooterLeft);
-    TalonSRX _talonR = new TalonSRX(Constants.ShooterRight);
+    WPI_TalonSRX _talonL = new WPI_TalonSRX(Constants.ShooterLeft);
+    WPI_TalonSRX _talonR = new WPI_TalonSRX(Constants.ShooterRight);
     Joystick _joy = new Joystick(0);
     /* String for output */
     StringBuilder _sb = new StringBuilder();
@@ -67,28 +67,29 @@ public class VelocityControlledShooter extends Subsystem {
   }
 public void teleopPeriodic() {
 	double leftYstick = -1 * _joy.getY();
-	double motorOutput = _talon.getMotorPercentOutput();
+	//double motorOutput = _talonR.configGetParameter();
 	_sb.append("\tout:");
-	_sb.append((int) (motorOutput * 100));
-	_sb.append("%")
+	//_sb.append((int) (motorOutput * 100));
+	_sb.append("%");
 	_sb.append("\tspd:");
-	_sb.append(_talon.getSelectedSensorVelocity(Constants.kPIDLoopIdx));
+	_sb.append(_talonR.getSelectedSensorVelocity(Constants.kPIDLoopIdx));
 	_sb.append("u");
 if (_joy.getRawButton(1)) {
 	double targetVelocity_UnitsPer100ms = leftYstick * 500.0 * 4096 / 600;
 
-	_talon.set(ControlMode.Velocity, targetVelocity_UnitsPer100ms);
+	_talonR.set(ControlMode.Velocity, targetVelocity_UnitsPer100ms);
 
 		_sb.append("\terr:");
-		_sb.append(_talon.getClosedLoopError(Constants.kPIDLoopIdx));
+		_sb.append(_talonR.getClosedLoopError(Constants.kPIDLoopIdx));
 		_sb.append("\ttrg:");
 		_sb.append(targetVelocity_UnitsPer100ms);
 	} else {
-		_talon.set(ControlMode.PercentOutput, leftYstick);
+		_talonR.set(ControlMode.PercentOutput, leftYstick);
 if (++_loops >= 10) {
 	_loops = 0;
 	System.out.println(_sb.toString());
         }
 	_sb.setLength(0);
 	}
+}
 }
