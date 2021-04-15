@@ -44,7 +44,10 @@ public class Robot extends TimedRobot {
   public static VelocityControlledShooter m_velocityshooter;
 
   private final SendableChooser m_chooser = new SendableChooser<>();
-  private Encoder throughBore;
+  private Encoder throughBore;  
+  private int ticks;
+  private int rawTicks;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -82,6 +85,14 @@ public class Robot extends TimedRobot {
     // instantiate the command used for the autonomous period
     m_autonomousCommand = new Autonomous();
 
+  }
+
+  @Override
+  public void robotPeriodic() {
+    ticks = throughBore.get();
+    rawTicks = throughBore.getRaw();
+    SmartDashboard.putNumber("Encoder value", ticks);
+    SmartDashboard.putNumber("Raw encoder value", rawTicks);
   }
 
   @Override

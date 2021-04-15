@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class Shooter extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private int targetRPMS = 29000;
+  //private int targetRPMS = 29000;
   private final WPI_TalonSRX m_leftMotor 
       = new WPI_TalonSRX(Constants.ShooterLeft);
   private final WPI_TalonSRX m_rightMotor 
