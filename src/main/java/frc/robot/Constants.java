@@ -3,20 +3,20 @@ package frc.robot;
 
 public class Constants {
   //DriveTrain Addresses on CAN bus
-  public static final int FrontLeftVictor = 1;
-  public static final int FrontRightVictor = 4;
-  public static final int RearLeftVictor = 2;
-  public static final int RearRightVictor = 3;
+  public static final int FrontLeftVictor = 4;
+  public static final int FrontRightVictor = 12;
+  public static final int RearLeftVictor = 3;
+  public static final int RearRightVictor = 22;
 
   //Shotoer addresses CAN bus
-  public static final int ShooterLeft = 11;
-  public static final int ShooterRight = 24;
+  public static final int ShooterLeft = 20;
+  // public static final int ShooterRight = 24;
 
   // Intake /Conveyor/ Shooter addresses (PWM)
-  public static final int IntakeSP = 0;
-  public static final int ConveyorSP = 1;
-  public static final int ShooterTargeterSP = 2;
-  public static final int climberSP = 3;
+  public static final int IntakeSP = 2;
+  //public static final int ConveyorSP = 1;
+  //public static final int ShooterTargeterSP = 2;
+  //public static final int climberSP = 3;
   
   //Encoder addresses not needed because of using hardware in the loop
   //public static final int ShooterTargeterEn = 
@@ -24,7 +24,9 @@ public class Constants {
   public static final int IntakeCamera = 1;
 
   //GameController Addresses
-  public static final int DriverControllerPort = 0;
+  public static final int LeftTankJoy = 0;
+  public static final int RightTankJoy = 1;
+
   public static final int ShooterControllerPort = 2;
 
   public static final int RunConveyorIn = 1;

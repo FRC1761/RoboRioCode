@@ -24,21 +24,16 @@ public class Shooter extends Subsystem {
   private int targetRPMS = 29000;
   private final WPI_TalonSRX m_leftMotor 
       = new WPI_TalonSRX(Constants.ShooterLeft);
-  private final WPI_TalonSRX m_rightMotor 
-      = new WPI_TalonSRX(Constants.ShooterRight);
-
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
   private double driveLimiter;
 
   private StringBuilder sb = new StringBuilder();
   public Shooter(){
     super();
-    driveLimiter = Preferences.getInstance().getDouble("Shooter Factor", 1.0);
+    driveLimiter = Preferences.getDouble("Shooter Factor", 1.0);
     initTalon(m_leftMotor,false);
-    initTalon(m_rightMotor,true);     
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set. 
-    Preferences.getInstance().putDouble("Shooter Factor",driveLimiter);
+    Preferences.setDouble("Shooter Factor",driveLimiter);
 
   }
   
@@ -51,13 +46,11 @@ public class Shooter extends Subsystem {
   }
 
   public void drive(double speed) {
-    this.m_drive.arcadeDrive(speed, 0.0, true);
+    this.m_leftMotor.set(speed);
     //m_leftMotor.set(ControlMode.Velocity,speed*targetRPMS);
     //m_rightMotor.set(ControlMode.Velocity,-speed*targetRPMS);
     sb.append("left speed:");
-    sb.append(m_leftMotor.getSelectedSensorVelocity(0));
-    sb.append("    right  speed:");
-    sb.append(m_rightMotor.getSelectedSensorVelocity(0));
+    // sb.append(m_leftMotor.getSelectedSensorVelocity(0));
     if(false){
       System.out.println(sb.toString());
     }

@@ -11,16 +11,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.cameraserver.*;
-import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+/*import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Angler;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.VelocityControlledShooter;
-
+/**/
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -32,13 +32,14 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
 
   public static DriveTrain m_drivetrain;
-  public static Conveyor m_conveyor;
-  public static OI m_oi;
-  public static Intake m_intake;
   public static Shooter m_shooter;
+  public static OI m_oi;
+  /*public static Intake m_intake;
+  public static Conveyor m_conveyor;
   public static Angler m_angler;
   public static Climber m_climber;
   public static VelocityControlledShooter m_velocityshooter;
+  /** */
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -47,23 +48,25 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     //initialize the camera
     UsbCamera frontCamera,rearCamera;
-		frontCamera = CameraServer.getInstance().startAutomaticCapture(0);
+		frontCamera = CameraServer.startAutomaticCapture(0);
 		frontCamera.setFPS(30);
 		frontCamera.setResolution(320,240);
     /* Setting two usb cameras is as simple as this.*/
 
-    rearCamera  = CameraServer.getInstance().startAutomaticCapture(1);
+    rearCamera  = CameraServer.startAutomaticCapture(1);
     rearCamera.setFPS(30);
     rearCamera.setResolution(160,120);
     /**/
     // Initialize all subsystems
     m_drivetrain = new DriveTrain();
+    m_shooter = new Shooter();
+    m_oi = new OI();
+/*
     m_conveyor = new Conveyor();
     m_intake = new Intake();
-    m_shooter = new Shooter();
     m_angler = new Angler();
-    m_oi = new OI();
     m_climber= new Climber();
+    */
   //m_velocityshooter = new VelocityControlledShooter();
 
     // instantiate the command used for the autonomous period

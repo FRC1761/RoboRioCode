@@ -9,17 +9,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.RunAngler;
+/*import frc.robot.commands.RunAngler;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.RunIntake;
-
+/**/
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  private final Joystick m_driverStick = new Joystick(Constants.DriverControllerPort);
-  private final Joystick m_rightStick = new Joystick(1);
+  private final Joystick m_leftTank = new Joystick(Constants.LeftTankJoy);
+  private final Joystick m_rightTank = new Joystick(Constants.RightTankJoy);
+  
   private final Joystick m_gamepad = new Joystick(Constants.ShooterControllerPort);
 
   /**
@@ -35,12 +36,12 @@ public class OI {
     final JoystickButton bumperR = new JoystickButton(m_gamepad, Constants.RunAnglerDown);
     
 
-    buttonA.whileHeld( new RunConveyor(1.0) );
-    buttonB.whileHeld( new RunConveyor(-1.0) );
-    buttonX.whileHeld( new RunIntake(-.60) );
-    buttonY.whileHeld( new RunIntake(0.60) );
-    bumperL.whileHeld( new RunAngler(-1.0) );
-    bumperR.whileHeld( new RunAngler(1.0) );
+//    buttonA.whileHeld( new RunConveyor(1.0) );
+//    buttonB.whileHeld( new RunConveyor(-1.0) );
+//    buttonX.whileHeld( new RunIntake(-.60) );
+//    buttonY.whileHeld( new RunIntake(0.60) );
+//    bumperL.whileHeld( new RunAngler(-1.0) );
+//    bumperR.whileHeld( new RunAngler(1.0) );
     /*final JoystickButton l2 = new JoystickButton(m_gamepad, 9);
     final JoystickButton r2 = new JoystickButton(m_gamepad, 10);
     final JoystickButton l1 = new JoystickButton(m_gamepad, 11);
@@ -49,10 +50,10 @@ public class OI {
   }
 
   public Joystick getLeftJoystick() {
-    return m_driverStick;
+    return m_leftTank;
   }
   public Joystick getRightJoystick() {
-    return m_rightStick;
+    return m_rightTank;
   }
   public Joystick getGamepad() {
     return m_gamepad;
