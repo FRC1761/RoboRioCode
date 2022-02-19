@@ -10,10 +10,11 @@ public class Constants {
 
   //Shotoer addresses CAN bus
   public static final int Shooter = 20;
+  public static final int IntakeCanAddress = 2;
+
   // public static final int ShooterRight = 24;
 
   // Intake /Conveyor/ Shooter addresses (PWM)
-  public static final int IntakeSP = 2;
   //public static final int ConveyorSP = 1;
   //public static final int ShooterTargeterSP = 2;
   //public static final int climberSP = 3;
