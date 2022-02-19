@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.*;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 /**
  * Add your docs here.
  */
@@ -22,19 +22,18 @@ public class Shooter extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private int targetRPMS = 29000;
-  private final WPI_TalonSRX m_leftMotor 
-      = new WPI_TalonSRX(Constants.ShooterLeft);
+  private final WPI_TalonSRX m_shooterMotor 
+      = new WPI_TalonSRX(Constants.Shooter);
   private double driveLimiter;
 
   private StringBuilder sb = new StringBuilder();
   public Shooter(){
     super();
     driveLimiter = Preferences.getDouble("Shooter Factor", 1.0);
-    initTalon(m_leftMotor,false);
+    initTalon(m_shooterMotor,false);
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set. 
     Preferences.setDouble("Shooter Factor",driveLimiter);
-
   }
   
   @Override
@@ -46,15 +45,16 @@ public class Shooter extends Subsystem {
   }
 
   public void drive(double speed) {
-    this.m_leftMotor.set(speed);
+    this.m_shooterMotor.set(speed);
+    /*
     //m_leftMotor.set(ControlMode.Velocity,speed*targetRPMS);
     //m_rightMotor.set(ControlMode.Velocity,-speed*targetRPMS);
     sb.append("left speed:");
-    // sb.append(m_leftMotor.getSelectedSensorVelocity(0));
+    sb.append(m_leftMotor.getSelectedSensorVelocity(0));
     if(false){
       System.out.println(sb.toString());
     }
-    sb.setLength(0);
+    sb.setLength(0);/**/
   }
 
   private void initTalon(TalonSRX tal,boolean sensorPhase){

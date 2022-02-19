@@ -78,17 +78,21 @@ public class DriveTrain extends Subsystem {
    * rotation controls speed in the clockwise direction (+ CW, - CCW)
    * @param right Speed in range [-1,1]
    */
-  public void drive(double left, double right,double rotation) {
+  public void drive(double left, double right) {
     m_drive.tankDrive(left, right);
   }
-    //m_drive.drivePolar(left, right, rotation);
   /**
    * Tank style driving for the DriveTrain.
    *
    * @param joy The ps3 style joystick to use to drive tank style.
    */
   public void drive(Joystick joy) {
-    m_drive.tankDrive(joy.getRawAxis(Constants.StrafeXaxis),
-                           joy.getRawAxis(Constants.StrafeYaxis));
+    this.drive(joy.getRawAxis(Constants.StrafeXaxis),
+    joy.getRawAxis(Constants.StrafeYaxis));
+  }
+
+  public void drive(Joystick left, Joystick right) {
+    this.drive(left.getRawAxis(Constants.StrafeYaxis),
+               right.getRawAxis(Constants.StrafeYaxis));
   }
 }

@@ -34,6 +34,6 @@ public class ShooterDriveWithJoystick extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_drivetrain.drive(0, 0, 0);
+    Robot.m_shooter.drive(0);
   }
 }

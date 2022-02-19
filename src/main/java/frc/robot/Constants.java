@@ -9,7 +9,7 @@ public class Constants {
   public static final int RearRightVictor = 22;
 
   //Shotoer addresses CAN bus
-  public static final int ShooterLeft = 20;
+  public static final int Shooter = 20;
   // public static final int ShooterRight = 24;
 
   // Intake /Conveyor/ Shooter addresses (PWM)
