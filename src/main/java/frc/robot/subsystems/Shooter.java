@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.ShooterDriveWithJoystick;
 import edu.wpi.first.wpilibj.Preferences;
@@ -18,7 +18,7 @@ import com.ctre.phoenix.motorcontrol.*;
 /**
  * Add your docs here.
  */
-public class Shooter extends SubsystemBase {
+public class Shooter extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private int targetRPMS = 29000;
