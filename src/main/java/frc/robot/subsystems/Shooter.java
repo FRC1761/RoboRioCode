@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.ShooterDriveWithJoystick;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.*;
@@ -25,6 +26,7 @@ public class Shooter extends Subsystem {
   private final WPI_TalonSRX m_shooterMotor 
       = new WPI_TalonSRX(Constants.Shooter);
   private double driveLimiter;
+  private Encoder shooterEncoder;
 
   private StringBuilder sb = new StringBuilder();
   public Shooter(){
@@ -34,6 +36,8 @@ public class Shooter extends Subsystem {
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set. 
     Preferences.setDouble("Shooter Factor",driveLimiter);
+    shooterEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k1X);
+
   }
   
   @Override
@@ -46,12 +50,12 @@ public class Shooter extends Subsystem {
 
   public void drive(double speed) {
     this.m_shooterMotor.set(speed);
-    /*
+  
     //m_leftMotor.set(ControlMode.Velocity,speed*targetRPMS);
     //m_rightMotor.set(ControlMode.Velocity,-speed*targetRPMS);
-    sb.append("left speed:");
-    sb.append(m_leftMotor.getSelectedSensorVelocity(0));
-    if(false){
+    sb.append("shooter rate:");
+    sb.append(shooterEncoder.getRate());
+    if(!false){
       System.out.println(sb.toString());
     }
     sb.setLength(0);/**/

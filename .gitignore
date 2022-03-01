@@ -160,4 +160,5 @@ bin/
 
 # Simulation GUI and other tools window save file
 *-window.json
-Microsoft/Windows/PowerShell/PSReadLine/ConsoleHost_history.txt
+# Alek changed this part, hello world <3 !
+Microsoft/Windows/PowerShell/*
