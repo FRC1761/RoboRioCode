@@ -53,6 +53,8 @@ public class Shooter extends Subsystem {
   
     //m_leftMotor.set(ControlMode.Velocity,speed*targetRPMS);
     //m_rightMotor.set(ControlMode.Velocity,-speed*targetRPMS);
+    
+    /*
     sb.append("shooter rate:");
     sb.append(shooterEncoder.getRate());
     if(!false){
