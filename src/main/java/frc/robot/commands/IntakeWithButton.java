@@ -4,14 +4,15 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.Constants;
 
-public class IntakeDriveWithJoystick extends Command {
-  /** Creates a new IntakeDriveWithJoystick. */
-  public IntakeDriveWithJoystick() {
-    // Use addRequirements() here to declare subsystem dependencies.
+public class IntakeWithButton extends Command {
+  //initialize intakeSpeed variable
+  
+  // IntakeWithButton is run by OI on button press
+  public IntakeWithButton() {
     requires(Robot.m_intake);
   }
 
@@ -20,11 +21,9 @@ public class IntakeDriveWithJoystick extends Command {
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
   public void execute() {
-
-
-    Robot.m_shooter.drive(Robot.m_oi.getGamepad().getRawAxis(Constants.IntakeAxis));
+    double intakeSpeed = Preferences.getDouble("Intake Factor", 0.0);
+    Robot.m_intake.drive(intakeSpeed);
   }
 
   // Called once the command ends or is interrupted.

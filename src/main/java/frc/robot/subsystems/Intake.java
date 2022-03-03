@@ -8,27 +8,32 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.IntakeDriveWithJoystick;
+import frc.robot.commands.IntakeWithButton;
 
 import com.ctre.phoenix.motorcontrol.can.*;
-import com.ctre.phoenix.motorcontrol.*;
 
 
 public class Intake extends Subsystem {
   private final WPI_TalonSRX m_intakeMotor 
   = new WPI_TalonSRX(Constants.IntakeCanAddress);
-  private double driveLimiter;
+  private double intakeLimiter;
 
   /** Creates a new Intake. */
   public Intake() {
     super();
-
+    //get key value or use default 0.0;
+    intakeLimiter = Preferences.getDouble("Intake Factor", 0.0);
+    //Push value back to Preferences widget so it forces
+    //correct key to show up with default value if not set. 
+    Preferences.setDouble("Intake Factor",intakeLimiter);
+    m_intakeMotor.setSafetyEnabled(false);
   }
 
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    intakeLimiter = Preferences.getDouble("Intake Factor", 0.0);
     setDefaultCommand(new IntakeDriveWithJoystick());
-    driveLimiter = Preferences.getDouble("Shooter Factor", 1.0);
 
   }
 
