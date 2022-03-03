@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.IntakeWithButton;
+import frc.robot.subsystems.Intake;
 /*import frc.robot.commands.RunAngler;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.RunIntake;
@@ -28,14 +30,15 @@ public class OI {
    */
   public OI() {
     // Create some buttons
-    final JoystickButton buttonA = new JoystickButton(m_gamepad, Constants.RunConveyorIn);
-    final JoystickButton buttonB = new JoystickButton(m_gamepad, Constants.RunConveyorOut );
-    final JoystickButton buttonX = new JoystickButton(m_gamepad, Constants.RunIntakeIn);
-    final JoystickButton buttonY = new JoystickButton(m_gamepad, Constants.RunIntakeOut);
-    final JoystickButton bumperL = new JoystickButton(m_gamepad, Constants.RunAnglerUp);
-    final JoystickButton bumperR = new JoystickButton(m_gamepad, Constants.RunAnglerDown);
+    final JoystickButton buttonA = new JoystickButton(m_gamepad, Constants.buttonA);
+    final JoystickButton buttonB = new JoystickButton(m_gamepad, Constants.buttonB);
+    final JoystickButton buttonX = new JoystickButton(m_gamepad, Constants.buttonX);
+    final JoystickButton buttonY = new JoystickButton(m_gamepad, Constants.buttonY);
+    final JoystickButton bumperL = new JoystickButton(m_gamepad, Constants.bumperL);
+    final JoystickButton bumperR = new JoystickButton(m_gamepad, Constants.bumperR);
     
 
+      buttonA.whileHeld( new IntakeWithButton() );
 //    buttonA.whileHeld( new RunConveyor(1.0) );
 //    buttonB.whileHeld( new RunConveyor(-1.0) );
 //    buttonX.whileHeld( new RunIntake(-.60) );

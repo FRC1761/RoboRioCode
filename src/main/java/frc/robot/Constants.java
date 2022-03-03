@@ -8,7 +8,7 @@ public class Constants {
   public static final int RearLeftVictor = 3;
   public static final int RearRightVictor = 22;
 
-  //Shotoer addresses CAN bus
+  //Shooter addresses CAN bus
   public static final int Shooter = 20;
   public static final int IntakeCanAddress = 2;
 
@@ -30,12 +30,12 @@ public class Constants {
 
   public static final int ShooterControllerPort = 2;
 
-  public static final int RunConveyorIn = 1;
-  public static final int RunConveyorOut= 2;
-  public static final int RunIntakeIn = 3;
-  public static final int RunIntakeOut= 4;
-  public static final int RunAnglerUp= 5;
-  public static final int RunAnglerDown= 6;
+  public static final int buttonA = 1;
+  public static final int buttonB = 2;
+  public static final int buttonX = 3;
+  public static final int buttonY = 4;
+  public static final int bumperL = 5;
+  public static final int bumperR = 6;
   
   //addresses based on gamepad
   public static final int StrafeXaxis = 0;
@@ -44,7 +44,11 @@ public class Constants {
 
   public static final int ShooterAxis = 1;
 
+  public static final int IntakeAxis = 4;
   public static final int ClimberAxis = 5;
+
+  public static final int IntakeButton = 0;
+  public static final int ClimberButton = 1;
   
   public static final int kSlotIdx = 0;
   public static final int kPIDLoopIdx = 0;
