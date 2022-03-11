@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.IntakeWithButton;
+import frc.robot.commands.ReverseIntakeWithButton;
 import frc.robot.subsystems.Intake;
 /*import frc.robot.commands.RunAngler;
 import frc.robot.commands.RunConveyor;
@@ -39,8 +40,7 @@ public class OI {
     
 
       buttonA.whileHeld( new IntakeWithButton() );
-//    buttonA.whileHeld( new RunConveyor(1.0) );
-//    buttonB.whileHeld( new RunConveyor(-1.0) );
+      buttonB.whileHeld( new ReverseIntakeWithButton() );
 //    buttonX.whileHeld( new RunIntake(-.60) );
 //    buttonY.whileHeld( new RunIntake(0.60) );
 //    bumperL.whileHeld( new RunAngler(-1.0) );
