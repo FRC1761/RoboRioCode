@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 
 public class Intake extends Subsystem {
-  private final WPI_TalonSRX m_intakeMotor 
+  private final WPI_TalonSRX m_intakeMotor
   = new WPI_TalonSRX(Constants.IntakeCanAddress);
   private double intakeLimiter;
 
@@ -24,7 +24,7 @@ public class Intake extends Subsystem {
     //get key value or use default 0.0;
     intakeLimiter = Preferences.getDouble("Intake Factor", 0.0);
     //Push value back to Preferences widget so it forces
-    //correct key to show up with default value if not set. 
+    //correct key to show up with default value if not set.
     Preferences.setDouble("Intake Factor",intakeLimiter);
     m_intakeMotor.setSafetyEnabled(false);
   }

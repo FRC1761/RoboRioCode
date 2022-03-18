@@ -16,7 +16,7 @@ import frc.robot.commands.IntakeDriveWithJoystick;
 public class IntakeArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private final WPI_TalonSRX m_intakeArm 
+  private final WPI_TalonSRX m_intakeArm
   = new WPI_TalonSRX(Constants.IntakeArmAddress);
   double intakeLimiter;
 
@@ -25,7 +25,7 @@ public class IntakeArm extends Subsystem {
     //get key value or use default 0.0;
     intakeLimiter = Preferences.getDouble("IntakeArm Factor", 0.0);
     //Push value back to Preferences widget so it forces
-    //correct key to show up with default value if not set. 
+    //correct key to show up with default value if not set.
     Preferences.setDouble("IntakeArm Factor",intakeLimiter);
     m_intakeArm.setSafetyEnabled(false);
   }
@@ -35,7 +35,7 @@ public class IntakeArm extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new IntakeArmWithJoystick());  
+    setDefaultCommand(new IntakeArmWithJoystick());
   }
 
   public void drive(double speed) {

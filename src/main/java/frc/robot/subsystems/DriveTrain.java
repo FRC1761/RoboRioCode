@@ -25,24 +25,24 @@ import frc.robot.commands.TankDriveWithJoystick;
  * and a gyro.
  */
 public class DriveTrain extends Subsystem {
-  
+
   //Settings for True RObot
-  private final WPI_TalonSRX m_leftFrontMotor 
+  private final WPI_TalonSRX m_leftFrontMotor
       = new WPI_TalonSRX(Constants.FrontLeftVictor);
-  private final WPI_TalonSRX m_rightFrontMotor 
+  private final WPI_TalonSRX m_rightFrontMotor
       = new WPI_TalonSRX(Constants.FrontRightVictor);
-  private final WPI_TalonSRX m_leftRearMotor 
+  private final WPI_TalonSRX m_leftRearMotor
       = new WPI_TalonSRX(Constants.RearLeftVictor);
-  private final WPI_TalonSRX m_rightRearMotor 
+  private final WPI_TalonSRX m_rightRearMotor
       = new WPI_TalonSRX(Constants.RearRightVictor);
 
       private MotorControllerGroup m_left = new MotorControllerGroup(m_leftFrontMotor, m_leftRearMotor);
       private MotorControllerGroup m_right = new MotorControllerGroup(m_rightFrontMotor, m_rightRearMotor);
 
-   private final DifferentialDrive m_drive
+  private final DifferentialDrive m_drive
       = new DifferentialDrive(m_left, m_right);
   private double driveLimiter;
- 
+
   /**
    * Create a new drive train subsystem.(constructor function)
    */
@@ -51,7 +51,7 @@ public class DriveTrain extends Subsystem {
     //get key value or use default 1.0;
     driveLimiter = Preferences.getDouble("DriveTrain Factor", 1.0);
     //Push value back to Preferences widget so it forces
-    //correct key to show up with default value if not set. 
+    //correct key to show up with default value if not set.
     Preferences.setDouble("DriveTrain Factor",driveLimiter);
     m_drive.setSafetyEnabled(false);
   }
@@ -71,9 +71,9 @@ public class DriveTrain extends Subsystem {
    * The log method puts interesting information to the SmartDashboard.
    */
   public void log() {
-    
+
   }
-  
+
   /**
    * Mechanum Drive system
    * left controls the speed in the x-direction
@@ -96,6 +96,6 @@ public class DriveTrain extends Subsystem {
 
   public void drive(Joystick left, Joystick right) {
     this.drive(left.getRawAxis(Constants.StrafeYaxis),
-               right.getRawAxis(Constants.StrafeYaxis));
+              right.getRawAxis(Constants.StrafeYaxis));
   }
 }

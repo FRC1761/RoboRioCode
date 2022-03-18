@@ -10,7 +10,7 @@ import frc.robot.Robot;
 
 public class ReverseIntakeWithButton extends Command {
   //initialize intakeSpeed variable
-  
+
   // ReverseIntakeWithButton is run by OI on button press
   public ReverseIntakeWithButton() {
     requires(Robot.m_intake);

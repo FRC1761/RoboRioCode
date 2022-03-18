@@ -10,7 +10,7 @@ import frc.robot.Robot;
 
 public class IntakeWithButton extends Command {
   //initialize intakeSpeed variable
-  
+
   // IntakeWithButton is run by OI on button press
   public IntakeWithButton() {
     requires(Robot.m_intake);

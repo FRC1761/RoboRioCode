@@ -19,9 +19,9 @@ public class Constants {
   //public static final int ConveyorSP = 1;
   //public static final int ShooterTargeterSP = 2;
   //public static final int climberSP = 3;
-  
+
   //Encoder addresses not needed because of using hardware in the loop
-  //public static final int ShooterTargeterEn = 
+  //public static final int ShooterTargeterEn =
   public static final int ShooterCameras = 0;
   public static final int IntakeCamera = 1;
 
@@ -31,8 +31,8 @@ public class Constants {
 
   public static final int ShooterControllerPort = 2;
 
-  public static final int StrafeXaxis = 0; 
-  public static final int StrafeYaxis = 1; 
+  public static final int StrafeXaxis = 0;
+  public static final int StrafeYaxis = 1;
   public static final int RotateZaxis = 4;
 
   public static final int buttonA = 1; //! uh.. double check this please
@@ -41,7 +41,7 @@ public class Constants {
   public static final int buttonY = 4;
   public static final int bumperL = 5;
   public static final int bumperR = 6;
-  
+
   //addresses based on gamepad
   // XBOX Controller Addresses (a comprhensive list of all buttons and axes)
   /**
@@ -80,18 +80,18 @@ public class Constants {
 
   public static final int IntakeAxis = 5; //! we dont need you here, intake axis. (we dont use an axis to control this)
 
-  public static final int IntakeArmAxis = 4; 
-//  public static final int ClimberAxis = 5; //heh. 
+  public static final int IntakeArmAxis = 4;
+//  public static final int ClimberAxis = 5; //heh.
 
 
 // BUTTONS! I like buttons.
 
   public static final int IntakeButton = 0; //A
   public static final int ClimberButton = 1; //B
-  
+
   public static final int kSlotIdx = 0;
   public static final int kPIDLoopIdx = 0;
   public static final int kTimeoutMs = 30;
   public final static Gains kGains_Velocit = new Gains(0.25, 0.001, 20, 1023.0/7200, 300, 1.00);
-  
+
 }

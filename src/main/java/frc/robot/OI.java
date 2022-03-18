@@ -24,7 +24,7 @@ import frc.robot.commands.RunIntake;
 public class OI {
   private final Joystick m_leftTank = new Joystick(Constants.LeftTankJoy);
   private final Joystick m_rightTank = new Joystick(Constants.RightTankJoy);
-  
+
   private final Joystick m_gamepad = new Joystick(Constants.ShooterControllerPort);
 
   /**
@@ -38,11 +38,11 @@ public class OI {
     final JoystickButton buttonY = new JoystickButton(m_gamepad, Constants.buttonY);
     final JoystickButton bumperL = new JoystickButton(m_gamepad, Constants.bumperL);
     final JoystickButton bumperR = new JoystickButton(m_gamepad, Constants.bumperR);
-    
 
-      buttonA.whileHeld( new IntakeWithButton() );
-      buttonB.whileHeld( new ReverseIntakeWithButton() );
-      buttonX.whileHeld( new AdjustAlignment(1) );
+
+    buttonA.whileHeld( new IntakeWithButton() );
+    buttonB.whileHeld( new ReverseIntakeWithButton() );
+    buttonX.whileHeld( new AdjustAlignment(1) );
       //buttonY.whileHeld( new IntakePivotButton() );
 //    bumperL.whileHeld( new RunAngler(-1.0) );
 //    bumperR.whileHeld( new RunAngler(1.0) );
