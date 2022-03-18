@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.ShooterDriveWithJoystick;
@@ -51,6 +52,7 @@ public class Shooter extends Subsystem {
   public void drive(double speed) {
     this.m_shooterMotor.set(speed);
   
+    SmartDashboard.putNumber("RPM (its not actually RPM)", shooterEncoder.getRate());
     //m_leftMotor.set(ControlMode.Velocity,speed*targetRPMS);
     //m_rightMotor.set(ControlMode.Velocity,-speed*targetRPMS);
     
