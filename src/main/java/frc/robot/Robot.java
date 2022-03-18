@@ -15,6 +15,7 @@ import edu.wpi.first.cscore.UsbCamera;
 import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.Shooter;
 /*import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Angler;
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot {
   public static DriveTrain m_drivetrain;
   public static Shooter m_shooter;
   public static Intake m_intake;
+  public static IntakeArm m_intakeArm;
   public static OI m_oi;
   /*public static Intake m_intake;
   public static Conveyor m_conveyor;
@@ -63,6 +65,7 @@ public class Robot extends TimedRobot {
     m_drivetrain = new DriveTrain();
     m_shooter = new Shooter();
     m_intake  = new Intake();
+    m_intakeArm  = new IntakeArm();
     m_oi = new OI();
 /*
     m_conveyor = new Conveyor();
