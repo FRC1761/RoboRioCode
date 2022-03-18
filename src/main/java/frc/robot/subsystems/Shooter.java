@@ -23,13 +23,14 @@ import com.ctre.phoenix.motorcontrol.*;
 public class Shooter extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private int targetRPMS = 29000;
   private final WPI_TalonSRX m_shooterMotor
       = new WPI_TalonSRX(Constants.Shooter);
   private double driveLimiter;
   private Encoder shooterEncoder;
 
-  private StringBuilder sb = new StringBuilder();
+  // private StringBuilder sb = new StringBuilder(); //* we only use this for debugging
+  
+
   public Shooter(){
     super();
     driveLimiter = Preferences.getDouble("Shooter Factor", 1.0);

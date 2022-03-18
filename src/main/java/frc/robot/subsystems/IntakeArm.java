@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.IntakeArmWithJoystick;
-import frc.robot.commands.IntakeDriveWithJoystick;
 
 /** Add your docs here. */
 public class IntakeArm extends Subsystem {

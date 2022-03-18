@@ -4,13 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.commands.IntakeDriveWithJoystick;
-import frc.robot.commands.IntakeWithButton;
-
-import com.ctre.phoenix.motorcontrol.can.*;
 
 
 public class Intake extends Subsystem {

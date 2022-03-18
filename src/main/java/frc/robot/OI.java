@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.IntakeWithButton;
 import frc.robot.commands.ReverseIntakeWithButton;
 import frc.robot.commands.AdjustAlignment;
-import frc.robot.subsystems.Intake;
+
 /*import frc.robot.commands.RunAngler;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.RunIntake;
@@ -30,6 +30,7 @@ public class OI {
   /**
    * Construct the OI and all of the buttons on it.
    */
+  @SuppressWarnings({"unused"}) // we're just setting up a bunch of constants, so we really don't care if we don't actually use it all.
   public OI() {
     // Create some buttons
     final JoystickButton buttonA = new JoystickButton(m_gamepad, Constants.buttonA);
