@@ -17,7 +17,7 @@ public class AdjustAlignment extends Command {
 
   public void initialize() {
     setTimeout(m_timeout);
-    Robot.m_drivetrain.drive(1, 1);
+    Robot.m_drivetrain.drive(0.5, -0.5);
   }
     
   public void execute() {
