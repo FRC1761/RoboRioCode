@@ -17,6 +17,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.Shooter;
+import frc.robot.commands.GetAutoPoints;
 /*import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Angler;
 import frc.robot.subsystems.Climber;
@@ -31,13 +32,15 @@ import frc.robot.subsystems.VelocityControlledShooter;
  * directory.
  */
 public class Robot extends TimedRobot {
-  Command m_autonomousCommand;
+
 
   public static DriveTrain m_drivetrain;
   public static Shooter m_shooter;
   public static Intake m_intake;
   public static IntakeArm m_intakeArm;
   public static OI m_oi;
+  public static GetAutoPoints m_GetAutoPoints;
+  
   /*public static Intake m_intake;
   public static Conveyor m_conveyor;
   public static Angler m_angler;
@@ -53,12 +56,12 @@ public class Robot extends TimedRobot {
     //initialize the camera
     UsbCamera frontCamera,rearCamera;
 		frontCamera = CameraServer.startAutomaticCapture(0);
-		frontCamera.setFPS(30);
+		frontCamera.setFPS(15);
 		frontCamera.setResolution(320,240);
     /* Setting two usb cameras is as simple as this.*/
 
     rearCamera  = CameraServer.startAutomaticCapture(1);
-    rearCamera.setFPS(30);
+    rearCamera.setFPS(15);
     rearCamera.setResolution(160,120);
     /**/
     // Initialize all subsystems
@@ -74,14 +77,14 @@ public class Robot extends TimedRobot {
     m_climber= new Climber();
     */
   //m_velocityshooter = new VelocityControlledShooter();
+    // Initialize the autonomous command here!
 
-    // instantiate the command used for the autonomous period
-    m_autonomousCommand = new Autonomous();
+    m_GetAutoPoints = new GetAutoPoints(5);
   }
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand.start(); // schedule the autonomous command (example)
+    m_GetAutoPoints.start(); // schedule the autonomous command
   }
 
   /**
@@ -95,11 +98,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    m_autonomousCommand.cancel();
+    // Bye bye autonomous!
+    m_GetAutoPoints.cancel();
   }
 
   /**
