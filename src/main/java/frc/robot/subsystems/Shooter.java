@@ -34,7 +34,7 @@ public class Shooter extends Subsystem {
   public Shooter(){
     super();
     driveLimiter = Preferences.getDouble("Shooter Factor", 1.0);
-    initTalon(m_shooterMotor,false);
+    //initTalon(m_shooterMotor,false);
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set.
     Preferences.setDouble("Shooter Factor",driveLimiter);

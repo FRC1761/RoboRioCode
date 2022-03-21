@@ -25,9 +25,10 @@ public class Intake extends Subsystem {
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set.
     Preferences.setDouble("Intake Factor",intakeLimiter);
-    m_intakeMotor.setSafetyEnabled(false);
+    //m_intakeMotor.setSafetyEnabled(false);
   }
-
+  
+  @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());

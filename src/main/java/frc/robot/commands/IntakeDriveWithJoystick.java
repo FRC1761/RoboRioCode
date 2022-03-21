@@ -24,18 +24,18 @@ public class IntakeDriveWithJoystick extends Command {
   public void execute() {
 
 
-    Robot.m_shooter.drive(Robot.m_oi.getGamepad().getRawAxis(Constants.IntakeAxis));
+    Robot.m_intake.drive(Robot.m_oi.getGamepad().getRawAxis(Constants.IntakeAxis));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(){
-    Robot.m_intake.drive(0.0);
+    // Robot.m_intake.drive(0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

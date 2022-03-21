@@ -39,11 +39,17 @@ public class OI {
     final JoystickButton buttonY = new JoystickButton(m_gamepad, Constants.buttonY);
     final JoystickButton bumperL = new JoystickButton(m_gamepad, Constants.bumperL);
     final JoystickButton bumperR = new JoystickButton(m_gamepad, Constants.bumperR);
+    
+    final JoystickButton buttonL3 = new JoystickButton(m_leftTank, 3);
+    final JoystickButton buttonR3 = new JoystickButton(m_rightTank, 3);
 
 
     buttonA.whileHeld( new IntakeWithButton() );
     buttonB.whileHeld( new ReverseIntakeWithButton() );
     buttonX.whileHeld( new AdjustAlignment(1) );
+    buttonY.whileHeld( new AdjustAlignment(-1) );
+    buttonL3.whileHeld( new AdjustAlignment(1));
+    buttonR3.whileHeld( new AdjustAlignment(-1));
       //buttonY.whileHeld( new IntakePivotButton() );
 //    bumperL.whileHeld( new RunAngler(-1.0) );
 //    bumperR.whileHeld( new RunAngler(1.0) );

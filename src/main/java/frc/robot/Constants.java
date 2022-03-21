@@ -9,8 +9,8 @@ public class Constants {
   public static final int RearRightVictor = 22;
 
   //Shooter addresses CAN bus
-  public static final int Shooter = 2;
-  public static final int IntakeCanAddress = 20;
+  public static final int Shooter = 20;
+  public static final int IntakeCanAddress = 2;
   public static final int IntakeArmAddress = 8;
 
   // public static final int ShooterRight = 24;
@@ -77,8 +77,9 @@ public class Constants {
 
 
   public static final int ShooterAxis = 1;
+  public static final int ReverseShooter = 0;
 
-  public static final int IntakeAxis = 5; //! we dont need you here, intake axis. (we dont use an axis to control this)
+  public static final int IntakeAxis = 5;
 
   public static final int IntakeArmAxis = 4;
 //  public static final int ClimberAxis = 5; //heh.
