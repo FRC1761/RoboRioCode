@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.IntakeWithButton;
 import frc.robot.commands.ReverseIntakeWithButton;
 import frc.robot.commands.AdjustAlignment;
+import frc.robot.commands.LowGoal;
 
 /*import frc.robot.commands.RunAngler;
 import frc.robot.commands.RunConveyor;
@@ -47,7 +48,7 @@ public class OI {
     buttonA.whileHeld( new IntakeWithButton() );
     buttonB.whileHeld( new ReverseIntakeWithButton() );
     buttonX.whileHeld( new AdjustAlignment(1) );
-    buttonY.whileHeld( new AdjustAlignment(-1) );
+    buttonY.whileHeld( new LowGoal() );
     buttonL3.whileHeld( new AdjustAlignment(1));
     buttonR3.whileHeld( new AdjustAlignment(-1));
       //buttonY.whileHeld( new IntakePivotButton() );

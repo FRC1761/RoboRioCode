@@ -162,3 +162,4 @@ bin/
 *-window.json
 # Alek changed this part, hello world <3 !
 Microsoft/Windows/PowerShell/*
+simgui*.json

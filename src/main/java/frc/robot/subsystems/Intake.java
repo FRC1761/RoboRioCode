@@ -20,8 +20,8 @@ public class Intake extends Subsystem {
   /** Creates a new Intake. */
   public Intake() {
     super();
-    //get key value or use default 0.0;
-    intakeLimiter = Preferences.getDouble("Intake Factor", 0.0);
+    //get key value or use default 1.0;
+    intakeLimiter = Preferences.getDouble("Intake Factor", 1.0);
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set.
     Preferences.setDouble("Intake Factor",intakeLimiter);
@@ -32,7 +32,7 @@ public class Intake extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    intakeLimiter = Preferences.getDouble("Intake Factor", 0.0);
+    intakeLimiter = Preferences.getDouble("Intake Factor", 1.0);
     setDefaultCommand(new IntakeDriveWithJoystick());
 
   }

@@ -7,17 +7,16 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.cameraserver.*;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-import frc.robot.commands.Autonomous;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commands.GetAutoPoints;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.Shooter;
-import frc.robot.commands.GetAutoPoints;
+
 /*import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Angler;
 import frc.robot.subsystems.Climber;

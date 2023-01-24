@@ -11,7 +11,8 @@ public class Constants {
   //Shooter addresses CAN bus
   public static final int Shooter = 20;
   public static final int IntakeCanAddress = 2;
-  public static final int IntakeArmAddress = 8;
+  // this is now a PWM address ⬇
+  public static final int IntakeArmAddress = 0;
 
   // public static final int ShooterRight = 24;
 

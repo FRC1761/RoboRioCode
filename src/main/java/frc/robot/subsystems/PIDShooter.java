@@ -19,7 +19,7 @@ public class PIDShooter extends PIDSubsystem {
     super("Shooter", 0.75, 0, 0);
     // Use these to get going:
     setSetpoint(75000);
-    // have commnd enable();
+    // have command enable();
   }
 
   @Override
