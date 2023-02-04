@@ -1,126 +1,59 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
 
+// package edu.wpi.first.wpilibj.examples.solenoid;
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.cameraserver.*;
-import edu.wpi.first.cscore.UsbCamera;
-import frc.robot.commands.Autonomous;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.IntakeArm;
-import frc.robot.subsystems.Shooter;
-import frc.robot.commands.GetAutoPoints;
-/*import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Angler;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Conveyor;
-import frc.robot.subsystems.VelocityControlledShooter;
-/**/
+
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * This is a sample program showing the use of the solenoid classes during operator control. Three
+ * buttons from a joystick will be used to control two solenoids: One button to control the position
+ * of a single solenoid and the other two buttons to control a double solenoid. Single solenoids can
+ * either be on or off, such that the air diverted through them goes through either one channel or
+ * the other. Double solenoids have three states: Off, Forward, and Reverse. Forward and Reverse
+ * divert the air through the two channels and correspond to the on and off of a single solenoid,
+ * but a double solenoid can also be "off", where the solenoid will remain in its default power off
+ * state. Additionally, double solenoids take up two channels on your PCM whereas single solenoids
+ * only take a single channel.
  */
 public class Robot extends TimedRobot {
+  private final Joystick m_stick = new Joystick(0);
 
+  // // Solenoid corresponds to a single solenoid.
+  // private final Solenoid m_solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
-  public static DriveTrain m_drivetrain;
-  public static Shooter m_shooter;
-  public static Intake m_intake;
-  public static IntakeArm m_intakeArm;
-  public static OI m_oi;
-  public static GetAutoPoints m_GetAutoPoints;
-  
-  /*public static Intake m_intake;
-  public static Conveyor m_conveyor;
-  public static Angler m_angler;
-  public static Climber m_climber;
-  public static VelocityControlledShooter m_velocityshooter;
-  /** */
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
-  @Override
-  public void robotInit() {
-    //initialize the camera
-    UsbCamera frontCamera,rearCamera;
-		frontCamera = CameraServer.startAutomaticCapture(0);
-		frontCamera.setFPS(15);
-		frontCamera.setResolution(320,240);
-    /* Setting two usb cameras is as simple as this.*/
+  // DoubleSolenoid corresponds to a double solenoid.
+  private final DoubleSolenoid m_doubleSolenoid =
+      new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
 
-    rearCamera  = CameraServer.startAutomaticCapture(1);
-    rearCamera.setFPS(15);
-    rearCamera.setResolution(160,120);
-    /**/
-    // Initialize all subsystems
-    m_drivetrain = new DriveTrain();
-    m_shooter = new Shooter();
-    m_intake  = new Intake();
-    m_intakeArm  = new IntakeArm();
-    m_oi = new OI();
-/*
-    m_conveyor = new Conveyor();
-    m_intake = new Intake();
-    m_angler = new Angler();
-    m_climber= new Climber();
-    */
-  //m_velocityshooter = new VelocityControlledShooter();
-    // Initialize the autonomous command here!
+  // private static final int kSolenoidButton = 1;
+  private static final int kDoubleSolenoidForward = 2;
+  private static final int kDoubleSolenoidReverse = 3;
 
-    m_GetAutoPoints = new GetAutoPoints(5);
-  }
-
-  @Override
-  public void autonomousInit() {
-    m_GetAutoPoints.start(); // schedule the autonomous command
-  }
-
-  /**
-   * This function is called periodically during autonomous.
-   */
-  @Override
-  public void autonomousPeriodic() {
-    Scheduler.getInstance().run();
-    log();
-  }
-
-  @Override
-  public void teleopInit() {
-    // Bye bye autonomous!
-    m_GetAutoPoints.cancel();
-  }
-
-  /**
-   * This function is called periodically during teleoperated mode.
-   */
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
-    log();
-  }
+    /*
+     * The output of GetRawButton is true/false depending on whether
+     * the button is pressed; Set takes a boolean for whether
+     * to use the default (false) channel or the other (true).
+     */
+    // m_solenoid.set(m_stick.getRawButton(kSolenoidButton));
 
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
-  }
-
-  /**
-   * The log method puts interesting information to the SmartDashboard.
-   */
-  private void log() {
+    /*
+     * In order to set the double solenoid, if just one button
+     * is pressed, set the solenoid to correspond to that button.
+     * If both are pressed, set the solenoid will be set to Forwards.
+     */
+    if (m_stick.getRawButton(kDoubleSolenoidForward)) {
+      m_doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+    } else if (m_stick.getRawButton(kDoubleSolenoidReverse)) {
+      m_doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
   }
 }
