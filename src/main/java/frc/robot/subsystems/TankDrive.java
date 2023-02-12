@@ -6,10 +6,51 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import frc.robot.Constants;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+
+
+
 
 public class TankDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public TankDrive() {}
+  WPI_TalonSRX m_frontLeft = new WPI_TalonSRX(Constants.frontLeftTalon);
+  WPI_TalonSRX m_frontRight = new WPI_TalonSRX(Constants.frontRightTalon);
+  WPI_TalonSRX m_rearLeft = new WPI_TalonSRX(Constants.rearLeftTalon);
+  WPI_TalonSRX m_rearRight = new WPI_TalonSRX(Constants.rearRightTalon);
+
+  Joystick _leftJoystick = new Joystick(Constants.leftJoystickPort);
+  Joystick _rightJoystick = new Joystick(Constants.rightJoystickPort);
+
+
+  private MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
+  private MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
+
+
+  private final DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
+
+  private double driveLimiter;
+
+
+  public TankDrive() {
+    
+    super();
+    //get key value or use default 1.0;
+    driveLimiter = Preferences.getDouble("DriveTrain Factor", 1.0);
+    //Push value back to Preferences widget so it forces
+    //correct key to show up with default value if not set.
+    Preferences.setDouble("DriveTrain Factor",driveLimiter);
+    m_drive.setSafetyEnabled(false);
+  }
+  
+
 
   /**
    * Example command factory method.
@@ -38,6 +79,9 @@ public class TankDrive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
+    m_drive.arcadeDrive(_leftJoystick.getY()*driveLimiter,
+                       _rightJoystick.getX()*driveLimiter);
   }
 
   @Override
