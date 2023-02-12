@@ -80,8 +80,8 @@ public class TankDrive extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     
-    m_drive.arcadeDrive(_leftJoystick.getY()*driveLimiter,
-                       _rightJoystick.getX()*driveLimiter);
+    m_drive.arcadeDrive(_leftJoystick.getX()*driveLimiter,
+                       _rightJoystick.getY()*driveLimiter);
   }
 
   @Override
