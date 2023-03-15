@@ -24,8 +24,8 @@ import frc.robot.subsystems.ArcadeDrive;
  * only take a single channel.
  */
 public class Robot extends TimedRobot {
-  private final Joystick m_stick = new Joystick(0);
   private ArcadeDrive arcadeDrive = new ArcadeDrive();
+  private final Joystick m_stick = new Joystick(0);
 
   // // Solenoid corresponds to a single solenoid.
   // private final Solenoid m_solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
