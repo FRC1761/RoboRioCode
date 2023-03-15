@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.robot.subsystems.TankDrive;
+import frc.robot.subsystems.ArcadeDrive;
 
 /**
  * This is a sample program showing the use of the solenoid classes during operator control. Three
@@ -25,7 +25,7 @@ import frc.robot.subsystems.TankDrive;
  */
 public class Robot extends TimedRobot {
   private final Joystick m_stick = new Joystick(0);
-  private TankDrive myTankDrive= new TankDrive();
+  private ArcadeDrive arcadeDrive = new ArcadeDrive();
 
   // // Solenoid corresponds to a single solenoid.
   // private final Solenoid m_solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
@@ -58,6 +58,6 @@ public class Robot extends TimedRobot {
       m_doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
     
-    myTankDrive.periodic();
+    arcadeDrive.periodic();
   }
 }
