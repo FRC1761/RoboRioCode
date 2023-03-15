@@ -9,6 +9,5 @@ public class Constants {
     public static final int rearLeftTalon    = 40;
     public static final int rearRightTalon   = 10;
 
-    public static final int leftJoystickPort    = 0;
-    public static final int rightJoystickPort   = 1;
+    public static final int xboxPort         = 0;
 }

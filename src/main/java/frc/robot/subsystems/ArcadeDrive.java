@@ -4,30 +4,30 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import frc.robot.Constants;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 
 
 
-public class TankDrive extends SubsystemBase {
+
+public class ArcadeDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   WPI_TalonSRX m_frontLeft = new WPI_TalonSRX(Constants.frontLeftTalon);
   WPI_TalonSRX m_frontRight = new WPI_TalonSRX(Constants.frontRightTalon);
   WPI_TalonSRX m_rearLeft = new WPI_TalonSRX(Constants.rearLeftTalon);
   WPI_TalonSRX m_rearRight = new WPI_TalonSRX(Constants.rearRightTalon);
 
-  Joystick _leftJoystick = new Joystick(Constants.leftJoystickPort);
-  Joystick _rightJoystick = new Joystick(Constants.rightJoystickPort);
+  XboxController driverController = new XboxController(Constants.xboxPort);
+
+  
 
 
   private MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
@@ -39,7 +39,7 @@ public class TankDrive extends SubsystemBase {
   private double driveLimiter;
 
 
-  public TankDrive() {
+  public ArcadeDrive() {
     
     super();
     //get key value or use default 1.0;
@@ -80,8 +80,8 @@ public class TankDrive extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     
-    m_drive.arcadeDrive(_leftJoystick.getX()*driveLimiter,
-                       _rightJoystick.getY()*driveLimiter);
+    m_drive.arcadeDrive(driverController.getLeftY()*driveLimiter,
+                        driverController.getRightX()*driveLimiter);
   }
 
   @Override
