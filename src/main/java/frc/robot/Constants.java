@@ -12,5 +12,8 @@ public class Constants {
     public static final int elevatorMax			= 0;
     public static final int extensionMax		= 0;
 
+	public static final int left_dS				= 0;
+	public static final int right_dS			= 1;
+
     public static final int xboxPort			= 0;
 }
