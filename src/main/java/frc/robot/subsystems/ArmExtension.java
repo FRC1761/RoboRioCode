@@ -11,7 +11,7 @@ import frc.robot.Constants;
 
 public class ArmExtension extends SubsystemBase {
     // CANSparkMax elevatorMax = new CANSparkMax(Constants.elevatorMax, MotorType.kBrushless);
-    CANSparkMax extensionMax = new CANSparkMax(Constants.extensionMax, MotorType.kBrushless);
+    CANSparkMax extensionSpark = new CANSparkMax(Constants.extensionSpark, MotorType.kBrushless);
     XboxController driverController = new XboxController(Constants.xboxPort);
     public double leftTrigger = driverController.getLeftTriggerAxis();
     public double rightTrigger = driverController.getRightTriggerAxis();
@@ -49,7 +49,7 @@ public class ArmExtension extends SubsystemBase {
     public void periodic() {
         double triggerSum = -(leftTrigger) + rightTrigger; // XOR gate
         
-        extensionMax.set(triggerSum*driveLimiter);
+        extensionSpark.set(triggerSum*driveLimiter);
     }
   
     @Override
