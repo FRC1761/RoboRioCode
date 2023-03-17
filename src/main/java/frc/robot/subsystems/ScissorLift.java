@@ -1,24 +1,30 @@
 package frc.robot.subsystems;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class ArmExtension extends SubsystemBase {
+public class ScissorLift extends SubsystemBase {
     // CANSparkMax elevatorMax = new CANSparkMax(Constants.elevatorMax, MotorType.kBrushless);
-    WPI_TalonSRX extensionTalon = new WPI_TalonSRX(Constants.extensionTalon);
-    XboxController driverController = new XboxController(Constants.xboxPort);
-    public double driveLimiter;
+    CANSparkMax elevatorSpark = new CANSparkMax(Constants.elevatorSpark, MotorType.kBrushless);
+    XboxController auxController = new XboxController(Constants.xboxPort2);
 
-    public ArmExtension() {
+    public double driveLimiter;
+    
+
+
+    public ScissorLift() {
         super();
         //get key value or use default 1.0;
-        driveLimiter = Preferences.getDouble("ArmExtension Factor", 1.0);
+        driveLimiter = Preferences.getDouble("ScissorLift Factor", 1.0);
         //Push value back to Preferences widget so it forces
         //correct key to show up with default value if not set.
-        Preferences.setDouble("ArmExtension Factor",driveLimiter);
+        Preferences.setDouble("ScissorLift Factor",driveLimiter);
     }
 
     /**
@@ -39,10 +45,10 @@ public class ArmExtension extends SubsystemBase {
   
     @Override
     public void periodic() {
-       // XOR gate
-        double triggerSum = -driverController.getLeftTriggerAxis() + driverController.getLeftTriggerAxis();
         
-        extensionTalon.set(triggerSum*driveLimiter);
+        ; // XOR gate
+        
+        elevatorSpark.set(auxController.getRightY()*driveLimiter);
     }
   
     @Override

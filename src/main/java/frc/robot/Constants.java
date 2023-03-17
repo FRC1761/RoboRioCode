@@ -24,8 +24,12 @@ public class Constants {
 	public static final int left_dS_port1		= 2;
 	public static final int left_dS_port2		= 3;
 
-    public static final int elevatorSpark       = 9;
-    public static final int extensionSpark      = 1;
+    public static final int elevatorSpark       = 1;
+    //public static final int extensionSpark      = 9;
+    //TODO need to get address for Talon for extension
+    //     after spark max failed and was replaced.
+    public static final int extensionTalon      = 21;
 
     public static final int xboxPort			= 0;
+    public static final int xboxPort2			= 1;
 }

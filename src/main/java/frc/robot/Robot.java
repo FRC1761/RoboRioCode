@@ -6,11 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.Joystick;
-
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.CloseGrabber;
@@ -37,6 +33,7 @@ public class Robot extends TimedRobot {
     Trigger leftBumpah = gamepad1.leftBumper(); // Creates a new Trigger object for the `X` button on exampleCommandController
     leftBumpah.onTrue(new CloseGrabber());
 
+      
   }
 
   @Override
