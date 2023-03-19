@@ -11,14 +11,20 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.CloseGrabber;
 import frc.robot.commands.OpenGrabber;
-import frc.robot.subsystems.ArcadeDrive;
 import frc.robot.subsystems.Grabber;
-
+import frc.robot.subsystems.ArcadeDrive;
+import frc.robot.subsystems.ArmExtension;
+import frc.robot.subsystems.ScissorLift;
 public class Robot extends TimedRobot {
-  public static final Grabber Grabber = new Grabber();
-  public static final ArcadeDrive arcadeDrive = new ArcadeDrive();
+
+  public static final Grabber GRABBER = new Grabber();
+  public static final ArcadeDrive ARCADE_DRIVE = new ArcadeDrive();
+  public static final ArmExtension ARM_EXTENSION = new ArmExtension();
+  public static final ScissorLift  SCISSOR_LIFT = new ScissorLift();
+
+
   private CommandXboxController gamepad1 = new CommandXboxController(Constants.xboxPort);
-	//private CommandXboxController gamepad2 = new CommandXboxController(1);
+	private CommandXboxController gamepad2 = new CommandXboxController(Constants.xboxPort2);
 
   @Override
   public void robotInit(){
@@ -38,6 +44,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    arcadeDrive.periodic();
+    GRABBER.periodic();
+    ARCADE_DRIVE.periodic();
+    ARM_EXTENSION.periodic();
+    SCISSOR_LIFT.periodic();
   }
 }
