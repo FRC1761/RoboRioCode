@@ -26,8 +26,8 @@ public class Constants {
 
     public static final int elevatorSpark       = 1;
     //public static final int extensionSpark      = 9;
-    //TODO need to get address for Talon for extension
-    //     after spark max failed and was replaced.
+    //rest in peace, you were reduced to smoke too soon.
+
     public static final int extensionTalon      = 21;
 
     public static final int xboxPort			= 0;
