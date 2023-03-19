@@ -80,8 +80,8 @@ public class ArcadeDrive extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     
-    m_drive.arcadeDrive(driverController.getLeftY()*driveLimiter,
-                        driverController.getRightX()*driveLimiter);
+    m_drive.arcadeDrive(driverController.getLeftX()*driveLimiter,
+                        driverController.getRightY()*driveLimiter);
   }
 
   @Override
