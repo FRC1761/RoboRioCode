@@ -40,7 +40,7 @@ public class ArmExtension extends SubsystemBase {
     @Override
     public void periodic() {
        // XOR gate
-        double triggerSum = -driverController.getLeftTriggerAxis() + driverController.getLeftTriggerAxis();
+        double triggerSum = -driverController.getLeftTriggerAxis() + driverController.getRightTriggerAxis();
         
         extensionTalon.set(triggerSum*driveLimiter);
     }
@@ -51,5 +51,3 @@ public class ArmExtension extends SubsystemBase {
     }
 
 }
-
-
