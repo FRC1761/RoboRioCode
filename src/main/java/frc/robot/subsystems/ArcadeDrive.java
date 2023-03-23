@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -84,6 +85,9 @@ public class ArcadeDrive extends SubsystemBase {
                         driverController.getRightY()*driveLimiter);
   }
 
+  public void autoDrive(double speed, double rotation) {
+    m_drive.arcadeDrive(speed, rotation);
+  }
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
