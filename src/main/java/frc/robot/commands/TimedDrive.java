@@ -2,49 +2,34 @@
 //import commandbase
 package frc.robot.commands;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class TimedDrive extends CommandBase {
+public class TimedDrive extends WaitCommand {
 
 private double expireTime;
 private double timeout;
 private double direction;
 
   public TimedDrive(double seconds,double direction) {
+    super(seconds);
+
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_drive);
-    timeout = seconds;
+    addRequirements(Robot.ARCADE_DRIVE);
     this.direction = direction;
   }
 
-  protected void startTimer() {
-    expireTime = timeSinceInitialized() + timeout;
-  }
-
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-    startTimer();
-  }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
-    
-    Robot.m_drive.drive(direction,0);
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return (timeSinceInitialized() >= expireTime);
+  protected void initialize() {    
+    Robot.ARCADE_DRIVE.autoDrive(direction,0);
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
-    Robot.m_drive.drive(0,0);
+  protected void end(Boolean isInterrupted) {
+    Robot.ARCADE_DRIVE.autoDrive(0,0);
   }
 
   // Called when another command which requires one or more of the same

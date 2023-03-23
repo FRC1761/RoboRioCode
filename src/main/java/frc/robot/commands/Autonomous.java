@@ -1,22 +1,23 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+//import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotPreferences;
 
-public class Autonomous extends CommandGroup {
+public class Autonomous extends SequentialCommandGroup {
   /**
   * Add your docs here.
   */
   public Autonomous() {
     //open grabber
-    addSequential(new OpenGrabber());
+    addCommands(new OpenGrabber());
     //drive back short distance
-    addSequential(new TimedDrive(RobotPreferences.auto1stDelay(),-RobotPreferences.autoPower()));
+    addCommands(new TimedDrive(RobotPreferences.auto1stDelay(),-RobotPreferences.autoPower()));
     //close grabber
-    addSequential(new CloseGrabber());
+    addCommands(new CloseGrabber());
     //drive forward until hit bumper on level1
-    addSequential(new TimedDrive(RobotPreferences.auto2ndDelay(),RobotPreferences.autoPower()));
+    addCommands(new TimedDrive(RobotPreferences.auto2ndDelay(),RobotPreferences.autoPower()));
     //drive back into Neutral Zone
-    addSequential(new TimedDrive(RobotPreferences.auto3rdDelay(),-RobotPreferences.autoPower()));
+    addCommands(new TimedDrive(RobotPreferences.auto3rdDelay(),-RobotPreferences.autoPower()));
   }
 }
