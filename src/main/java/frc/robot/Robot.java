@@ -7,14 +7,20 @@ package frc.robot;
 import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.CloseGrabber;
 import frc.robot.commands.OpenGrabber;
+import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.ArcadeDrive;
 import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.ScissorLift;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 public class Robot extends TimedRobot {
 
   public static final Grabber GRABBER = new Grabber();
@@ -38,8 +44,11 @@ public class Robot extends TimedRobot {
 
     Trigger leftBumpah = gamepad1.leftBumper(); // Creates a new Trigger object for the `X` button on exampleCommandController
     leftBumpah.onTrue(new CloseGrabber());
+  }
 
-      
+  @Override
+  public void robotPeriodic() {
+    CommandScheduler.getInstance().run();
   }
 
   @Override
