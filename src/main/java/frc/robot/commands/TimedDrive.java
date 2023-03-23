@@ -10,7 +10,7 @@ private double expireTime;
 private double timeout;
 private double direction;
 
-  public DoDelay(double seconds,double direction) {
+  public TimedDrive(double seconds,double direction) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_drive);
