@@ -1,49 +1,56 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
+//import robot here
+//import commandbase
 package frc.robot.commands;
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/** An example command that uses an example subsystem. */
 public class TimedDrive extends CommandBase {
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  
-  private Double timeout;
-  
-  public TimedDrive(Double seconds) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.m_drive);
+
+private double expireTime;
+private double timeout;
+private double direction;
+
+  public DoDelay(double seconds,double direction) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.m_drive);
     timeout = seconds;
+    this.direction = direction;
   }
-  
-  public void startTimer() {
+
+  protected void startTimer() {
     expireTime = timeSinceInitialized() + timeout;
   }
 
-  // Called when the command is initially scheduled.
+  // Called just before this Command runs the first time
   @Override
-  public void initialize() {
+  protected void initialize() {
     startTimer();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  // Called repeatedly when this Command is scheduled to run
   @Override
-  public void execute() {
+  protected void execute() {
     
+    Robot.m_drive.drive(direction,0);
   }
-  
-  // Returns true when the command should end.
-  public boolean isFinished() {
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
     return (timeSinceInitialized() >= expireTime);
   }
 
-  // Called once the command ends or is interrupted.
+  // Called once after isFinished returns true
   @Override
-  public void end(boolean interrupted) {}
-  
+  protected void end() {
+    Robot.m_drive.drive(0,0);
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+    end();
+  }
 }
