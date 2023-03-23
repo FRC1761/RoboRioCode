@@ -13,7 +13,7 @@ import frc.robot.Robot;
 public class OpenGrabber extends InstantCommand {
   public OpenGrabber() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.Grabber);
+    addRequirements(Robot.GRABBER);
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +24,7 @@ public class OpenGrabber extends InstantCommand {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.Grabber.openGrabber();
+    Robot.GRABBER.openGrabber();
   }
 
   // Called once the command ends or is interrupted.
