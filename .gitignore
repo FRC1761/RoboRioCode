@@ -168,3 +168,4 @@ bin/
 #  Aleksandr Usanov March 17, 12:07 PM
 
 maven/
+.vscode/settings.json
