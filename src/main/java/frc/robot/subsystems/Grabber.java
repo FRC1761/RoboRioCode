@@ -15,9 +15,9 @@ public class Grabber extends SubsystemBase {
     public boolean rightBumper = driverController.getRightBumper();
 
     private final DoubleSolenoid left_doubSol =
-    new DoubleSolenoid(Constants.phCanAddress, PneumaticsModuleType.REVPH, Constants.left_dS_port1, Constants.left_dS_port2);
+    new DoubleSolenoid(Constants.phCanAddress, PneumaticsModuleType.CTREPCM, Constants.left_dS_port1, Constants.left_dS_port2);
     private final DoubleSolenoid right_doubSol =
-    new DoubleSolenoid(Constants.phCanAddress, PneumaticsModuleType.REVPH, Constants.right_dS_port1, Constants.right_dS_port2);
+    new DoubleSolenoid(Constants.phCanAddress, PneumaticsModuleType.CTREPCM, Constants.right_dS_port1, Constants.right_dS_port2);
 
     public Grabber() {
     }
@@ -40,14 +40,14 @@ public class Grabber extends SubsystemBase {
   
     @Override
     public void periodic() {
-      if (leftBumper || rightBumper) {
-        left_doubSol.set(Value.kForward);
-        right_doubSol.set(Value.kForward);
-      }
-      else {
-        left_doubSol.set(Value.kReverse);
-        right_doubSol.set(Value.kReverse);
-      }
+      // if (leftBumper || rightBumper) {
+      //   left_doubSol.set(Value.kForward);
+      //   right_doubSol.set(Value.kForward);
+      // }
+      // else {
+      //   left_doubSol.set(Value.kReverse);
+      //   right_doubSol.set(Value.kReverse);
+      // }
     }
   
     public void openGrabber(){
