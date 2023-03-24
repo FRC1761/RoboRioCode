@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
 
 
   private CommandXboxController gamepad1 = new CommandXboxController(Constants.xboxPort);
-	private CommandXboxController gamepad2 = new CommandXboxController(Constants.xboxPort2);
+//	private CommandXboxController gamepad2 = new CommandXboxController(Constants.xboxPort2);
 
   @Override
   public void robotInit(){
@@ -49,6 +49,14 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+  }
+
+  public void autonomousInit(){
+    CommandScheduler.getInstance().schedule(new Autonomous());
+  }
+
+  public void autonomousEnd(){
+    CommandScheduler.getInstance().cancelAll();
   }
 
   @Override
