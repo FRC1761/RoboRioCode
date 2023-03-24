@@ -5,9 +5,6 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class TimedDrive extends WaitCommand {
-
-private double expireTime;
-private double timeout;
 private double direction;
 
   public TimedDrive(double seconds,double direction) {

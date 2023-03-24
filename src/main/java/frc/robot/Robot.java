@@ -18,9 +18,6 @@ import frc.robot.subsystems.ArcadeDrive;
 import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.ScissorLift;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 public class Robot extends TimedRobot {
 
   public static final Grabber GRABBER = new Grabber();
