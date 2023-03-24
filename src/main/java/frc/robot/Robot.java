@@ -18,9 +18,6 @@ import frc.robot.subsystems.ArcadeDrive;
 import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.ScissorLift;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 public class Robot extends TimedRobot {
 
   public static final Grabber GRABBER = new Grabber();
@@ -30,7 +27,7 @@ public class Robot extends TimedRobot {
 
 
   private CommandXboxController gamepad1 = new CommandXboxController(Constants.xboxPort);
-	private CommandXboxController gamepad2 = new CommandXboxController(Constants.xboxPort2);
+//	private CommandXboxController gamepad2 = new CommandXboxController(Constants.xboxPort2);
 
   @Override
   public void robotInit(){
@@ -49,6 +46,14 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+  }
+
+  public void autonomousInit(){
+    CommandScheduler.getInstance().schedule(new Autonomous());
+  }
+
+  public void autonomousEnd(){
+    CommandScheduler.getInstance().cancelAll();
   }
 
   @Override
