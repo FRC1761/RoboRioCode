@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -29,7 +29,7 @@ public class ArcadeDrive extends SubsystemBase {
   private MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
   private MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
 
-
+ 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
   private double driveLimiter;
@@ -40,10 +40,12 @@ public class ArcadeDrive extends SubsystemBase {
     super();
     //get key value or use default 1.0;
     driveLimiter = Preferences.getDouble("DriveTrain Factor", 1.0);
+    m_left.setInverted(true);
     //Push value back to Preferences widget so it forces
     //correct key to show up with default value if not set.
     Preferences.setDouble("DriveTrain Factor",driveLimiter);
     m_drive.setSafetyEnabled(false);
+
   }
   
 
@@ -76,13 +78,21 @@ public class ArcadeDrive extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     
-    m_drive.arcadeDrive(driverController.getLeftX()*driveLimiter,
-                        driverController.getRightY()*driveLimiter);
+    m_drive.arcadeDrive(driverController.getLeftY()*driveLimiter,
+                        driverController.getRightX()*driveLimiter-0.07);
   }
 
   public void autoDrive(double speed, double rotation) {
     m_drive.arcadeDrive(speed, rotation);
+}
+
+  public void stop() {
+    
+    System.out.println("stopping drive train...");
+    m_drive.stopMotor();
   }
+
+
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation

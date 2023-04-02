@@ -14,8 +14,8 @@ public class ArmExtension extends SubsystemBase {
 
     public ArmExtension() {
         super();
-        //get key value or use default 1.0;
-        driveLimiter = Preferences.getDouble("ArmExtension Factor", 1.0);
+        //get key value or use default 0.5
+        driveLimiter = Preferences.getDouble("ArmExtension Factor", 0.5);
         //Push value back to Preferences widget so it forces
         //correct key to show up with default value if not set.
         Preferences.setDouble("ArmExtension Factor",driveLimiter);

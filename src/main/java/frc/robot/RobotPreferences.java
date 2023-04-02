@@ -27,4 +27,6 @@ public class RobotPreferences {
     Preferences.setDouble("autoPower", temp);
     return temp;
   }
+
+  
 }
