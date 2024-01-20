@@ -1,35 +1,37 @@
+// Copyright 2021-2024 FRC 6328
+// http://github.com/Mechanical-Advantage
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// version 3 as published by the Free Software Foundation or
+// available in the root directory of this project.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+
 package frc.robot;
 
-public class Constants {
-    
-    public static final String bestProgrammer = "Aleksandr Usanov";
-    
-    public static final int frontLeftTalon		= 7;
-    public static final int frontRightTalon		= 13;
-    public static final int rearLeftTalon		= 40;
-    public static final int rearRightTalon		= 10;
+/**
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants should be declared
+ * globally (i.e. public static). Do not put anything functional in this class.
+ *
+ * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * constants are needed, to reduce verbosity.
+ */
+public final class Constants {
+  public static final Mode currentMode = Mode.REAL;
 
-    /*
-    public static final int elevatorMax			= 0;
-    public static final int extensionMax		= 0;
+  public static enum Mode {
+    /** Running on a real robot. */
+    REAL,
 
-    public static final int elevatorMin			= 0;
-    public static final int extensionMin		= 0;
-    /**/
-   //Solenoids port numbers
-    public static final int phCanAddress        = 20;
+    /** Running a physics simulator. */
+    SIM,
 
-	public static final int right_dS_port1      = 0;
-    public static final int right_dS_port2		= 1;
-	public static final int left_dS_port1		= 2;
-	public static final int left_dS_port2		= 3;
-
-    public static final int elevatorSpark       = 1;
-    //public static final int extensionSpark      = 9;
-    //rest in peace, you were reduced to smoke too soon.
-
-    public static final int extensionTalon      = 21;
-
-    public static final int xboxPort			= 0;
-    public static final int xboxPort2			= 1;
+    /** Replaying from a log file. */
+    REPLAY
+  }
 }

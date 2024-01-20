@@ -158,14 +158,18 @@ gradle-app.setting
 .settings/
 bin/
 
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# Fleet
+.fleet
+
 # Simulation GUI and other tools window save file
-*-window.json
+simgui*.json
 
-# Hey world, it's me, Alek.
-# its just after noon on the Friday of our first competition.
-# i haven't deployed any code to the robot yet, though.
-# wish me luck!
-#  Aleksandr Usanov March 17, 12:07 PM
-
-maven/
-.vscode/settings.json
+# Version file
+src/main/java/frc/robot/BuildConstants.java
