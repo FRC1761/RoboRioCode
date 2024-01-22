@@ -149,6 +149,23 @@ public class Drive extends SubsystemBase {
     Logger.recordOutput("SwerveStates/SetpointsOptimized", optimizedSetpointStates);
   }
 
+  //method for testing individual modules
+  public void runVelocityTestModules(ChassisSpeeds speeds, int moduleNumber) {
+    // Calculate module setpoints
+    ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
+    SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);
+    SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, MAX_LINEAR_SPEED);
+
+    // Send setpoints to modules
+    SwerveModuleState[] optimizedSetpointStates = new SwerveModuleState[4];
+    optimizedSetpointStates[moduleNumber] = modules[moduleNumber].runSetpoint(setpointStates[moduleNumber]);
+    }
+
+    // Log setpoint states
+    Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
+    Logger.recordOutput("SwerveStates/SetpointsOptimized", optimizedSetpointStates);
+  }
+  
   /** Stops the drive. */
   public void stop() {
     runVelocity(new ChassisSpeeds());
@@ -172,6 +189,11 @@ public class Drive extends SubsystemBase {
     for (int i = 0; i < 4; i++) {
       modules[i].runCharacterization(volts);
     }
+  }
+
+  //method for testing individual modules
+  public void runCharacterizationVoltsTestModules(double volts, int moduleNumber) {
+    modules[moduleNumber].runCharacterization(volts);
   }
 
   /** Returns the average drive velocity in radians/sec. */
