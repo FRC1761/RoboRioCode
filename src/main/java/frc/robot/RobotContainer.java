@@ -45,7 +45,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
  */
 public class RobotContainer {
   // Subsystems
-  public static final Drive drive;
+  public static Drive drive;
   private final Flywheel flywheel;
 
   // Controller
