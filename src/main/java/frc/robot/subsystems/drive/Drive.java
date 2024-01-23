@@ -149,7 +149,7 @@ public class Drive extends SubsystemBase {
     Logger.recordOutput("SwerveStates/SetpointsOptimized", optimizedSetpointStates);
   }
 
-  //method for testing individual modules
+  // method for testing individual modules
   public void runVelocityTestModules(ChassisSpeeds speeds, int moduleNumber) {
     // Calculate module setpoints
     ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
@@ -158,14 +158,14 @@ public class Drive extends SubsystemBase {
 
     // Send setpoints to modules
     SwerveModuleState[] optimizedSetpointStates = new SwerveModuleState[4];
-    optimizedSetpointStates[moduleNumber] = modules[moduleNumber].runSetpoint(setpointStates[moduleNumber]);
-    }
+    optimizedSetpointStates[moduleNumber] =
+        modules[moduleNumber].runSetpoint(setpointStates[moduleNumber]);
 
     // Log setpoint states
     Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
     Logger.recordOutput("SwerveStates/SetpointsOptimized", optimizedSetpointStates);
   }
-  
+
   /** Stops the drive. */
   public void stop() {
     runVelocity(new ChassisSpeeds());
@@ -191,7 +191,7 @@ public class Drive extends SubsystemBase {
     }
   }
 
-  //method for testing individual modules
+  // method for testing individual modules
   public void runCharacterizationVoltsTestModules(double volts, int moduleNumber) {
     modules[moduleNumber].runCharacterization(volts);
   }
