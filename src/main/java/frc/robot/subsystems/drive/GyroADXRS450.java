@@ -23,9 +23,9 @@ public class GyroADXRS450 implements GyroIO {
   public boolean connected = false;
   public Rotation2d yawPosition = new Rotation2d();
   public double yawVelocityRadPerSec = 0.0;
-  
+
   public GyroADXRS450() {
-        this.gyro.calibrate();
+    this.gyro.calibrate();
   }
 
   @Override
