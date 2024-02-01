@@ -1,5 +1,3 @@
-// Copyright 2021-2024 FRC 6328
-// http://github.com/Mechanical-Advantage
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -11,7 +9,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 
-package frc.robot.subsystems.flywheel;
+package frc.robot.subsystems.shooter;
 
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -25,15 +23,15 @@ import edu.wpi.first.math.util.Units;
  * NOTE: To use the Spark Flex / NEO Vortex, replace all instances of "CANSparkMax" with
  * "CANSparkFlex".
  */
-public class FlywheelIOSparkMax implements FlywheelIO {
-  private static final double GEAR_RATIO = 1.5;
+public class ShooterIOSparkMax implements ShooterIO {
+  private static final double GEAR_RATIO = 1.0;
 
   private final CANSparkMax leader = new CANSparkMax(9, MotorType.kBrushless);
   private final CANSparkMax follower = new CANSparkMax(10, MotorType.kBrushless);
   private final RelativeEncoder encoder = leader.getEncoder();
   private final SparkPIDController pid = leader.getPIDController();
 
-  public FlywheelIOSparkMax() {
+  public ShooterIOSparkMax() {
     leader.restoreFactoryDefaults();
     follower.restoreFactoryDefaults();
 
@@ -41,7 +39,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
     follower.setCANTimeout(250);
 
     leader.setInverted(false);
-    follower.follow(leader, false);
+    follower.follow(leader, true);
 
     leader.enableVoltageCompensation(12.0);
     leader.setSmartCurrentLimit(30);
@@ -51,7 +49,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
   }
 
   @Override
-  public void updateInputs(FlywheelIOInputs inputs) {
+  public void updateInputs(ShooterIOInputs inputs) {
     inputs.positionRad = Units.rotationsToRadians(encoder.getPosition() / GEAR_RATIO);
     inputs.velocityRadPerSec =
         Units.rotationsPerMinuteToRadiansPerSecond(encoder.getVelocity() / GEAR_RATIO);

@@ -11,7 +11,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 
-package frc.robot.subsystems.flywheel;
+package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.util.Units;
@@ -20,13 +20,13 @@ import frc.robot.Constants;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
-public class Flywheel extends SubsystemBase {
-  private final FlywheelIO io;
-  private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
+public class Shooter extends SubsystemBase {
+  private final ShooterIO io;
+  private final ShooterIOInputsAutoLogged inputs = new ShooterIOInputsAutoLogged();
   private final SimpleMotorFeedforward ffModel;
 
-  /** Creates a new Flywheel. */
-  public Flywheel(FlywheelIO io) {
+  /** Creates a new Shooter. */
+  public Shooter(ShooterIO io) {
     this.io = io;
 
     // Switch constants based on mode (the physics simulator is treated as a
@@ -50,7 +50,7 @@ public class Flywheel extends SubsystemBase {
   @Override
   public void periodic() {
     io.updateInputs(inputs);
-    Logger.processInputs("Flywheel", inputs);
+    Logger.processInputs("Shooter", inputs);
   }
 
   /** Run open loop at the specified voltage. */
@@ -63,11 +63,11 @@ public class Flywheel extends SubsystemBase {
     var velocityRadPerSec = Units.rotationsPerMinuteToRadiansPerSecond(velocityRPM);
     io.setVelocity(velocityRadPerSec, ffModel.calculate(velocityRadPerSec));
 
-    // Log flywheel setpoint
-    Logger.recordOutput("Flywheel/SetpointRPM", velocityRPM);
+    // Log shooter setpoint
+    Logger.recordOutput("Shooter/SetpointRPM", velocityRPM);
   }
 
-  /** Stops the flywheel. */
+  /** Stops the shooter. */
   public void stop() {
     io.stop();
   }
