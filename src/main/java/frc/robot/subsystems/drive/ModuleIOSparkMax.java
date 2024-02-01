@@ -35,9 +35,9 @@ import edu.wpi.first.wpilibj.RobotController;
  * "/Drive/ModuleX/TurnAbsolutePositionRad"
  */
 public class ModuleIOSparkMax implements ModuleIO {
-  // Gear ratios for SDS MK4i L2, adjust as necessary
-  private static final double DRIVE_GEAR_RATIO = (50.0 / 14.0) * (17.0 / 27.0) * (45.0 / 15.0);
-  private static final double TURN_GEAR_RATIO = 150.0 / 7.0;
+  // Adjusted for MAXSwerve Modules
+  private static final double DRIVE_GEAR_RATIO = (5.08 / 1);
+  private static final double TURN_GEAR_RATIO = (12 / 1) * (46.42 / 1);
 
   private final CANSparkMax driveSparkMax;
   private final CANSparkMax turnSparkMax;
@@ -55,25 +55,25 @@ public class ModuleIOSparkMax implements ModuleIO {
         driveSparkMax = new CANSparkMax(1, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(5, MotorType.kBrushless);
         turnAbsoluteEncoder = new AnalogInput(0);
-        absoluteEncoderOffset = new Rotation2d(-3.4348245061552105); // MUST BE CALIBRATED
+        absoluteEncoderOffset = new Rotation2d(0.9384781502724017); // MUST BE CALIBRATED
         break;
       case 1:
         driveSparkMax = new CANSparkMax(2, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(62, MotorType.kBrushless);
         turnAbsoluteEncoder = new AnalogInput(1);
-        absoluteEncoderOffset = new Rotation2d(0); // MUST BE CALIBRATED
+        absoluteEncoderOffset = new Rotation2d(-2.5226324480147326); // MUST BE CALIBRATED
         break;
       case 2:
         driveSparkMax = new CANSparkMax(3, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(7, MotorType.kBrushless);
         turnAbsoluteEncoder = new AnalogInput(2);
-        absoluteEncoderOffset = new Rotation2d(0); // MUST BE CALIBRATED
+        absoluteEncoderOffset = new Rotation2d(1.1152734600312952); // MUST BE CALIBRATED
         break;
       case 3:
         driveSparkMax = new CANSparkMax(4, MotorType.kBrushless);
-        turnSparkMax = new CANSparkMax(8, MotorType.kBrushless);
+        turnSparkMax = new CANSparkMax(28, MotorType.kBrushless);
         turnAbsoluteEncoder = new AnalogInput(3);
-        absoluteEncoderOffset = new Rotation2d(-3.4278432157788434); // MUST BE CALIBRATED
+        absoluteEncoderOffset = new Rotation2d(2.042221301607455); // MUST BE CALIBRATED
         break;
       default:
         throw new RuntimeException("Invalid module index");
