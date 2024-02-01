@@ -48,7 +48,14 @@ public class Module {
       case REPLAY:
         driveFeedforward = new SimpleMotorFeedforward(0.1, 0.13);
         driveFeedback = new PIDController(0.05, 0.0, 0.0);
-        turnFeedback = new PIDController(7.0, 0.0, 0.0);
+        turnFeedback = new PIDController(1.4, 1, 0);
+        /*
+         * Attempted P values: 7, 28, 17.5, 10, 1, 150, 100, 70, 40, 15
+         * Attempted I values: 0, 2, 3, 0.8, 7, 17, 1
+         * Attempted D values: 0, 3, 2
+         *
+         *
+         */
         break;
       case SIM:
         driveFeedforward = new SimpleMotorFeedforward(0.0, 0.13);
