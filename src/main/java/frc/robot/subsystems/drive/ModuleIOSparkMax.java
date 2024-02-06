@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj.RobotController;
 public class ModuleIOSparkMax implements ModuleIO {
   // Adjusted for MAXSwerve Modules
   private static final double DRIVE_GEAR_RATIO = (5.08 / 1);
-  private static final double TURN_GEAR_RATIO = (12 / 1) * (46.42 / 1);
+  private static final double TURN_GEAR_RATIO = (9424 / 203);
 
   private final CANSparkMax driveSparkMax;
   private final CANSparkMax turnSparkMax;
