@@ -173,3 +173,7 @@ simgui*.json
 
 # Version file
 src/main/java/frc/robot/BuildConstants.java
+
+# Hey, it's alek once again, returning for the Crescendo 2024 season. Things are looking up for FRC 1761... We'll see
+.wpilib/
+.github/workflows/
