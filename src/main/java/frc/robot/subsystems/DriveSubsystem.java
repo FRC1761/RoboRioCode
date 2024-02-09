@@ -8,8 +8,10 @@ package frc.robot.subsystems;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.inputs.LoggableInputs;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
@@ -82,8 +84,19 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    
+    Logger.recordOutput("Odometry/m_frontLeft/rot", m_frontLeft.getPosition().angle);
+    Logger.recordOutput("Odometry/m_frontRight/rot", m_frontRight.getPosition().angle);
+    Logger.recordOutput("Odometry/m_rearLeft/rot", m_rearLeft.getPosition().angle);
+    Logger.recordOutput("Odometry/m_rearRight/rot", m_rearRight.getPosition().angle);
+    
+    Logger.recordOutput("Odometry/m_frontLeft/pos", m_frontLeft.getPosition().distanceMeters);
+    Logger.recordOutput("Odometry/m_frontRight/pos", m_frontRight.getPosition().distanceMeters);
+    Logger.recordOutput("Odometry/m_rearLeft/pos", m_rearLeft.getPosition().distanceMeters);
+    Logger.recordOutput("Odometry/m_rearRight/pos", m_rearRight.getPosition().distanceMeters);
+    
+
     // Update the odometry in the periodic block
-    @AutoLogOut
     m_odometry.update(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {
@@ -91,7 +104,7 @@ public class DriveSubsystem extends SubsystemBase {
             m_frontRight.getPosition(),
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
-        });
+        });   
   }
 
   /**
