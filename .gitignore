@@ -169,7 +169,7 @@ out/
 .fleet
 
 # Simulation GUI and other tools window save file
-simgui*.json
+*-window.json
 
 # Version file
 src/main/java/frc/robot/BuildConstants.java
@@ -177,3 +177,9 @@ src/main/java/frc/robot/BuildConstants.java
 # Hey, it's alek once again, returning for the Crescendo 2024 season. Things are looking up for FRC 1761... We'll see
 .wpilib/
 .github/workflows/
+# Simulation data log directory
+logs/
+
+# Folder that has CTRE Phoenix Sim device config storage
+ctre_sim/
+src/main/java/frc/robot/BuildConstants.java

@@ -1,158 +1,79 @@
-// Copyright 2021-2024 FRC 6328
-// http://github.com/Mechanical-Advantage
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// version 3 as published by the Free Software Foundation or
-// available in the root directory of this project.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.DriveCommands;
-import frc.robot.commands.FeedForwardCharacterization;
-import frc.robot.subsystems.drive.Drive;
-import frc.robot.subsystems.drive.GyroADXRS450;
-import frc.robot.subsystems.drive.GyroIO;
-import frc.robot.subsystems.drive.ModuleIO;
-import frc.robot.subsystems.drive.ModuleIOSim;
-import frc.robot.subsystems.drive.ModuleIOSparkMax;
-import frc.robot.subsystems.shooter.Shooter;
-import frc.robot.subsystems.shooter.ShooterIO;
-import frc.robot.subsystems.shooter.ShooterIOSim;
-import frc.robot.subsystems.shooter.ShooterIOSparkMax;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import java.util.List;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
+import org.littletonrobotics.junction.AutoLog;
+
+/*
+ * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
+ * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
+ * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // Subsystems
-  public static Drive drive;
-  private final Shooter shooter;
+  // The robot's subsystems
+  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
-  // Controller
-  private final CommandXboxController controller = new CommandXboxController(0);
+  // The driver's controller
+  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
-  // Dashboard inputs
-  private final LoggedDashboardChooser<Command> autoChooser;
-  private final LoggedDashboardNumber shooterSpeedInput =
-      new LoggedDashboardNumber("Shooter Speed", 1500.0);
-
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
-    switch (Constants.currentMode) {
-      case REAL:
-        // Real robot, instantiate hardware IO implementations
-        drive =
-            new Drive(
-                new GyroADXRS450(),
-                new ModuleIOSparkMax(0),
-                new ModuleIOSparkMax(1),
-                new ModuleIOSparkMax(2),
-                new ModuleIOSparkMax(3));
-        shooter = new Shooter(new ShooterIOSparkMax());
-        // drive = new Drive(
-        // new GyroIOPigeon2(),
-        // new ModuleIOTalonFX(0),
-        // new ModuleIOTalonFX(1),
-        // new ModuleIOTalonFX(2),
-        // new ModuleIOTalonFX(3));
-        // shooter = new Shooter(new ShooterIOTalonFX());
-        break;
-
-      case SIM:
-        // Sim robot, instantiate physics sim IO implementations
-        drive =
-            new Drive(
-                new GyroIO() {},
-                new ModuleIOSim(),
-                new ModuleIOSim(),
-                new ModuleIOSim(),
-                new ModuleIOSim());
-        shooter = new Shooter(new ShooterIOSim());
-        break;
-
-      default:
-        // Replayed robot, disable IO implementations
-        drive =
-            new Drive(
-                new GyroIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {});
-        shooter = new Shooter(new ShooterIO() {});
-        break;
-    }
-
-    // Set up auto routines
-    NamedCommands.registerCommand(
-        "Run Shooter",
-        Commands.startEnd(
-                () -> shooter.runVelocity(shooterSpeedInput.get()), shooter::stop, shooter)
-            .withTimeout(5.0));
-    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-
-    // Set up feedforward characterization
-    autoChooser.addOption(
-        "Drive FF Characterization",
-        new FeedForwardCharacterization(
-            drive, drive::runCharacterizationVolts, drive::getCharacterizationVelocity));
-    autoChooser.addOption(
-        "Shooter FF Characterization",
-        new FeedForwardCharacterization(
-            shooter, shooter::runVolts, shooter::getCharacterizationVelocity));
-
     // Configure the button bindings
     configureButtonBindings();
+
+    // Configure default commands
+    m_robotDrive.setDefaultCommand(
+        // The left stick controls translation of the robot.
+        // Turning is controlled by the X axis of the right stick.
+        new RunCommand(
+            () -> m_robotDrive.drive(
+                -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+                -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
+                true, true),
+            m_robotDrive));
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
+   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its
+   * subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling
+   * passing it to a
+   * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    drive.setDefaultCommand(
-        DriveCommands.joystickDrive(
-            drive,
-            () -> -controller.getLeftY(),
-            () -> -controller.getLeftX(),
-            () -> -controller.getRightX()));
-    controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
-    controller
-        .b()
-        .onTrue(
-            Commands.runOnce(
-                    () ->
-                        drive.setPose(
-                            new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
-                    drive)
-                .ignoringDisable(true));
-    controller
-        .a()
-        .whileTrue(
-            Commands.startEnd(
-                () -> shooter.runVelocity(shooterSpeedInput.get()), shooter::stop, shooter));
+    new JoystickButton(m_driverController, Button.kR1.value)
+        .whileTrue(new RunCommand(
+            () -> m_robotDrive.setX(),
+            m_robotDrive));
   }
 
   /**
@@ -161,6 +82,43 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.get();
+    // Create config for trajectory
+    TrajectoryConfig config = new TrajectoryConfig(
+        AutoConstants.kMaxSpeedMetersPerSecond,
+        AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+        // Add kinematics to ensure max speed is actually obeyed
+        .setKinematics(DriveConstants.kDriveKinematics);
+
+    // An example trajectory to follow. All units in meters.
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)),
+        config);
+
+    var thetaController = new ProfiledPIDController(
+        AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+        exampleTrajectory,
+        m_robotDrive::getPose, // Functional interface to feed supplier
+        DriveConstants.kDriveKinematics,
+
+        // Position controllers
+        new PIDController(AutoConstants.kPXController, 0, 0),
+        new PIDController(AutoConstants.kPYController, 0, 0),
+        thetaController,
+        m_robotDrive::setModuleStates,
+        m_robotDrive);
+
+    // Reset odometry to the starting pose of the trajectory.
+    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+
+    // Run path following command, then stop at the end.
+    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
   }
 }
