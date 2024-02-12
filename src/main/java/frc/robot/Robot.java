@@ -11,10 +11,13 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,7 +29,8 @@ public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-
+  private DigitalOutput redLED,blueLED,greenLED;
+  private XboxController controller;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -36,7 +40,11 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    
+    redLED = new DigitalOutput(0);
+    redLED.set(true);
+    blueLED = new DigitalOutput(1);
+    greenLED = new DigitalOutput(2);
+    controller =  new XboxController(0);
     Logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
 
 if (isReal()) {
@@ -112,7 +120,17 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    if(controller.getAButton()) redLED.set(true);
+    else redLED.set(false);
+    
+    if(controller.getBButton()) blueLED.set(true);
+    else blueLED.set(false);
+    
+    if(controller.getXButton()) greenLED.set(true);
+    else greenLED.set(false);
+    
+  }
 
   @Override
   public void testInit() {
