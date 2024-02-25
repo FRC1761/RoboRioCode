@@ -19,6 +19,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -36,6 +37,7 @@ import org.littletonrobotics.junction.AutoLog;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final ShooterSubsystem m_shooterDrive = new ShooterSubsystem();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -58,6 +60,12 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 true, true),
             m_robotDrive));
+
+    m_shooterDrive.setDefaultCommand(
+        new RunCommand(
+            () -> m_shooterDrive.drive((
+                m_driverController.getLeftBumper() == true) ? 1 : 0),
+            m_shooterDrive));
   }
 
   /**
@@ -74,6 +82,11 @@ public class RobotContainer {
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
+            
+    // new JoystickButton(m_driverController, Button.kL1.value)
+    //     .whileTrue(new RunCommand(
+    //         () -> m_shooterDrive.drive(1),
+    //         m_shooterDrive));
   }
 
   /**
