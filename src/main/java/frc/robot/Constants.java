@@ -64,11 +64,11 @@ public final class Constants {
     public static final boolean kGyroReversed = true;    
   }
   public static final class ShooterConstants{
-    public static final int kLeftShooterCanId = 11;
-    public static final int kRightShooterCanId = 12;
+    public static final int kLeftShooterCanId = 11; //spark driving neo
+    public static final int kRightShooterCanId = 12; //spark driving neo
+    public static final int kArmActuationCanId = 21; //spark driving neo
 
-    public static final int kArmActuationCanId = 21;
-    
+    public static final int kIntakeCanId = 1761;  //for talon yet to be determined
   }
 
   public static final class ModuleConstants {
