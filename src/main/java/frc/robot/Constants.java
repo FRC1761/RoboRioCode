@@ -65,10 +65,37 @@ public final class Constants {
   }
   public static final class ShooterConstants{
     public static final int kLeftShooterCanId = 11; //spark driving neo
-    public static final int kRightShooterCanId = 12; //spark driving neo
-    public static final int kArmActuationCanId = 21; //spark driving neo
+    public static final int kRightShooterCanId = 12; //spark driving neo    
+  }
+
+  public static final class IntakeConstants {
+    //TODO values that are unknown are assigned 1761 for now
+    public static final int kArmPivotCanId = 21; //spark driving neo
+    // the following encoder ID would only be used if we used roborio inputs
+    //but we are currently using encoder off SparkMax ArmPivotCanId
+    //public static final int kArmPivotEncoderId = 21; //spark driving neo
 
     public static final int kIntakeCanId = 1761;  //for talon yet to be determined
+    public static final int kIntakeLimitSwitchId=1761; //not wired 
+    //TODO check if pivot angles need to be in degrees or rotations
+    // because we don't mod our angles and our encoder gives us rotations
+    // Cranberry set these with degrees but they might convert targets somewhere 
+    // in intake subsystem.  Also I would prefer rotations since we could set these
+    // with exact readings from absolute encoder off the sparkmax 
+    public static final double k_pivotAngleGround = 0; //still waiting for gus to text me this value
+    public static final double k_pivotAngleAmp = 0; //need an amp to test for best angle for this
+    public static final double k_pivotAngleSource = k_pivotAngleAmp; //assuming same as amp for now 
+    public static final double k_pivotAngleStow = 0; //still waiting for gus to text me this value
+
+    //speed for intake based on values from -1 to 1
+    public static final double k_intakeSpeed = .75;
+    public static final double k_ejectSpeed = -.45;
+    //basing Shooter Feed 
+    public static final double k_feedShooterSpeed = -.75;
+
+    //not sure we will use this as we used the SparkMax to set offset of encoder to 0
+    // in the upright position
+    public static final double k_pivotEncoderOffset= 0;
   }
 
   public static final class ModuleConstants {
