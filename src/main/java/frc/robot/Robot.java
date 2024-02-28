@@ -16,11 +16,11 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+//import edu.wpi.first.wpilibj2.command.Subsystem;
+//import frc.robot.subsystems.DriveSubsystem;
+//import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
+//import edu.wpi.first.wpilibj.XboxController.Button;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -34,6 +34,7 @@ public class Robot extends LoggedRobot {
   private RobotContainer m_robotContainer;
   private DigitalOutput redLED,blueLED,greenLED;
   private XboxController controller;
+  private PowerDistribution PD;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -53,7 +54,8 @@ public class Robot extends LoggedRobot {
 if (isReal()) {
     Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
     Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
-    new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
+    PD = new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
+    PD.clearStickyFaults();
 } else {
     setUseTiming(false); // Run as fast as possible
     String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)

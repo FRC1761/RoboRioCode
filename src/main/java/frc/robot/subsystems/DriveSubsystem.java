@@ -4,9 +4,9 @@
 
 package frc.robot.subsystems;
 
-
-import org.littletonrobotics.junction.AutoLog;
-import org.littletonrobotics.junction.AutoLogOutput;
+/**/ 
+import org.littletonrobotics.junction.*;
+/*import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.LoggedRobot;
@@ -15,7 +15,7 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-
+/**/
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -24,9 +24,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.networktables.PubSubOptions;
 import edu.wpi.first.util.WPIUtilJNI;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;

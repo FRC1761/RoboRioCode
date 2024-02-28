@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 
-import org.littletonrobotics.junction.AutoLog;
+//import org.littletonrobotics.junction.AutoLog;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
