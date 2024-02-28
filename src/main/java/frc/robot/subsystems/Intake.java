@@ -5,11 +5,12 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
-
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
-//import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.util.Color;
@@ -43,15 +44,15 @@ public class Intake extends SubsystemBase {
     return mInstance;
   }
 
-  private CANSparkMax mIntakeMotor;
+  private TalonSRX mIntakeMotor;
   private CANSparkMax mPivotMotor;
 
   private Intake() {
     super("Intake");
 
-    mIntakeMotor = new CANSparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
-    mIntakeMotor.restoreFactoryDefaults();
-    mIntakeMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    mIntakeMotor = new TalonSRX(IntakeConstants.kIntakeCanId);
+    mIntakeMotor.configFactoryDefault();
+    mIntakeMotor.setNeutralMode(NeutralMode.Coast);
 
     mPivotMotor = new CANSparkMax(IntakeConstants.kArmPivotCanId, MotorType.kBrushless);
     mPivotMotor.restoreFactoryDefaults();
@@ -111,7 +112,7 @@ public class Intake extends SubsystemBase {
 
   public void writePeriodicOutputs() {
     mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);
-    mIntakeMotor.set(m_periodicIO.intake_speed);
+    mIntakeMotor.set(TalonSRXControlMode.PercentOutput,m_periodicIO.intake_speed);
   }
 
   public void stop() {

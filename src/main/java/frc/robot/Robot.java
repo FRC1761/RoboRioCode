@@ -16,6 +16,9 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.controls.controllers.DriverController;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Intake.IntakeState;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 //import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.subsystems.ShooterSubsystem;
@@ -34,7 +37,10 @@ public class Robot extends LoggedRobot {
   private RobotContainer m_robotContainer;
   private DigitalOutput redLED,blueLED,greenLED;
   private XboxController controller;
+  private Intake m_intake;
   private PowerDistribution PD;
+  private DriverController m_driverController = new DriverController(0);
+  private boolean isIntakeAttached = false;  //TODO need to attach and TEST INTAKE!!!!
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -49,8 +55,11 @@ public class Robot extends LoggedRobot {
     blueLED = new DigitalOutput(1);
     greenLED = new DigitalOutput(2);
     controller =  new XboxController(0);
+    m_driverController = new DriverController(0);
     Logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
-
+if(isIntakeAttached){
+  m_intake = Intake.getInstance();  
+}
 if (isReal()) {
     Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
     Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
@@ -134,7 +143,26 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
     
     if(controller.getXButton()) greenLED.set(true);
     else greenLED.set(false);
-    
+
+    if(isIntakeAttached){    
+      if (m_driverController.getWantsFullIntake()) {
+        m_intake.goToGround();
+      } else if (m_driverController.getWantsIntake()) {
+        if (m_intake.getIntakeHasNote()) {
+          m_intake.pulse();
+        } else {
+          m_intake.intake();
+        }
+      } else if (m_driverController.getWantsEject()) {
+        m_intake.eject();
+      } else if (m_driverController.getWantsSource()) {
+        m_intake.goToSource();
+      } else if (m_driverController.getWantsStow()) {
+      m_intake.goToStow();
+      } else if (m_intake.getIntakeState() != IntakeState.INTAKE) {
+        m_intake.stopIntake();
+      }
+    }
   }
 
   @Override

@@ -69,14 +69,13 @@ public final class Constants {
   }
 
   public static final class IntakeConstants {
-    //TODO values that are unknown are assigned 1761 for now
     public static final int kArmPivotCanId = 21; //spark driving neo
     // the following encoder ID would only be used if we used roborio inputs
     //but we are currently using encoder off SparkMax ArmPivotCanId
     //public static final int kArmPivotEncoderId = 21; //spark driving neo
 
-    public static final int kIntakeCanId = 1761;  //for talon yet to be determined
-    public static final int kIntakeLimitSwitchId=1761; //not wired 
+    public static final int kIntakeCanId = 1761;  //TODO IntakeCanId needed
+    public static final int kIntakeLimitSwitchId=1761; //TODO IntakeLimitSwitch needed to be wired
     //TODO check if pivot angles need to be in degrees or rotations
     // because we don't mod our angles and our encoder gives us rotations
     // Cranberry set these with degrees but they might convert targets somewhere 
