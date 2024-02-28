@@ -82,10 +82,10 @@ public final class Constants {
     // Cranberry set these with degrees but they might convert targets somewhere 
     // in intake subsystem.  Also I would prefer rotations since we could set these
     // with exact readings from absolute encoder off the sparkmax 
-    public static final double k_pivotAngleGround = 0; //still waiting for gus to text me this value
+    public static final double k_pivotAngleGround = 131; //.364 rots from encoder
     public static final double k_pivotAngleAmp = 0; //need an amp to test for best angle for this
     public static final double k_pivotAngleSource = k_pivotAngleAmp; //assuming same as amp for now 
-    public static final double k_pivotAngleStow = 0; //still waiting for gus to text me this value
+    public static final double k_pivotAngleStow = 279; //.775 rots from encoder
 
     //speed for intake based on values from -1 to 1
     public static final double k_intakeSpeed = .75;
