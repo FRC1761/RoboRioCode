@@ -5,6 +5,9 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+
+import java.io.WriteAbortedException;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -108,7 +111,9 @@ public class Intake extends SubsystemBase {
     // Intake control
     m_periodicIO.intake_speed = intakeStateToSpeed(m_periodicIO.intake_state);
     SmartDashboard.putString("State", m_periodicIO.intake_state.toString());
-  }
+    writePeriodicOutputs();
+    outputTelemetry();
+  } //end periodic
 
   public void writePeriodicOutputs() {
     mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);

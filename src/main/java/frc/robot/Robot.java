@@ -90,6 +90,11 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    //TODO Need to make sure all other periodic functions from Crans Code  
+    //    Subsystems are put into periodic function 
+    // writePeriodicOutputs
+    // outputTelemetry
+    // writeToLog
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
