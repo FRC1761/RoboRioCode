@@ -74,8 +74,8 @@ public final class Constants {
     //but we are currently using encoder off SparkMax ArmPivotCanId
     //public static final int kArmPivotEncoderId = 21; //spark driving neo
 
-    public static final int kIntakeCanId = 1761;  //TODO IntakeCanId needed
-    public static final int kIntakeLimitSwitchId=1761; //TODO IntakeLimitSwitch needed to be wired
+    public static final int kIntakeCanId = 25;
+    public static final int kIntakeLimitSwitchId=4;
     //TODO check if pivot angles need to be in degrees or rotations
     // because we don't mod our angles and our encoder gives us rotations
     // Cranberry set these with degrees but they might convert targets somewhere 
@@ -99,8 +99,8 @@ public final class Constants {
   
   public static final class ClimberConstants {
       // Climber
-      public static final int kClimberLeftMotorId = 14;
-      public static final int kClimberRightMotorId = 15;
+      public static final int kClimberLeftMotorId = 6;
+      public static final int kClimberRightMotorId = 7;
       public static final double kClimberClimbPower = .8; // Power Output
       public static final double kClimberReleasePower = -.5; // Power Output
 
@@ -113,6 +113,13 @@ public final class Constants {
 /* */
       public static final double kClimberMaxOutput = 0.5;
   }
+
+  public static final class LEDConstants{
+    public static final int RedIOPort   = 0;
+    public static final int GreenIOPort = 2;
+    public static final int BlueIOPort  = 1;
+  }
+
   public static final class ModuleConstants {
     // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
     // This changes the drive speed of the module (a pinion gear with more teeth will result in a
