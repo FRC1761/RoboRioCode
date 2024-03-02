@@ -193,7 +193,8 @@ public class Intake extends SubsystemBase {
     //getPosition should return rotations just like 
     //former code DutyCycleEncoder.getAbsolutePosition.  
     double value = m_pivotEncoder.getPosition() -
-        IntakeConstants.k_pivotEncoderOffset + 0.5; //TODO why do they add .5 here?
+        IntakeConstants.k_pivotEncoderOffset + 0.5; /*TODO why do they add .5 here?
+         Did they mount the coder upside down? */
 
     return value;
   }
