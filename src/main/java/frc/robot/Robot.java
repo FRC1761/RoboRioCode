@@ -11,7 +11,6 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,7 +21,6 @@ import frc.robot.subsystems.Intake.IntakeState;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 //import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.subsystems.ShooterSubsystem;
-import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj.XboxController.Button;
 
 /**
@@ -35,8 +33,6 @@ public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private DigitalOutput redLED,blueLED,greenLED;
-  private XboxController controller;
   private Intake m_intake;
   private PowerDistribution PD;
   private DriverController m_driverController = new DriverController(0);
@@ -50,11 +46,6 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    redLED = new DigitalOutput(0);
-    redLED.set(true);
-    blueLED = new DigitalOutput(1);
-    greenLED = new DigitalOutput(2);
-    controller =  new XboxController(0);
     m_driverController = new DriverController(0);
     Logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
 if(isIntakeAttached){
@@ -140,15 +131,6 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if(controller.getAButton()) redLED.set(true);
-    else redLED.set(false);
-    
-    if(controller.getBButton()) blueLED.set(true);
-    else blueLED.set(false);
-    
-    if(controller.getXButton()) greenLED.set(true);
-    else greenLED.set(false);
-
     if(isIntakeAttached){    
       if (m_driverController.getWantsFullIntake()) {
         m_intake.goToGround();
