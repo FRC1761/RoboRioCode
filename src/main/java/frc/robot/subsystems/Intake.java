@@ -5,14 +5,11 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
-
-import java.io.WriteAbortedException;
-
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,7 +26,8 @@ public class Intake extends SubsystemBase {
   private static final double k_pivotMotorI = 0.0;
   private static final double k_pivotMotorD = 0.001; 
 
-  private final PIDController m_pivotPID = new PIDController(k_pivotMotorP, k_pivotMotorI, k_pivotMotorD);
+  private final SparkPIDController mPivotPID;
+  //private final PIDController m_pivotPID = new PIDController(k_pivotMotorP, k_pivotMotorI, k_pivotMotorD);
 
   //private final DutyCycleEncoder m_pivotEncoder = new DutyCycleEncoder(IntakeConstants.kArmPivotEncoderId);
   private final AbsoluteEncoder m_pivotEncoder;
@@ -62,6 +60,11 @@ public class Intake extends SubsystemBase {
     mPivotMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     mPivotMotor.setSmartCurrentLimit(10);
 
+    mPivotPID = mPivotMotor.getPIDController();
+    mPivotPID.setP(k_pivotMotorP);
+    mPivotPID.setI(k_pivotMotorI);
+    mPivotPID.setD(k_pivotMotorD);
+    mPivotPID.setFeedbackDevice(mPivotMotor.getAbsoluteEncoder());
     m_pivotEncoder = mPivotMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
     m_periodicIO = new PeriodicIO();
@@ -101,11 +104,13 @@ public class Intake extends SubsystemBase {
 
     // Pivot control
     double pivot_angle = pivotTargetToAngle(m_periodicIO.pivot_target);
-    m_periodicIO.intake_pivot_voltage = m_pivotPID.calculate(getPivotAngleDegrees(), pivot_angle);
-
+    mPivotPID.setReference(pivot_angle,ControlType.kPosition);
+//mPivotPID.
     // If the pivot is at exactly 0.0, it's probably not connected, so disable it
     if (m_pivotEncoder.getPosition() == 0.0) {
-      m_periodicIO.intake_pivot_voltage = 0.0;
+      //TODO need to learn how to stop PID controller in this case
+      //I think this should work 
+      mPivotPID.setReference(0.0,ControlType.kPosition);
     }
 
     // Intake control
@@ -116,7 +121,8 @@ public class Intake extends SubsystemBase {
   } //end periodic
 
   public void writePeriodicOutputs() {
-    mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);
+    mPivotPID.setReference(m_periodicIO.intake_pivot_voltage,CANSparkMax.ControlType.kVoltage);
+    //mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);
     mIntakeMotor.set(TalonSRXControlMode.PercentOutput,m_periodicIO.intake_speed);
   }
 
@@ -128,7 +134,7 @@ public class Intake extends SubsystemBase {
   public void outputTelemetry() {
     SmartDashboard.putNumber("Speed", intakeStateToSpeed(m_periodicIO.intake_state));
     SmartDashboard.putNumber("Pivot/Abs Enc (getPosition)", m_pivotEncoder.getPosition());
-    SmartDashboard.putNumber("Pivot/Abs Enc (getPivotAngleDegrees)", getPivotAngleDegrees());
+    SmartDashboard.putNumber("Pivot/Abs Enc (getPivotAngle)", getPivotAngle());
     SmartDashboard.putNumber("Pivot/Setpoint", pivotTargetToAngle(m_periodicIO.pivot_target));
 
     SmartDashboard.putNumber("Pivot/Power", m_periodicIO.intake_pivot_voltage);
@@ -183,13 +189,13 @@ public class Intake extends SubsystemBase {
     return m_periodicIO.intake_state;
   }
 
-  public double getPivotAngleDegrees() {
+  public double getPivotAngle() {
     //getPosition should return rotations just like 
     //former code DutyCycleEncoder.getAbsolutePosition.  
     double value = m_pivotEncoder.getPosition() -
-        IntakeConstants.k_pivotEncoderOffset + 0.5;
+        IntakeConstants.k_pivotEncoderOffset + 0.5; //TODO why do they add .5 here?
 
-    return Units.rotationsToDegrees(value);
+    return value;
   }
 
   public boolean getIntakeHasNote() {
@@ -263,6 +269,7 @@ public class Intake extends SubsystemBase {
   }
 
   private boolean isPivotAtTarget() {
-    return Math.abs(getPivotAngleDegrees() - pivotTargetToAngle(m_periodicIO.pivot_target)) < 5;
+    //TODO need to recheck tolerance here. It was < 5 degrees (we use rotations)
+    return Math.abs(getPivotAngle() - pivotTargetToAngle(m_periodicIO.pivot_target)) < 5.0/360;
   }
 }

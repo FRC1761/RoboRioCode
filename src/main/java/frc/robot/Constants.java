@@ -81,10 +81,10 @@ public final class Constants {
     // Cranberry set these with degrees but they might convert targets somewhere 
     // in intake subsystem.  Also I would prefer rotations since we could set these
     // with exact readings from absolute encoder off the sparkmax 
-    public static final double k_pivotAngleGround = 131; //.364 rots from encoder
+    public static final double k_pivotAngleGround = .364; //131 degreesfrom encoder
     public static final double k_pivotAngleAmp = 0; //need an amp to test for best angle for this
     public static final double k_pivotAngleSource = k_pivotAngleAmp; //assuming same as amp for now 
-    public static final double k_pivotAngleStow = 279; //.775 rots from encoder
+    public static final double k_pivotAngleStow = .775; //279 degreesfrom encoder
 
     //speed for intake based on values from -1 to 1
     public static final double k_intakeSpeed = .75;
@@ -96,7 +96,23 @@ public final class Constants {
     // in the upright position
     public static final double k_pivotEncoderOffset= 0;
   }
+  
+  public static final class ClimberConstants {
+      // Climber
+      public static final int kClimberLeftMotorId = 14;
+      public static final int kClimberRightMotorId = 15;
+      public static final double kClimberClimbSpeed = 600.0; // RPM
+      public static final double kClimberReleaseSpeed = -600.0; // RPM
 
+      public static final double kClimberGearRatio = 1.0 / 12.0;
+
+      public static final double kClimberP = 0.001;
+      public static final double kClimberI = 0.0;
+      public static final double kClimberD = 0.0;
+      public static final double kClimberMinOutput = -0.5;
+
+      public static final double kClimberMaxOutput = 0.5;
+  }
   public static final class ModuleConstants {
     // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
     // This changes the drive speed of the module (a pinion gear with more teeth will result in a
