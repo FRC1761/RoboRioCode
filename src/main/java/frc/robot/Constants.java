@@ -101,16 +101,16 @@ public final class Constants {
       // Climber
       public static final int kClimberLeftMotorId = 14;
       public static final int kClimberRightMotorId = 15;
-      public static final double kClimberClimbSpeed = 600.0; // RPM
-      public static final double kClimberReleaseSpeed = -600.0; // RPM
+      public static final double kClimberClimbPower = .8; // Power Output
+      public static final double kClimberReleasePower = -.5; // Power Output
 
       public static final double kClimberGearRatio = 1.0 / 12.0;
-
+/* 
       public static final double kClimberP = 0.001;
       public static final double kClimberI = 0.0;
       public static final double kClimberD = 0.0;
       public static final double kClimberMinOutput = -0.5;
-
+/* */
       public static final double kClimberMaxOutput = 0.5;
   }
   public static final class ModuleConstants {
