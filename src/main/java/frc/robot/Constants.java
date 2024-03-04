@@ -65,7 +65,16 @@ public final class Constants {
   }
   public static final class ShooterConstants{
     public static final int kLeftShooterCanId = 11; //spark driving neo
-    public static final int kRightShooterCanId = 12; //spark driving neo    
+    public static final int kRightShooterCanId = 12; //spark driving neo
+    
+    public static final double kShooterP = 0.00005;
+    public static final double kShooterI = 0.0;
+    public static final double kShooterD = 0.0;
+    public static final double kShooterFF = 0.0002;
+  
+    public static final double kShooterMinOutput = 0;
+    public static final double kShooterMaxOutput = 1;
+    
   }
 
   public static final class IntakeConstants {
@@ -173,6 +182,9 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kGunnerControllerPort = 1;
+    public static final int kTestControllerPort = 3;
+    
     public static final double kDriveDeadband = 0.05;
   }
 

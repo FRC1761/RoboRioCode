@@ -16,7 +16,6 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterLeft.setInverted(false);
         shooterRight.setInverted(true);
     }
-
     public void drive(double speed){
         shooterLeft.set(speed);
         shooterRight.set(speed);
