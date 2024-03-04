@@ -10,7 +10,7 @@ import com.revrobotics.SparkPIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ShooterConstants;
-//TODO update Shooter to match Cranberry's speed controlled Version (this one)
+//TODO update Robot to use SCShooter to match Cranberry's speed controlled Version (this one)
 public class SCShooter extends SubsystemBase {
 
   /*-------------------------------- Private instance variables ---------------------------------*/
