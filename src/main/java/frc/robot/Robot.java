@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.controls.controllers.DriverController;
+import frc.robot.controls.controllers.OperatorController;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Intake.IntakeState;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -34,9 +36,12 @@ public class Robot extends LoggedRobot {
 
   private RobotContainer m_robotContainer;
   private Intake m_intake;
+  private boolean isIntakeAttached = false;  //TODO need to attach and TEST INTAKE!!!!
+  private Climber m_climber;
+  private boolean isClimberAttached = false; //TODO need to attach climber and TEST!!!
   private PowerDistribution PD;
   private DriverController m_driverController = new DriverController(0);
-  private boolean isIntakeAttached = false;  //TODO need to attach and TEST INTAKE!!!!
+  private OperatorController m_operatorController = new OperatorController(1);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -50,6 +55,9 @@ public class Robot extends LoggedRobot {
     Logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
 if(isIntakeAttached){
   m_intake = Intake.getInstance();  
+}
+if(isClimberAttached){
+  m_climber = Climber.getInstance();
 }
 if (isReal()) {
     Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
@@ -81,11 +89,6 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    //TODO Need to make sure all other periodic functions from Crans Code  
-    //    Subsystems are put into periodic function 
-    // writePeriodicOutputs
-    // outputTelemetry
-    // writeToLog
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -148,6 +151,21 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
       m_intake.goToStow();
       } else if (m_intake.getIntakeState() != IntakeState.INTAKE) {
         m_intake.stopIntake();
+      }
+    }
+    
+    if(isClimberAttached){
+      // Climber
+      if (m_operatorController.getWantsClimberClimb()) {
+        m_climber.climb();
+      } else if (m_operatorController.getWantsClimberRelease()) {
+        m_climber.release();
+      } else if (m_operatorController.getWantsClimberTiltLeft()) {
+        m_climber.tiltLeft();
+      } else if (m_operatorController.getWantsClimberTiltRight()) {
+        m_climber.tiltRight();
+      } else {
+        m_climber.stopClimber();
       }
     }
   }
