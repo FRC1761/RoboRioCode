@@ -111,6 +111,7 @@ public class Intake extends SubsystemBase {
       //TODO need to learn how to stop PID controller in this case
       //I think this should work 
       mPivotPID.setReference(0.0,ControlType.kPosition);
+      System.out.println("OOPs no pivotEncoder pivot is set to ");
     }
 
     // Intake control
