@@ -13,6 +13,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.controls.controllers.DriverController;
@@ -36,9 +37,9 @@ public class Robot extends LoggedRobot {
 
   private RobotContainer m_robotContainer;
   private Intake m_intake;
-  private boolean isIntakeAttached = false;  //TODO need to attach and TEST INTAKE!!!!
+  private boolean isIntakeAttached = true;  //TODO need to attach and TEST INTAKE!!!!
   private Climber m_climber;
-  private boolean isClimberAttached = false; //TODO need to attach climber and TEST!!!
+  private boolean isClimberAttached = true; //TODO need to attach climber and TEST!!!
   private PowerDistribution PD;
   private DriverController m_driverController = new DriverController(0);
   private OperatorController m_operatorController = new OperatorController(1);
@@ -135,20 +136,22 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
   @Override
   public void teleopPeriodic() {
     if(isIntakeAttached){    
-      if (m_driverController.getWantsFullIntake()) {
+      if (m_operatorController.getWantsFullIntake()) {
         m_intake.goToGround();
-      } else if (m_driverController.getWantsIntake()) {
+        System.out.println("trying to go to Ground");
+      } else if (m_operator.getWantsIntake()) {
         if (m_intake.getIntakeHasNote()) {
           m_intake.pulse();
         } else {
           m_intake.intake();
         }
-      } else if (m_driverController.getWantsEject()) {
+      } else if (m_operatorController.getWantsEject()) {
         m_intake.eject();
-      } else if (m_driverController.getWantsSource()) {
+      } else if (m_operatorController.getWantsSource()) {
         m_intake.goToSource();
-      } else if (m_driverController.getWantsStow()) {
-      m_intake.goToStow();
+      } else if (m_operatorController.getWantsStow()) {
+        m_intake.goToStow();
+        System.out.println("trying to go to Stow");
       } else if (m_intake.getIntakeState() != IntakeState.INTAKE) {
         m_intake.stopIntake();
       }

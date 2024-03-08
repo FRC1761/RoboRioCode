@@ -64,8 +64,8 @@ public final class Constants {
     public static final boolean kGyroReversed = true;    
   }
   public static final class ShooterConstants{
-    public static final int kLeftShooterCanId = 11; //spark driving neo
-    public static final int kRightShooterCanId = 12; //spark driving neo
+    public static final int kLeftShooterCanId = 12; //spark driving neo
+    public static final int kRightShooterCanId = 13; //spark driving neo
     
     public static final double kShooterP = 0.00005;
     public static final double kShooterI = 0.0;
@@ -84,7 +84,7 @@ public final class Constants {
     //public static final int kArmPivotEncoderId = 21; //spark driving neo
 
     public static final int kIntakeCanId = 25;
-    public static final int kIntakeLimitSwitchId=4;
+    public static final int kIntakeLimitSwitchId=3;
     //TODO check if pivot angles need to be in degrees or rotations
     // because we don't mod our angles and our encoder gives us rotations
     // Cranberry set these with degrees but they might convert targets somewhere 

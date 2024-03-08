@@ -28,26 +28,6 @@ public class DriverController extends FilteredController {
     return (this.getFilteredAxis(3) - 0.5) * 2;
   }
 
-  public boolean getWantsFullIntake() {
-    return this.getRawButton(1);
-  }
-
-  public boolean getWantsIntake() {
-    return this.getRawButton(6);
-  }
-
-  public boolean getWantsEject() {
-    return this.getRawButton(2);
-  }
-
-  public boolean getWantsSource() {
-    return this.getRawButton(3);
-  }
-
-  public boolean getWantsStow() {
-    return this.getRawButton(4);
-  }
-
   // public boolean getWantsFire() {
   // return this.getHatUpPressed();
   // }
