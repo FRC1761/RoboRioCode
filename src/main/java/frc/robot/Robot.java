@@ -13,10 +13,10 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.controls.controllers.DriverController;
+//import frc.robot.controls.controllers.DriverController;
 import frc.robot.controls.controllers.OperatorController;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -41,7 +41,7 @@ public class Robot extends LoggedRobot {
   private Climber m_climber;
   private boolean isClimberAttached = true; //TODO need to attach climber and TEST!!!
   private PowerDistribution PD;
-  private DriverController m_driverController = new DriverController(0);
+  //private DriverController m_driverController = new DriverController(0);
   private OperatorController m_operatorController = new OperatorController(1);
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -52,7 +52,7 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_driverController = new DriverController(0);
+    //m_driverController = new DriverController(0);
     Logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
 if(isIntakeAttached){
   m_intake = Intake.getInstance();  
@@ -139,7 +139,7 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
       if (m_operatorController.getWantsFullIntake()) {
         m_intake.goToGround();
         System.out.println("trying to go to Ground");
-      } else if (m_operator.getWantsIntake()) {
+      } else if (m_operatorController.getWantsIntake()) {
         if (m_intake.getIntakeHasNote()) {
           m_intake.pulse();
         } else {
