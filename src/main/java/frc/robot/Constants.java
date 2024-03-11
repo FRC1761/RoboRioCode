@@ -85,23 +85,19 @@ public final class Constants {
 
     public static final int kIntakeCanId = 25;
     public static final int kIntakeLimitSwitchId=3;
-    //TODO check if pivot angles need to be in degrees or rotations
-    // because we don't mod our angles and our encoder gives us rotations
-    // Cranberry set these with degrees but they might convert targets somewhere 
-    // in intake subsystem.  Also I would prefer rotations since we could set these
-    // with exact readings from absolute encoder off the sparkmax 
-    public static final double k_pivotAngleGround = 0; //
-    public static final double k_pivotAngleAmp = .33; //need an amp to test for best angle for this
+
+    public static final double k_pivotAngleGround = 0.074; //
+    public static final double k_pivotAngleAmp = .472; //need an amp to test for best angle for this
     public static final double k_pivotAngleSource = k_pivotAngleAmp; //assuming same as amp for now 
-    public static final double k_pivotAngleStow = .57; //279 degreesfrom encoder
+    public static final double k_pivotAngleStow = .683; //279 degreesfrom encoder
 
     //speed for intake based on values from -1 to 1
-    public static final double k_intakeSpeed = .75;
-    public static final double k_ejectSpeed = -.45;
+    public static final double k_intakeSpeed = .95;
+    public static final double k_ejectSpeed = -.95;
     //basing Shooter Feed 
     public static final double k_feedShooterSpeed = -.75;
-    public static final double kPivotPercentage = .2;
-    public static final double kPivotSlowPercentage = .02;
+    public static final double kPivotPercentage = .25;
+    public static final double kPivotSlowPercentage = .04;
 
     //not sure we will use this as we used the SparkMax to set offset of encoder to 0
     // in the ground position

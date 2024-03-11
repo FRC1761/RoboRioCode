@@ -27,7 +27,7 @@ public class Intake extends SubsystemBase {
   private static final double k_pivotMotorD = 0.001; 
 
   private static final boolean isPIDcontrolled = false;
-
+  private static final boolean debug = false;
   private final SparkPIDController mPivotPID;
   //private final PIDController m_pivotPID = new PIDController(k_pivotMotorP, k_pivotMotorI, k_pivotMotorD);
 
@@ -127,6 +127,7 @@ public class Intake extends SubsystemBase {
       }
       System.out.println("OOPs no pivotEncoder pivot is set to ");
     }
+    if(debug) System.out.println("Intake LimitSwitch set to" + m_IntakeLimitSwitch.get());
 
     // Intake control
     m_periodicIO.intake_speed = intakeStateToSpeed(m_periodicIO.intake_state);
@@ -220,22 +221,31 @@ public class Intake extends SubsystemBase {
 
   public boolean getIntakeHasNote() {
     // NOTE: this is intentionally inverted, because the limit switch is normally
-    // closed
+    // closed.  It returns true when NO note.  
     return !m_IntakeLimitSwitch.get();
   }
 
   public double getPivotPercentage(){
+    //Note: we will automatically go to STOW if we have note
+    if(getIntakeHasNote())  setPivotTarget(PivotTarget.STOW);
+
     switch(m_periodicIO.pivot_target){
       case GROUND:
-        if(getPivotAngle() > IntakeConstants.k_pivotAngleAmp){
+
+        if(getPivotAngle()-.2 < IntakeConstants.k_pivotAngleAmp){
+          if(debug) System.out.println("toGround running fast; angle:"+getPivotAngle());
           return -IntakeConstants.kPivotPercentage;
         } else {
+          if(debug) System.out.println("toGround running slow; angle:"+getPivotAngle());
           return -IntakeConstants.kPivotSlowPercentage;
         }
+
       case STOW:
-        if(getPivotAngle() < IntakeConstants.k_pivotAngleAmp){
+        if(getPivotAngle() > IntakeConstants.k_pivotAngleAmp){
+          if(debug) System.out.println("toStow running fast; angle:"+getPivotAngle());
           return IntakeConstants.kPivotPercentage;
         } else {
+          if(debug) System.out.println("toStow running slow; angle:"+getPivotAngle());
           return IntakeConstants.kPivotSlowPercentage;
         }
       case NONE:
