@@ -26,6 +26,8 @@ public class Intake extends SubsystemBase {
   private static final double k_pivotMotorI = 0.0;
   private static final double k_pivotMotorD = 0.001; 
 
+  private static final boolean isPIDcontrolled = false;
+
   private final SparkPIDController mPivotPID;
   //private final PIDController m_pivotPID = new PIDController(k_pivotMotorP, k_pivotMotorI, k_pivotMotorD);
 
@@ -58,15 +60,19 @@ public class Intake extends SubsystemBase {
     mPivotMotor = new CANSparkMax(IntakeConstants.kArmPivotCanId, MotorType.kBrushless);
     mPivotMotor.restoreFactoryDefaults();
     mPivotMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-    mPivotMotor.setSmartCurrentLimit(10);
-
-    mPivotPID = mPivotMotor.getPIDController();
-    mPivotPID.setP(k_pivotMotorP);
-    mPivotPID.setI(k_pivotMotorI);
-    mPivotPID.setD(k_pivotMotorD);
-    mPivotPID.setFeedbackDevice(mPivotMotor.getAbsoluteEncoder());
+    //TODO why they set smart current so low?
+    mPivotMotor.setSmartCurrentLimit(40);
     m_pivotEncoder = mPivotMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
+    if(isPIDcontrolled){
+      mPivotPID = mPivotMotor.getPIDController();
+      mPivotPID.setP(k_pivotMotorP);
+      mPivotPID.setI(k_pivotMotorI);
+      mPivotPID.setD(k_pivotMotorD);
+      mPivotPID.setFeedbackDevice(mPivotMotor.getAbsoluteEncoder());      
+    } else {
+      mPivotPID = null;
+    }
     m_periodicIO = new PeriodicIO();
   }
 
@@ -103,14 +109,22 @@ public class Intake extends SubsystemBase {
     checkAutoTasks();
 
     // Pivot control
-    double pivot_angle = pivotTargetToAngle(m_periodicIO.pivot_target);
-    mPivotPID.setReference(pivot_angle,ControlType.kPosition);
+    if(isPIDcontrolled){
+      double pivot_angle = pivotTargetToAngle(m_periodicIO.pivot_target);
+      mPivotPID.setReference(pivot_angle,ControlType.kPosition);
+    } else {
+      m_periodicIO.intake_pivot_voltage = getPivotPercentage();
+      mPivotMotor.set(m_periodicIO.intake_pivot_voltage);
+    }
+
 //mPivotPID.
     // If the pivot is at exactly 0.0, it's probably not connected, so disable it
     if (m_pivotEncoder.getPosition() == 0.0) {
-      //TODO need to learn how to stop PID controller in this case
-      //I think this should work 
-      mPivotPID.setReference(0.0,ControlType.kPosition);
+      if(isPIDcontrolled){
+        mPivotPID.setReference(0.0,ControlType.kPosition);
+      } else {
+        mPivotMotor.set(0.0);
+      }
       System.out.println("OOPs no pivotEncoder pivot is set to ");
     }
 
@@ -122,7 +136,11 @@ public class Intake extends SubsystemBase {
   } //end periodic
 
   public void writePeriodicOutputs() {
-    mPivotPID.setReference(m_periodicIO.intake_pivot_voltage,CANSparkMax.ControlType.kVoltage);
+    if(isPIDcontrolled){
+      mPivotPID.setReference(m_periodicIO.intake_pivot_voltage,CANSparkMax.ControlType.kVoltage);
+    } else {
+      mPivotMotor.set(m_periodicIO.intake_pivot_voltage);
+    }
     //mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);
     mIntakeMotor.set(TalonSRXControlMode.PercentOutput,m_periodicIO.intake_speed);
   }
@@ -159,7 +177,7 @@ public class Intake extends SubsystemBase {
         return IntakeConstants.k_pivotAngleStow;
       default:
         // "Safe" default
-        return 180;
+        return .5;
     }
   }
 
@@ -194,7 +212,7 @@ public class Intake extends SubsystemBase {
     //getPosition should return rotations just like 
     //former code DutyCycleEncoder.getAbsolutePosition.  
     double value = m_pivotEncoder.getPosition() -
-        IntakeConstants.k_pivotEncoderOffset + 0.5; /*TODO why do they add .5 here?
+        IntakeConstants.k_pivotEncoderOffset; /*TODO why do they add .5 here?
          Did they mount the coder upside down? */
 
     return value;
@@ -206,6 +224,27 @@ public class Intake extends SubsystemBase {
     return !m_IntakeLimitSwitch.get();
   }
 
+  public double getPivotPercentage(){
+    switch(m_periodicIO.pivot_target){
+      case GROUND:
+        if(getPivotAngle() > IntakeConstants.k_pivotAngleAmp){
+          return -IntakeConstants.kPivotPercentage;
+        } else {
+          return -IntakeConstants.kPivotSlowPercentage;
+        }
+      case STOW:
+        if(getPivotAngle() < IntakeConstants.k_pivotAngleAmp){
+          return IntakeConstants.kPivotPercentage;
+        } else {
+          return IntakeConstants.kPivotSlowPercentage;
+        }
+      case NONE:
+      case AMP:
+      case SOURCE:
+      default:
+        return 0.0;
+    }
+  }
   // Pivot helper functions
   public void goToGround() {
     m_periodicIO.pivot_target = PivotTarget.GROUND;

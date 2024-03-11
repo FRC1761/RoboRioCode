@@ -32,6 +32,24 @@ public class DriverController extends FilteredController {
   // return this.getHatUpPressed();
   // }
 
+  // D pad
+
+  public boolean getWantsClimberRelease() {
+    return this.getHatDown();
+  }
+
+  public boolean getWantsClimberTiltRight() {
+    return this.getHatRight();
+  }
+
+  public boolean getWantsClimberClimb() {
+    return this.getHatUp();
+  }
+
+  public boolean getWantsClimberTiltLeft() {
+    return this.getHatLeft();
+  }
+/* TODO extra speed disabled so Driver can contol climber
   public boolean getWantsMoreSpeed() {
     return this.getHatUp();
   }
@@ -39,7 +57,7 @@ public class DriverController extends FilteredController {
   public boolean getWantsLessSpeed() {
     return this.getHatDown();
   }
-
+/**/
   public boolean getWantsShooterStop() {
     return this.getRawButton(5);
   }

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.controls.controllers.DriverController;
 //import frc.robot.controls.controllers.DriverController;
 import frc.robot.controls.controllers.OperatorController;
 import frc.robot.subsystems.Climber;
@@ -43,6 +44,7 @@ public class Robot extends LoggedRobot {
   private PowerDistribution PD;
   //private DriverController m_driverController = new DriverController(0);
   private OperatorController m_operatorController = new OperatorController(1);
+  private DriverController   m_driverController   = new DriverController(0);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -159,14 +161,16 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
     
     if(isClimberAttached){
       // Climber
-      if (m_operatorController.getWantsClimberClimb()) {
+      if (m_driverController.getWantsClimberClimb()) {
         m_climber.climb();
-      } else if (m_operatorController.getWantsClimberRelease()) {
+      } else if (m_driverController.getWantsClimberRelease()) {
         m_climber.release();
-      } else if (m_operatorController.getWantsClimberTiltLeft()) {
-        m_climber.tiltLeft();
-      } else if (m_operatorController.getWantsClimberTiltRight()) {
-        m_climber.tiltRight();
+      } else if (m_driverController.getWantsClimberTiltLeft()) {
+        //TODO left tilt disabled
+        //m_climber.tiltLeft();
+      } else if (m_driverController.getWantsClimberTiltRight()) {
+        //TODO right tilt disabled
+        //m_climber.tiltRight();
       } else {
         m_climber.stopClimber();
       }
