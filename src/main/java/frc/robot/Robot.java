@@ -42,9 +42,9 @@ public class Robot extends LoggedRobot {
   private Climber m_climber;
   private boolean isClimberAttached = true; //TODO need to attach climber and TEST!!!
   private PowerDistribution PD;
-  //private DriverController m_driverController = new DriverController(0);
+  
+  private DriverController m_driverController = new DriverController(0);
   private OperatorController m_operatorController = new OperatorController(1);
-  private DriverController   m_driverController   = new DriverController(0);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
