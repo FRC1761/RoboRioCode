@@ -92,8 +92,9 @@ public final class Constants {
     public static final double k_pivotAngleStow = .683; //279 degreesfrom encoder
 
     //speed for intake based on values from -1 to 1
-    public static final double k_intakeSpeed = .95;
-    public static final double k_ejectSpeed = -.95;
+    public static final double k_intakeSpeed = .75;
+    public static final double k_pulseSpeed = 0.0;
+    public static final double k_ejectSpeed = -.75;
     //basing Shooter Feed 
     public static final double k_feedShooterSpeed = -.75;
     public static final double kPivotPercentage = .25;
@@ -123,8 +124,8 @@ public final class Constants {
 
   public static final class LEDConstants{
     public static final int RedIOPort   = 0;
-    public static final int GreenIOPort = 2;
-    public static final int BlueIOPort  = 1;
+    public static final int GreenIOPort = 1;
+    public static final int BlueIOPort  = 2;
   }
 
   public static final class ModuleConstants {
