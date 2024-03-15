@@ -34,7 +34,7 @@ public class Climber extends SubsystemBase {
     mLeftClimberMotor.setNeutralMode(NeutralMode.Brake);
     mRightClimberMotor.setNeutralMode(NeutralMode.Brake);
 
-    mLeftClimberMotor.setInverted(false);
+    mLeftClimberMotor.setInverted(true);
     mRightClimberMotor.setInverted(true);
   }
 
