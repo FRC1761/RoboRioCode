@@ -19,8 +19,6 @@ public class ShooterSubsystem extends SubsystemBase {
     public void drive(double speed){
         shooterLeft.set(speed);
         shooterRight.set(speed);
-        
-        System.out.println(speed);
     }
 
     
