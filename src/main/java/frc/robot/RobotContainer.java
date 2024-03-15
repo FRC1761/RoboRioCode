@@ -41,6 +41,7 @@ public class RobotContainer {
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+  XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -64,7 +65,7 @@ public class RobotContainer {
     m_shooterDrive.setDefaultCommand(
         new RunCommand(
             () -> m_shooterDrive.drive((
-                m_driverController.getLeftBumper() == true) ? 1 : 0),
+                m_operatorController.getLeftBumper() == true) ? 1 : 0),
             m_shooterDrive));
   }
 
