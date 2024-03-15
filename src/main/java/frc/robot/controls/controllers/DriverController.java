@@ -35,7 +35,7 @@ public class DriverController extends FilteredController {
   // D pad
 
   public boolean getWantsClimberRelease() {
-    return this.getHatDown();
+    return this.getHatUp();
   }
 
   public boolean getWantsClimberTiltRight() {
@@ -43,7 +43,7 @@ public class DriverController extends FilteredController {
   }
 
   public boolean getWantsClimberClimb() {
-    return this.getHatUp();
+    return this.getHatDown();
   }
 
   public boolean getWantsClimberTiltLeft() {

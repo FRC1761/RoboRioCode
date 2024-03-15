@@ -75,6 +75,7 @@ public final class Constants {
     public static final double kShooterMinOutput = 0;
     public static final double kShooterMaxOutput = 1;
     
+    public static final double kShooterOutput = .85;
   }
 
   public static final class IntakeConstants {
@@ -109,8 +110,8 @@ public final class Constants {
       // Climber
       public static final int kClimberLeftMotorId = 6;
       public static final int kClimberRightMotorId = 7;
-      public static final double kClimberClimbPower = .8; // Power Output
-      public static final double kClimberReleasePower = -.5; // Power Output
+      public static final double kClimberClimbPower = -.8; // Power Output
+      public static final double kClimberReleasePower = +.5; // Power Output
 
       public static final double kClimberGearRatio = 1.0 / 12.0;
 /* 

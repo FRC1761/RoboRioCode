@@ -164,7 +164,8 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
       if (m_driverController.getWantsClimberClimb()) {
         m_climber.climb();
       } else if (m_driverController.getWantsClimberRelease()) {
-        m_climber.release();
+        //release disabled during match
+        //m_climber.release();
       } else if (m_driverController.getWantsClimberTiltLeft()) {
         //TODO left tilt disabled
         //m_climber.tiltLeft();
@@ -185,5 +186,10 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    if (m_driverController.getWantsClimberRelease()) {
+        //only enabled during test
+        m_climber.release();
+      }
+  }
 }
