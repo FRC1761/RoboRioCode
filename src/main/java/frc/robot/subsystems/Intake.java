@@ -39,6 +39,7 @@ public class Intake extends SubsystemBase {
   /*-------------------------------- Private instance variables ---------------------------------*/
   private static Intake mInstance;
   private PeriodicIO m_periodicIO;
+  private LEDs m_leds;
 
   public static Intake getInstance() {
     if (mInstance == null) {
@@ -47,12 +48,17 @@ public class Intake extends SubsystemBase {
     return mInstance;
   }
 
+  //private TalonSRX mIntakeMotor;
   private TalonSRX mIntakeMotor;
   private CANSparkMax mPivotMotor;
 
   private Intake() {
     super("Intake");
-
+    // CANSparK Settings
+    //mIntakeMotor = new CANSparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
+    //mIntakeMotor.restoreFactoryDefaults();
+    //mIntakeMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    // Talon Settings
     mIntakeMotor = new TalonSRX(IntakeConstants.kIntakeCanId);
     mIntakeMotor.configFactoryDefault();
     mIntakeMotor.setNeutralMode(NeutralMode.Coast);
@@ -63,6 +69,8 @@ public class Intake extends SubsystemBase {
     //TODO why they set smart current so low?
     mPivotMotor.setSmartCurrentLimit(40);
     m_pivotEncoder = mPivotMotor.getAbsoluteEncoder(Type.kDutyCycle);
+
+    m_leds = LEDs.getInstance();
 
     if(isPIDcontrolled){
       mPivotPID = mPivotMotor.getPIDController();
@@ -143,7 +151,8 @@ public class Intake extends SubsystemBase {
       mPivotMotor.set(m_periodicIO.intake_pivot_voltage);
     }
     //mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);
-    mIntakeMotor.set(TalonSRXControlMode.PercentOutput,m_periodicIO.intake_speed);
+    mIntakeMotor.set(TalonSRXControlMode.PercentOutput,m_periodicIO.intake_speed); //Talon
+    //mIntakeMotor.set(k_pivotMotorD);
   }
 
   public void stop() {
@@ -192,7 +201,7 @@ public class Intake extends SubsystemBase {
         // Use the timer to pulse the intake on for a 1/16 second,
         // then off for a 15/16 second
         if (Timer.getFPGATimestamp() % 1.0 < (1.0 / 45.0)) {
-          return IntakeConstants.k_intakeSpeed;
+          return IntakeConstants.k_pulseSpeed;
         }
         return 0.0;
       case FEED_SHOOTER:
@@ -227,8 +236,10 @@ public class Intake extends SubsystemBase {
 
   public double getPivotPercentage(){
     //Note: we will automatically go to STOW if we have note
-    if(getIntakeHasNote())  setPivotTarget(PivotTarget.STOW);
-
+    if(getIntakeHasNote()) {
+      setPivotTarget(PivotTarget.STOW);
+      m_leds.goGreen();
+    }
     switch(m_periodicIO.pivot_target){
       case GROUND:
 
@@ -241,6 +252,9 @@ public class Intake extends SubsystemBase {
         }
 
       case STOW:
+        if(!getIntakeHasNote()) {
+          m_leds.goTeamColor();
+        }
         if(getPivotAngle() > IntakeConstants.k_pivotAngleAmp){
           if(debug) System.out.println("toStow running fast; angle:"+getPivotAngle());
           return IntakeConstants.kPivotPercentage;
@@ -259,7 +273,7 @@ public class Intake extends SubsystemBase {
   public void goToGround() {
     m_periodicIO.pivot_target = PivotTarget.GROUND;
     m_periodicIO.intake_state = IntakeState.INTAKE;
-    //m_leds.setColor(Color.kYellow);
+    m_leds.goYellow();
   }
 
   public void goToSource() {

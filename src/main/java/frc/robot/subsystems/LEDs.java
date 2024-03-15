@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.Constants.LEDConstants;
 
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LEDs extends SubsystemBase {
@@ -70,4 +71,12 @@ public class LEDs extends SubsystemBase {
     setColorMode(false,true,true);
  }
 
+ public void goTeamColor(){
+    if(DriverStation.getAlliance().isPresent() && 
+       DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
+      goBlue();
+    } else {
+      goRed();
+    }
+ }
 }
