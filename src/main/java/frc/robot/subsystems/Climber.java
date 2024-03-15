@@ -98,13 +98,13 @@ public class Climber extends SubsystemBase {
   }
 
   public void tiltLeft() {
-    mPeriodicIO.climber_left_speed = ClimberConstants.kClimberReleasePower;
+    mPeriodicIO.climber_left_speed = ClimberConstants.kClimberClimbPower;
     mPeriodicIO.climber_right_speed = 0.0;
   }
 
   public void tiltRight() {
     mPeriodicIO.climber_left_speed = 0.0;
-    mPeriodicIO.climber_right_speed = ClimberConstants.kClimberReleasePower;
+    mPeriodicIO.climber_right_speed = ClimberConstants.kClimberClimbPower;
   }
 
   public void stopClimber() {

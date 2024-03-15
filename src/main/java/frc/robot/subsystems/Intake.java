@@ -122,7 +122,7 @@ public class Intake extends SubsystemBase {
       mPivotPID.setReference(pivot_angle,ControlType.kPosition);
     } else {
       m_periodicIO.intake_pivot_voltage = getPivotPercentage();
-      mPivotMotor.set(m_periodicIO.intake_pivot_voltage);
+      //mPivotMotor.set(m_periodicIO.intake_pivot_voltage);
     }
 
 //mPivotPID.
@@ -152,6 +152,7 @@ public class Intake extends SubsystemBase {
     }
     //mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);
     mIntakeMotor.set(TalonSRXControlMode.PercentOutput,m_periodicIO.intake_speed); //Talon
+    //TODO was this why our intake was burning out?
     //mIntakeMotor.set(k_pivotMotorD);
   }
 

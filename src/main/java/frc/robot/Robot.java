@@ -163,7 +163,7 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
       // Climber
       if (m_driverController.getWantsClimberClimb()) {
         m_climber.climb();
-      } else if (m_driverController.getWantsClimberRelease()) {
+      }/* */ else if (m_driverController.getWantsClimberRelease()) {
         //release disabled during match
         //m_climber.release();
       } else if (m_driverController.getWantsClimberTiltLeft()) {
@@ -172,7 +172,7 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
       } else if (m_driverController.getWantsClimberTiltRight()) {
         //TODO right tilt disabled
         //m_climber.tiltRight();
-      } else {
+      } /**/ else {
         m_climber.stopClimber();
       }
     }
@@ -190,6 +190,8 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
     if (m_driverController.getWantsClimberRelease()) {
         //only enabled during test
         m_climber.release();
+      } else {
+        m_climber.stopClimber();
       }
   }
 }

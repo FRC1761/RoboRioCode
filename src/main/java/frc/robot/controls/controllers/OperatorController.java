@@ -22,6 +22,7 @@ public class OperatorController extends FilteredController {
   }
 
   // Buttons
+  /* 
   public boolean getWantsBrakeMode() {
     return this.getRawButton(1);
   }
@@ -37,7 +38,7 @@ public class OperatorController extends FilteredController {
   public boolean getWantsLessSpeed() {
     return this.getRawButtonPressed(5);
   }
-
+/* */
   public boolean getWantsShooterStop() {
     return this.getRawButtonPressed(4);
   }
