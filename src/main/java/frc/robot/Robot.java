@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.*;
+import edu.wpi.first.cscore.UsbCamera;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -56,6 +58,11 @@ public class Robot extends LoggedRobot {
     m_robotContainer = new RobotContainer();
     //m_driverController = new DriverController(0);
     Logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
+    UsbCamera frontCamera;
+		frontCamera = CameraServer.startAutomaticCapture(0);
+		frontCamera.setFPS(30);
+		frontCamera.setResolution(160,120);
+     
 if(isIntakeAttached){
   m_intake = Intake.getInstance();  
 }
