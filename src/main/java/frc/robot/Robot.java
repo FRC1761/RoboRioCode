@@ -62,7 +62,6 @@ public class Robot extends LoggedRobot {
 		frontCamera = CameraServer.startAutomaticCapture(0);
 		frontCamera.setFPS(30);
 		frontCamera.setResolution(160,120);
-     
 if(isIntakeAttached){
   m_intake = Intake.getInstance();  
 }

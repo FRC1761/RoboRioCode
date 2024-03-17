@@ -75,7 +75,7 @@ public final class Constants {
     public static final double kShooterMinOutput = 0;
     public static final double kShooterMaxOutput = 1;
     
-    public static final double kShooterOutput = .85;
+    public static final double kShooterOutput = .95;
   }
 
   public static final class IntakeConstants {
@@ -93,11 +93,12 @@ public final class Constants {
     public static final double k_pivotAngleStow = .683; //279 degreesfrom encoder
 
     //speed for intake based on values from -1 to 1
-    public static final double k_intakeSpeed = .75;
-    public static final double k_pulseSpeed = 0.0;
-    public static final double k_ejectSpeed = -.75;
+    public static final double k_intakeSpeed = .45;
+    public static final double k_pulseSpeed = 0.1;
+    public static final double k_ejectSpeed = -.45;
+    public static final double k_feedShooterSpeed = -.45;
+
     //basing Shooter Feed 
-    public static final double k_feedShooterSpeed = -.75;
     public static final double kPivotPercentage = .25;
     public static final double kPivotSlowPercentage = .04;
 

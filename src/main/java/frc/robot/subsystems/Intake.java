@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants.IntakeConstants;
@@ -203,7 +202,7 @@ public class Intake extends SubsystemBase {
         // then off for a 15/16 second
         if (Timer.getFPGATimestamp() % 1.0 < (1.0 / 45.0)) {
           return IntakeConstants.k_pulseSpeed;
-        }
+        }/* */
         return 0.0;
       case FEED_SHOOTER:
         return IntakeConstants.k_feedShooterSpeed;
