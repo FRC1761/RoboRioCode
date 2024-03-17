@@ -68,6 +68,13 @@ public class RobotContainer {
             () -> m_shooterDrive.drive((
                 m_operatorController.getLeftBumper() == true) ? ShooterConstants.kShooterOutput : 0),
             m_shooterDrive));
+    /*
+    m_speedControlledShooter.setDefaultCommand(
+        new RunCommand(
+            () -> m_speedControlledShooter.setSpeed(
+                m_operatorController.getLeftBumper() == true) ? ShooterConstants.kShooterSpeed) : 0),
+            m_speedControlledShooter));
+    /**/
   }
 
   /**

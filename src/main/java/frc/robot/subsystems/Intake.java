@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Timer;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
@@ -65,7 +66,6 @@ public class Intake extends SubsystemBase {
     mPivotMotor = new CANSparkMax(IntakeConstants.kArmPivotCanId, MotorType.kBrushless);
     mPivotMotor.restoreFactoryDefaults();
     mPivotMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-    //TODO why they set smart current so low?
     mPivotMotor.setSmartCurrentLimit(40);
     m_pivotEncoder = mPivotMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
@@ -151,8 +151,6 @@ public class Intake extends SubsystemBase {
     }
     //mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);
     mIntakeMotor.set(TalonSRXControlMode.PercentOutput,m_periodicIO.intake_speed); //Talon
-    //TODO was this why our intake was burning out?
-    //mIntakeMotor.set(k_pivotMotorD);
   }
 
   public void stop() {
@@ -222,9 +220,7 @@ public class Intake extends SubsystemBase {
     //getPosition should return rotations just like 
     //former code DutyCycleEncoder.getAbsolutePosition.  
     double value = m_pivotEncoder.getPosition() -
-        IntakeConstants.k_pivotEncoderOffset; /*TODO why do they add .5 here?
-         Did they mount the coder upside down? */
-
+        IntakeConstants.k_pivotEncoderOffset; 
     return value;
   }
 

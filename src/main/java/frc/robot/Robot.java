@@ -40,9 +40,9 @@ public class Robot extends LoggedRobot {
 
   private RobotContainer m_robotContainer;
   private Intake m_intake;
-  private boolean isIntakeAttached = true;  //TODO need to attach and TEST INTAKE!!!!
+  private boolean isIntakeAttached = true; 
   private Climber m_climber;
-  private boolean isClimberAttached = true; //TODO need to attach climber and TEST!!!
+  private boolean isClimberAttached = true;
   private PowerDistribution PD;
   
   private DriverController m_driverController = new DriverController(0);
@@ -169,15 +169,14 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
       // Climber
       if (m_driverController.getWantsClimberClimb()) {
         m_climber.climb();
-      }/* */ else if (m_driverController.getWantsClimberRelease()) {
+      }/* TODO disabled tilting and release because we use ratchets now
+      else if (m_driverController.getWantsClimberRelease()) {
         //release disabled during match
         //m_climber.release();
       } else if (m_driverController.getWantsClimberTiltLeft()) {
-        //TODO left tilt disabled
-        //m_climber.tiltLeft();
+        m_climber.tiltLeft();
       } else if (m_driverController.getWantsClimberTiltRight()) {
-        //TODO right tilt disabled
-        //m_climber.tiltRight();
+        m_climber.tiltRight();
       } /**/ else {
         m_climber.stopClimber();
       }
