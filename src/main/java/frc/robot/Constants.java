@@ -75,7 +75,10 @@ public final class Constants {
     public static final double kShooterMinOutput = 0;
     public static final double kShooterMaxOutput = 1;
     
-    public static final double kShooterOutput = .95;
+    public static final double kShooterOutput = .8; //percentage output for ShooterSubsystem class
+    public static final double kShooterSpeed = 3000; //RPM for SCShooter (speed controlled)
+    public static final double kShooterSlowSpeed = 430; //RPM for SCShooter (speed controlled)
+    
   }
 
   public static final class IntakeConstants {
