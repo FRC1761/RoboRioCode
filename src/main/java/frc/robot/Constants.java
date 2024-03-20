@@ -71,6 +71,7 @@ public final class Constants {
     public static final double kShooterI = 0.0;
     public static final double kShooterD = 0.0;
     public static final double kShooterFF = 0.002;
+    public static boolean isTuning = true;
   
     public static final double kShooterMinOutput = 0;
     public static final double kShooterMaxOutput = 1;

@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
-
+import frc.robot.RobotPreferences;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -49,17 +49,17 @@ public class SCShooter extends SubsystemBase {
     mRightShooterMotor.restoreFactoryDefaults();
 
     mLeftShooterPID = mLeftShooterMotor.getPIDController();
-    mLeftShooterPID.setP(ShooterConstants.kShooterP);
-    mLeftShooterPID.setI(ShooterConstants.kShooterI);
-    mLeftShooterPID.setD(ShooterConstants.kShooterD);
-    mLeftShooterPID.setFF(ShooterConstants.kShooterFF);
+    mLeftShooterPID.setP(RobotPreferences.getShooterP());
+    mLeftShooterPID.setI(RobotPreferences.getShooterI());
+    mLeftShooterPID.setD(RobotPreferences.getShooterD());
+    mLeftShooterPID.setFF(RobotPreferences.getShooterFF());
     mLeftShooterPID.setOutputRange(ShooterConstants.kShooterMinOutput, ShooterConstants.kShooterMaxOutput);
 
     mRightShooterPID = mRightShooterMotor.getPIDController();
-    mRightShooterPID.setP(ShooterConstants.kShooterP);
-    mRightShooterPID.setI(ShooterConstants.kShooterI);
-    mRightShooterPID.setD(ShooterConstants.kShooterD);
-    mRightShooterPID.setFF(ShooterConstants.kShooterFF);
+    mRightShooterPID.setP(RobotPreferences.getShooterP());
+    mRightShooterPID.setI(RobotPreferences.getShooterI());
+    mRightShooterPID.setD(RobotPreferences.getShooterD());
+    mRightShooterPID.setFF(RobotPreferences.getShooterFF());
     mRightShooterPID.setOutputRange(ShooterConstants.kShooterMinOutput, ShooterConstants.kShooterMaxOutput);
 
     mLeftShooterEncoder = mLeftShooterMotor.getEncoder();
@@ -81,6 +81,7 @@ public class SCShooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+    setPIDfromPreferences();
     writePeriodicOutputs();
     outputTelemetry();
   }
@@ -89,6 +90,20 @@ public class SCShooter extends SubsystemBase {
     double limitedSpeed = mSpeedLimiter.calculate(mPeriodicIO.shooter_rpm);
     mLeftShooterPID.setReference(limitedSpeed, ControlType.kVelocity);
     mRightShooterPID.setReference(limitedSpeed, ControlType.kVelocity);
+  }
+
+  public void setPIDfromPreferences(){
+    if(RobotPreferences.getPIDTuning()){
+    mLeftShooterPID.setP(RobotPreferences.getShooterP());
+    mLeftShooterPID.setI(RobotPreferences.getShooterI());
+    mLeftShooterPID.setD(RobotPreferences.getShooterD());
+    mLeftShooterPID.setFF(RobotPreferences.getShooterFF());
+    
+    mRightShooterPID.setP(RobotPreferences.getShooterP());
+    mRightShooterPID.setI(RobotPreferences.getShooterI());
+    mRightShooterPID.setD(RobotPreferences.getShooterD());
+    mRightShooterPID.setFF(RobotPreferences.getShooterFF());
+    }
   }
   public void stop() {
     stopShooter();

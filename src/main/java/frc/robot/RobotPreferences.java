@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Preferences;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.ShooterConstants;
 /*
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.IntakeConstants;
@@ -30,8 +31,37 @@ public class RobotPreferences {
 
   public static double getEjectPower() {
     double temp = Preferences.getDouble("ejectPower", AutoConstants.kEjectPowerDefault);
-    Preferences.setDouble("autoPower", temp);
+    Preferences.setDouble("ejectPower", temp);
+    return temp;
+  }
+
+  public static double getShooterP(){
+    double temp = Preferences.getDouble("ShooterP", ShooterConstants.kShooterP);
+    Preferences.setDouble("ShooterP", temp);
+    return temp;
+  }
+
+  public static double getShooterI(){
+    double temp = Preferences.getDouble("ShooterI", ShooterConstants.kShooterI);
+    Preferences.setDouble("ShooterI", temp);
+    return temp;
+  }
+
+  public static double getShooterD(){
+    double temp = Preferences.getDouble("ShooterD", ShooterConstants.kShooterD);
+    Preferences.setDouble("ShooterD", temp);
+    return temp;
+  }
+
+  public static double getShooterFF(){
+    double temp = Preferences.getDouble("ShooterFF", ShooterConstants.kShooterFF);
+    Preferences.setDouble("ShooterFF", temp);
     return temp;
   }
   
+  public static boolean getPIDTuning(){
+    boolean temp = Preferences.getBoolean("ShooterFF", ShooterConstants.isTuning);
+    Preferences.setBoolean("ShooterFF", temp);
+    return temp;
+  }
 }
