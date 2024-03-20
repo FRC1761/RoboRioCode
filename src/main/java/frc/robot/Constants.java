@@ -67,10 +67,10 @@ public final class Constants {
     public static final int kLeftShooterCanId = 12; //spark driving neo
     public static final int kRightShooterCanId = 13; //spark driving neo
     
-    public static final double kShooterP = 0.00005;
+    public static final double kShooterP = 0.0005;
     public static final double kShooterI = 0.0;
     public static final double kShooterD = 0.0;
-    public static final double kShooterFF = 0.0002;
+    public static final double kShooterFF = 0.002;
   
     public static final double kShooterMinOutput = 0;
     public static final double kShooterMaxOutput = 1;
