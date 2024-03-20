@@ -64,4 +64,16 @@ public class RobotPreferences {
     Preferences.setBoolean("ShooterFF", temp);
     return temp;
   }
+
+    public static double getSpeakerSpeed(){
+    Double temp = Preferences.getDouble("SpeakerSpeed", ShooterConstants.kShooterSpeed);
+    Preferences.setDouble("SpeakerSpeed", temp);
+    return temp;
+  }
+
+    public static double getAmpSpeed(){
+    double temp = Preferences.getDouble("AmpSpeed", ShooterConstants.kShooterSlowSpeed);
+    Preferences.setDouble("AmpSpeed", temp);
+    return temp;
+  }
 }

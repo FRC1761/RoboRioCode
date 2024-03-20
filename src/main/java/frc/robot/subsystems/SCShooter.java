@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+
 import frc.robot.RobotPreferences;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
@@ -128,8 +129,8 @@ public class SCShooter extends SubsystemBase {
   }
   public double getSpeed(){
     double result = 0.0;
-    if( m_operatorController.getLeftBumper()) result = ShooterConstants.kShooterSpeed;
-    if( m_operatorController.getRightBumper()) result = ShooterConstants.kShooterSlowSpeed;
+    if( m_operatorController.getLeftBumper()) result = RobotPreferences.getSpeakerSpeed();
+    if( m_operatorController.getRightBumper()) result = RobotPreferences.getAmpSpeed();
     return result;
   } 
   /*---------------------------------- Custom Private Functions ---------------------------------*/
