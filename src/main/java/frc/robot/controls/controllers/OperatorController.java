@@ -66,7 +66,7 @@ public class OperatorController extends FilteredController {
   }
 
   public boolean getWantsIntake() {
-    return this.getRawButton(6);
+    return this.getRawButton(8);
   }
 
   public boolean getWantsEject() {
@@ -74,7 +74,7 @@ public class OperatorController extends FilteredController {
   }
 
   public boolean getWantsSource() {
-    return this.getRawButton(3);
+    return this.getRawButton(7);
   }
 
   public boolean getWantsStow() {

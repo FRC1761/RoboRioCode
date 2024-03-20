@@ -21,6 +21,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.SCShooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -38,8 +39,9 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final ShooterSubsystem m_shooterDrive = new ShooterSubsystem();
-
+  private ShooterSubsystem m_shooterDrive;
+  private SCShooter m_speedControlledShooter;
+  private static final boolean isSpeedControlled = false;
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
   XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
@@ -50,7 +52,11 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
+    if(!isSpeedControlled) {
+        m_shooterDrive = new ShooterSubsystem();
+    } else {
+        m_speedControlledShooter = SCShooter.getInstance();
+    }
     // Configure default commands
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
@@ -62,19 +68,23 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 true, true),
             m_robotDrive));
+/*
 
-    m_shooterDrive.setDefaultCommand(
-        new RunCommand(
-            () -> m_shooterDrive.drive((
-                m_operatorController.getLeftBumper() == true) ? ShooterConstants.kShooterOutput : 0),
-            m_shooterDrive));
-    /*
-    m_speedControlledShooter.setDefaultCommand(
+    /**/
+   if(isSpeedControlled){
+     m_speedControlledShooter.setDefaultCommand(
         new RunCommand(
             () -> m_speedControlledShooter.setSpeed(
                 // kShooterSpeed or kShooterSlowSpeed 
-                m_operatorController.getLeftBumper() == true) ? ShooterConstants.kShooterSpeed) : 0),
+                m_operatorController.getLeftBumper()||m_operatorController.getRightBumper() ? m_speedControlledShooter.getSpeed() : 0),
             m_speedControlledShooter));
+   } else {
+     m_shooterDrive.setDefaultCommand(
+        new RunCommand(
+            () -> m_shooterDrive.drive((
+                m_operatorController.getLeftBumper()) ? ShooterConstants.kShooterOutput : 0),
+            m_shooterDrive));
+   }
     /**/
   }
 

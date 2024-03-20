@@ -8,9 +8,11 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
-//TODO update Robot to use SCShooter to match Cranberry's speed controlled Version (this one)
+
 public class SCShooter extends SubsystemBase {
 
   /*-------------------------------- Private instance variables ---------------------------------*/
@@ -34,6 +36,7 @@ public class SCShooter extends SubsystemBase {
   private RelativeEncoder mRightShooterEncoder;
 
   private SlewRateLimiter mSpeedLimiter = new SlewRateLimiter(1000);
+  private   XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
 
   private SCShooter() {
     super("SCShooter");
@@ -108,6 +111,11 @@ public class SCShooter extends SubsystemBase {
   public void stopShooter() {
     mPeriodicIO.shooter_rpm = 0.0;
   }
-
+  public double getSpeed(){
+    double result = 0.0;
+    if( m_operatorController.getLeftBumper()) result = ShooterConstants.kShooterSpeed;
+    if( m_operatorController.getRightBumper()) result = ShooterConstants.kShooterSlowSpeed;
+    return result;
+  } 
   /*---------------------------------- Custom Private Functions ---------------------------------*/
 }

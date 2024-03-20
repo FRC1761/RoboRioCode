@@ -75,7 +75,7 @@ public final class Constants {
     public static final double kShooterMinOutput = 0;
     public static final double kShooterMaxOutput = 1;
     
-    public static final double kShooterOutput = .8; //percentage output for ShooterSubsystem class
+    public static final double kShooterOutput = .75; //percentage output for ShooterSubsystem class
     public static final double kShooterSpeed = 3000; //RPM for SCShooter (speed controlled)
     public static final double kShooterSlowSpeed = 430; //RPM for SCShooter (speed controlled)
     
@@ -98,8 +98,8 @@ public final class Constants {
     //speed for intake based on values from -1 to 1
     public static final double k_intakeSpeed = .45;
     public static final double k_pulseSpeed = 0.1;
-    public static final double k_ejectSpeed = -.45;
-    public static final double k_feedShooterSpeed = -.45;
+    public static final double k_ejectSpeed = -.60;
+    public static final double k_feedShooterSpeed = -.50;
 
     //basing Shooter Feed 
     public static final double kPivotPercentage = .25;
