@@ -1,0 +1,18 @@
+1. Put on correct bumpers for next match
+2. Replace battery
+3. Check tire quality
+4. Release ratchet from climber and put in pins in ratchet
+5. switch to Test Mode
+6. Run direction pad UP to spool under for beginning of match
+7. Remove climber ratchet pins
+
+Last edited 3/20/24 by Mr. A
+Please copy this file to Student Driver Station in c:\Users\Public\Public Documents\FRC\
+
+This list is read from a text file in
+Public/Documents/FRC/Checklist.txt.
+
+Modify the file to customize your list.
+
+Double clicking checkmarks a list item.
+Shift Double Click clears the checkmarks.
