@@ -5,8 +5,6 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 /*
-import frc.robot.Constants.ShooterConstants;
-import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.OIConstants;
 /**/
