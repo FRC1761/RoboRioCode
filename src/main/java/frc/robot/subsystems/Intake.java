@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Timer;
-
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.AbsoluteEncoder;
@@ -322,7 +320,6 @@ public class Intake extends SubsystemBase {
   }
 
   private boolean isPivotAtTarget() {
-    //TODO need to recheck tolerance here. It was < 5 degrees (we use rotations)
     return Math.abs(getPivotAngle() - pivotTargetToAngle(m_periodicIO.pivot_target)) < 5.0/360;
   }
 }
