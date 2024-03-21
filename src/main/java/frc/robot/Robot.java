@@ -146,7 +146,6 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
     if(isIntakeAttached){    
       if (m_operatorController.getWantsFullIntake()) {
         m_intake.goToGround();
-        System.out.println("trying to go to Ground");
       } else if (m_operatorController.getWantsIntake()) {
         if (m_intake.getIntakeHasNote()) {
           m_intake.pulse();
@@ -159,7 +158,6 @@ Logger.start(); // Start logging! No more data receivers, replay sources, or met
         m_intake.goToSource();
       } else if (m_operatorController.getWantsStow()) {
         m_intake.goToStow();
-        System.out.println("trying to go to Stow");
       } else if (m_intake.getIntakeState() != IntakeState.INTAKE) {
         m_intake.stopIntake();
       }

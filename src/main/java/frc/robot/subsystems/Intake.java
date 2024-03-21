@@ -28,7 +28,6 @@ public class Intake extends SubsystemBase {
   private static final double k_pivotMotorD = 0.001; 
 
   private static final boolean isPIDcontrolled = false;
-  private static final boolean debug = false;
   private final SparkPIDController mPivotPID;
   //private final PIDController m_pivotPID = new PIDController(k_pivotMotorP, k_pivotMotorI, k_pivotMotorD);
 
@@ -135,7 +134,6 @@ public class Intake extends SubsystemBase {
       }
       System.out.println("OOPs no pivotEncoder pivot is set to ");
     }
-    if(debug) System.out.println("Intake LimitSwitch set to" + m_IntakeLimitSwitch.get());
 
     // Intake control
     m_periodicIO.intake_speed = intakeStateToSpeed(m_periodicIO.intake_state);
@@ -242,10 +240,8 @@ public class Intake extends SubsystemBase {
       case GROUND:
 
         if(getPivotAngle()-.2 < IntakeConstants.k_pivotAngleAmp){
-          if(debug) System.out.println("toGround running fast; angle:"+getPivotAngle());
           return -IntakeConstants.kPivotPercentage;
         } else {
-          if(debug) System.out.println("toGround running slow; angle:"+getPivotAngle());
           return -IntakeConstants.kPivotSlowPercentage;
         }
 
@@ -254,10 +250,8 @@ public class Intake extends SubsystemBase {
           m_leds.goTeamColor();
         }
         if(getPivotAngle() > IntakeConstants.k_pivotAngleAmp){
-          if(debug) System.out.println("toStow running fast; angle:"+getPivotAngle());
           return IntakeConstants.kPivotPercentage;
         } else {
-          if(debug) System.out.println("toStow running slow; angle:"+getPivotAngle());
           return IntakeConstants.kPivotSlowPercentage;
         }
       case NONE:
