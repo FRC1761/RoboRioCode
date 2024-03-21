@@ -68,17 +68,17 @@ public final class Constants {
     public static final int kRightShooterCanId = 13; //spark driving neo
     
     public static final double kShooterP = 0.0005;
-    public static final double kShooterI = 0.0;
+    public static final double kShooterI = 0.0000001;
     public static final double kShooterD = 0.0;
-    public static final double kShooterFF = 0.002;
+    public static final double kShooterFF = 0.0002;
     public static boolean isTuning = true;
   
     public static final double kShooterMinOutput = 0;
     public static final double kShooterMaxOutput = 1;
     
     public static final double kShooterOutput = .75; //percentage output for ShooterSubsystem class
-    public static final double kShooterSpeed = 3000; //RPM for SCShooter (speed controlled)
-    public static final double kShooterSlowSpeed = 430; //RPM for SCShooter (speed controlled)
+    public static final double kShooterSpeed = 3500; //RPM for SCShooter (speed controlled)
+    public static final double kShooterSlowSpeed = =; //RPM for SCShooter (speed controlled)
     
   }
 
