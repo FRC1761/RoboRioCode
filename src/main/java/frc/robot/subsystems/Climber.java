@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -51,7 +52,6 @@ public class Climber extends SubsystemBase {
     //    by the CommandScheduler instead of shoving it in Robot.periodic
     writePeriodicOutputs();
     outputTelemetry();
-    //writeToLog();
   }
 
   public void writePeriodicOutputs() {
@@ -64,11 +64,11 @@ public class Climber extends SubsystemBase {
   }
 
   public void outputTelemetry() {
-    /*
-    putNumber("Left speed setpoint:", mPeriodicIO.climber_left_speed);
-    putNumber("Left speed:", mLeftClimberEncoder.getVelocity());
-    putNumber("Right speed setpoint:", mPeriodicIO.climber_right_speed);
-    putNumber("Right speed:", mRightClimberEncoder.getVelocity());
+    SmartDashboard.putBoolean("Left Climber FWD Switch:", mLeftClimberMotor.isFwdLimitSwitchClosed()>0);
+    SmartDashboard.putBoolean("Left Climber REV Switch:", mLeftClimberMotor.isRevLimitSwitchClosed()>0);
+    SmartDashboard.putBoolean("Left Climber FWD Switch:", mLeftClimberMotor.isFwdLimitSwitchClosed()>0);
+    SmartDashboard.putBoolean("Left Climber REV Switch:", mLeftClimberMotor.isRevLimitSwitchClosed()>0);
+
     /* */
   }
 

@@ -137,7 +137,7 @@ public class Intake extends SubsystemBase {
 
     // Intake control
     m_periodicIO.intake_speed = intakeStateToSpeed(m_periodicIO.intake_state);
-    SmartDashboard.putString("State", m_periodicIO.intake_state.toString());
+    SmartDashboard.putString("Intake State", m_periodicIO.intake_state.toString());
     writePeriodicOutputs();
     outputTelemetry();
   } //end periodic
@@ -166,7 +166,7 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("Pivot/Power", m_periodicIO.intake_pivot_voltage);
     SmartDashboard.putNumber("Pivot/Current", mPivotMotor.getOutputCurrent());
 
-    SmartDashboard.putBoolean("Limit Switch", getIntakeHasNote());
+    SmartDashboard.putBoolean("Intake Limit Switch", getIntakeHasNote());
   }
 
   public void reset() {
