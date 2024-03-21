@@ -159,14 +159,10 @@ public class Intake extends SubsystemBase {
 
   public void outputTelemetry() {
     SmartDashboard.putNumber("Speed", intakeStateToSpeed(m_periodicIO.intake_state));
-    SmartDashboard.putNumber("Pivot/Abs Enc (getPosition)", m_pivotEncoder.getPosition());
     SmartDashboard.putNumber("Pivot/Abs Enc (getPivotAngle)", getPivotAngle());
     SmartDashboard.putNumber("Pivot/Setpoint", pivotTargetToAngle(m_periodicIO.pivot_target));
 
-    SmartDashboard.putNumber("Pivot/Power", m_periodicIO.intake_pivot_voltage);
-    SmartDashboard.putNumber("Pivot/Current", mPivotMotor.getOutputCurrent());
-
-    SmartDashboard.putBoolean("Intake Limit Switch", getIntakeHasNote());
+    SmartDashboard.putBoolean("Intake_Limit_Switch", getIntakeHasNote());
   }
 
   public void reset() {
