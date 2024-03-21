@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Preferences;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 /*
 import frc.robot.Constants.ShooterConstants;
@@ -26,12 +27,6 @@ public class RobotPreferences {
   public static double getAuto3rdDelay() {
     double temp = Preferences.getDouble("auto3rdDelay", AutoConstants.kThirdAutoDelayDefault);
     Preferences.setDouble("auto3rdDelay", temp);
-    return temp;
-  }
-
-  public static double getEjectPower() {
-    double temp = Preferences.getDouble("ejectPower", AutoConstants.kEjectPowerDefault);
-    Preferences.setDouble("ejectPower", temp);
     return temp;
   }
 
@@ -76,4 +71,11 @@ public class RobotPreferences {
     Preferences.setDouble("AmpSpeed", temp);
     return temp;
   }
+
+  public static double getEjectSpeed(){
+    double temp = Preferences.getDouble("EjectPower", IntakeConstants.kEjectPowerDefault);
+    Preferences.setDouble("EjectPower", temp);
+    return temp;
+  }
+
 }

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.RobotPreferences;
 /*
  * Intake Subsystem modified from 
  * https://github.com/CranberryAlarm/CA24_RobotCode
@@ -194,8 +195,9 @@ public class Intake extends SubsystemBase {
       case INTAKE:
         return IntakeConstants.k_intakeSpeed;
       case EJECT:
-        return IntakeConstants.k_ejectSpeed;
+        return RobotPreferences.getEjectSpeed();
       case PULSE:
+      /*
         // Use the timer to pulse the intake on for a 1/16 second,
         // then off for a 15/16 second
         if (Timer.getFPGATimestamp() % 1.0 < (1.0 / 45.0)) {

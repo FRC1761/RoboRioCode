@@ -99,7 +99,9 @@ public final class Constants {
     //speed for intake based on values from -1 to 1
     public static final double k_intakeSpeed = .45;
     public static final double k_pulseSpeed = 0.1;
-    public static final double k_ejectSpeed = -.60;
+    public static final double kEjectPowerDefault    = -.85;
+    public static final double kEjectPowerAmp        = -.85;
+    public static final double kEjectPowerSpeaker    = -.85;    
     public static final double k_feedShooterSpeed = -.50;
 
     //basing Shooter Feed 
@@ -202,7 +204,6 @@ public final class Constants {
     public static final double kFirstAutoDelayDefault  = 2.0;
     public static final double kSecondAutoDelayDefault = 2.0;
     public static final double kThirdAutoDelayDefault  = 2.0;
-    public static final double kEjectPowerDefault      = .65;
     
     public static final double kPXController = 1;
     public static final double kPYController = 1;

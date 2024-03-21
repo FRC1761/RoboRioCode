@@ -42,7 +42,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private ShooterSubsystem m_shooterDrive;
   private SCShooter m_speedControlledShooter;
-  private static final boolean isSpeedControlled = false;
+  private static final boolean isSpeedControlled = true;
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
   XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
