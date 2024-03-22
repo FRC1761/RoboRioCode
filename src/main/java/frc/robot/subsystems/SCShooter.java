@@ -82,9 +82,9 @@ public class SCShooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    setPIDfromPreferences();
+   // setPIDfromPreferences();
     writePeriodicOutputs();
-    outputTelemetry();
+//    outputTelemetry();
   }
 
   public void writePeriodicOutputs() {
