@@ -137,7 +137,7 @@ public class Intake extends SubsystemBase {
     m_periodicIO.intake_speed = intakeStateToSpeed(m_periodicIO.intake_state);
     SmartDashboard.putString("Intake State", m_periodicIO.intake_state.toString());
     writePeriodicOutputs();
-    outputTelemetry();
+   // outputTelemetry();
   } //end periodic
 
   public void writePeriodicOutputs() {
