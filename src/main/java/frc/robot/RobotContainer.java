@@ -58,13 +58,14 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
     if(!isSpeedControlled) {
         m_shooterDrive = new ShooterSubsystem();
     } else {
         m_speedControlledShooter = SCShooter.getInstance();
     }
     m_intake = Intake.getInstance();
+    configureButtonBindings();
+
     // Configure default commands
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
