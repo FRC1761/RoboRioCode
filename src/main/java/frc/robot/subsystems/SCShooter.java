@@ -133,5 +133,9 @@ public class SCShooter extends SubsystemBase {
     if( m_operatorController.getRightBumper()) result = RobotPreferences.getAmpSpeed();
     return result;
   } 
+
+  public boolean isAtSpeed(){
+    return mLeftShooterEncoder.getVelocity() > mPeriodicIO.shooter_rpm;
+  }
   /*---------------------------------- Custom Private Functions ---------------------------------*/
 }
