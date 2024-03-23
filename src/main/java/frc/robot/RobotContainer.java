@@ -20,12 +20,16 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SCShooter;
 //import frc.robot.RobotPreferences;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 
@@ -42,11 +46,13 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private ShooterSubsystem m_shooterDrive;
   private SCShooter m_speedControlledShooter;
+  private Intake m_intake;
   private static final boolean isSpeedControlled = true;
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
   XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
-
+  XboxController m_TestController = new XboxController(OIConstants.kTestControllerPort);
+  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -58,6 +64,7 @@ public class RobotContainer {
     } else {
         m_speedControlledShooter = SCShooter.getInstance();
     }
+    m_intake = Intake.getInstance();
     // Configure default commands
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
@@ -103,6 +110,32 @@ public class RobotContainer {
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
+
+    new JoystickButton(m_TestController, Button.kL1.value)
+        .whileTrue(new RunCommand(
+            () -> {
+                m_speedControlledShooter.setSpeed(
+                RobotPreferences.getSpeakerSpeed());},
+            m_speedControlledShooter));
+
+    new JoystickButton(m_TestController, Button.kR1.value)
+        .whileTrue(new RunCommand(
+            () -> {
+                m_speedControlledShooter.setSpeed(
+                RobotPreferences.getAmpSpeed());},
+            m_speedControlledShooter));   
+    
+    WaitUntilCommand testForSpeed = new WaitUntilCommand(m_speedControlledShooter::isAtSpeed);
+    RunCommand eject = new RunCommand(()->{m_intake.eject();}, m_intake);
+    InstantCommand shoot = new InstantCommand(
+              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getSpeakerSpeed());}                
+              , m_speedControlledShooter);
+    new JoystickButton(m_TestController, Button.kCircle.value)
+        .onTrue(shoot
+                .alongWith(testForSpeed.andThen(eject))
+                .withTimeout(5)
+                .andThen(()->{m_intake.stop();m_speedControlledShooter.stop();})
+            );   
             
     // new JoystickButton(m_driverController, Button.kL1.value)
     //     .whileTrue(new RunCommand(
