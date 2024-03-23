@@ -66,8 +66,8 @@ public class Climber extends SubsystemBase {
   public void outputTelemetry() {
     SmartDashboard.putBoolean("Left Climber FWD Switch:", mLeftClimberMotor.isFwdLimitSwitchClosed()>0);
     SmartDashboard.putBoolean("Left Climber REV Switch:", mLeftClimberMotor.isRevLimitSwitchClosed()>0);
-    SmartDashboard.putBoolean("Left Climber FWD Switch:", mLeftClimberMotor.isFwdLimitSwitchClosed()>0);
-    SmartDashboard.putBoolean("Left Climber REV Switch:", mLeftClimberMotor.isRevLimitSwitchClosed()>0);
+    SmartDashboard.putBoolean("Right Climber FWD Switch:", mRightClimberMotor.isFwdLimitSwitchClosed()>0);
+    SmartDashboard.putBoolean("Right Climber REV Switch:", mRightClimberMotor.isRevLimitSwitchClosed()>0);
 
     /* */
   }
