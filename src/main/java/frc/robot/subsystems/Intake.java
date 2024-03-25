@@ -136,6 +136,8 @@ public class Intake extends SubsystemBase {
     // Intake control
     m_periodicIO.intake_speed = intakeStateToSpeed(m_periodicIO.intake_state);
     SmartDashboard.putString("Intake State", m_periodicIO.intake_state.toString());
+    SmartDashboard.putString("Pivot State", m_periodicIO.pivot_target.toString());
+    
     writePeriodicOutputs();
    // outputTelemetry();
   } //end periodic
@@ -227,7 +229,7 @@ public class Intake extends SubsystemBase {
   public double getPivotPercentage(){
     //Note: we will automatically go to STOW if we have note
     if(getIntakeHasNote()) {
-      setPivotTarget(PivotTarget.STOW);
+      goToStow();
       m_leds.goGreen();
     }
     switch(m_periodicIO.pivot_target){
