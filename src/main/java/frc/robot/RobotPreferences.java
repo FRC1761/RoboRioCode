@@ -53,8 +53,8 @@ public class RobotPreferences {
   }
   
   public static boolean getPIDTuning(){
-    boolean temp = Preferences.getBoolean("ShooterFF", ShooterConstants.isTuning);
-    Preferences.setBoolean("ShooterFF", temp);
+    boolean temp = Preferences.getBoolean("IsPIDTuning", ShooterConstants.isTuning);
+    Preferences.setBoolean("IsPIDTuning", temp);
     return temp;
   }
 
