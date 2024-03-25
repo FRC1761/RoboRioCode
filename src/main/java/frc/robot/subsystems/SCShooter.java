@@ -135,7 +135,11 @@ public class SCShooter extends SubsystemBase {
   } 
 
   public boolean isAtSpeed(){
-    return mLeftShooterEncoder.getVelocity() > mPeriodicIO.shooter_rpm;
+    boolean isItReally = mLeftShooterEncoder.getVelocity() >= mPeriodicIO.shooter_rpm && 
+           mRightShooterEncoder.getVelocity() >= mPeriodicIO.shooter_rpm;
+    SmartDashboard.putBoolean("isAtSpeed:", isItReally);
+
+    return isItReally;
   }
   /*---------------------------------- Custom Private Functions ---------------------------------*/
 }
