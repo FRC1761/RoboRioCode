@@ -161,9 +161,10 @@ if (isReal()) {
         m_intake.goToSource();
       } else if (m_operatorController.getWantsStow()) {
         m_intake.goToStow();
-      } else if (m_intake.getIntakeState() != IntakeState.INTAKE) {
+      } 
+      /*else if (m_intake.getIntakeState() != IntakeState.INTAKE) {
         m_intake.stopIntake();
-      }
+      } /**/
     }
     
     if(isClimberAttached){
