@@ -25,6 +25,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SCShooter;
 //import frc.robot.RobotPreferences;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -80,21 +81,6 @@ public class RobotContainer {
 /*
 
     /**/
-   if(isSpeedControlled){
-     m_speedControlledShooter.setDefaultCommand(
-        new RunCommand(
-            () -> m_speedControlledShooter.setSpeed(
-                // kShooterSpeed or kShooterSlowSpeed 
-                m_operatorController.getLeftBumper()||m_operatorController.getRightBumper() ? m_speedControlledShooter.getSpeed() : 0),
-            m_speedControlledShooter));
-   } else {
-     m_shooterDrive.setDefaultCommand(
-        new RunCommand(
-            () -> m_shooterDrive.drive((
-                m_operatorController.getLeftBumper()) ? ShooterConstants.kShooterOutput : 0),
-            m_shooterDrive));
-   }
-    /**/
   }
 
   /**
@@ -112,31 +98,37 @@ public class RobotContainer {
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-    new JoystickButton(m_TestController, Button.kL1.value)
-        .whileTrue(new RunCommand(
-            () -> {
-                m_speedControlledShooter.setSpeed(
-                RobotPreferences.getSpeakerSpeed());},
-            m_speedControlledShooter));
+    new JoystickButton(m_operatorController, Button.kL1.value)
+        .whileTrue(new FunctionalCommand(
+              () -> {},
+              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getSpeakerSpeed());},
+              (interrupted) -> {m_speedControlledShooter.stopShooter();},
+              ()->{return false;},
+               m_speedControlledShooter)
+        );
 
-    new JoystickButton(m_TestController, Button.kR1.value)
-        .whileTrue(new RunCommand(
-            () -> {
-                m_speedControlledShooter.setSpeed(
-                RobotPreferences.getAmpSpeed());},
-            m_speedControlledShooter));   
+    new JoystickButton(m_operatorController, Button.kR1.value)
+        .whileTrue(new FunctionalCommand(
+              () -> {},
+              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getAmpSpeed());},
+              (interrupted) -> {m_speedControlledShooter.stopShooter();},
+              ()->{return false;},
+               m_speedControlledShooter)
+        );
     
     WaitUntilCommand testForSpeed = new WaitUntilCommand(m_speedControlledShooter::isAtSpeed);
     RunCommand eject = new RunCommand(()->{m_intake.eject();}, m_intake);
-    InstantCommand shoot = new InstantCommand(
-              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getSpeakerSpeed());}                
-              , m_speedControlledShooter);
-    new JoystickButton(m_TestController, Button.kCircle.value)
-        .onTrue(shoot
-                .alongWith(testForSpeed.andThen(eject))
+    FunctionalCommand shoot = new FunctionalCommand(
+              () -> {},
+              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getSpeakerSpeed());},
+              (interrupted) -> {},
+              m_speedControlledShooter::isAtSpeed,
+               m_speedControlledShooter);
+    new JoystickButton(m_operatorController, Button.kCircle.value)
+        .onTrue(shoot.alongWith(testForSpeed.andThen(eject))
                 .withTimeout(5)
-                .andThen(()->{m_intake.stop();m_speedControlledShooter.stop();})
-            );   
+                .andThen(()->{m_intake.stopIntake();m_speedControlledShooter.stop();}));
+    
             
     // new JoystickButton(m_driverController, Button.kL1.value)
     //     .whileTrue(new RunCommand(
@@ -150,6 +142,20 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    //Create auto speed shoot command
+    WaitUntilCommand testForSpeed = new WaitUntilCommand(m_speedControlledShooter::isAtSpeed);
+    RunCommand eject = new RunCommand(()->{m_intake.eject();}, m_intake);
+    FunctionalCommand shoot = new FunctionalCommand(
+              () -> {},
+              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getSpeakerSpeed());},
+              (interrupted) -> {},
+              m_speedControlledShooter::isAtSpeed,
+               m_speedControlledShooter);
+    
+    Command auto_shoot = shoot.alongWith(testForSpeed.andThen(eject))
+                .withTimeout(5)
+                .andThen(()->{m_intake.stopIntake();m_speedControlledShooter.stop();});
+
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
         AutoConstants.kMaxSpeedMetersPerSecond,
@@ -187,6 +193,6 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    return auto_shoot.andThen(swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false)));
   }
 }
