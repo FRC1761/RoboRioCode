@@ -49,15 +49,7 @@ public class DriverController extends FilteredController {
   public boolean getWantsClimberTiltLeft() {
     return this.getHatLeft();
   }
-/* TODO extra speed disabled so Driver can contol climber
-  public boolean getWantsMoreSpeed() {
-    return this.getHatUp();
-  }
 
-  public boolean getWantsLessSpeed() {
-    return this.getHatDown();
-  }
-/**/
   public boolean getWantsShooterStop() {
     return this.getRawButton(5);
   }
