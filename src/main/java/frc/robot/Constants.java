@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -31,8 +32,11 @@ public final class Constants {
   }
   public static final class ShooterConstants{
     public static final int kLeftShooterCanId = 12; 
-    public static final int kRightShooterCanId = 13; 
+    public static final int kRightShooterCanId = 20; 
 
+    
+    public static final int PCMaddress = 1;
+    public static PneumaticsModuleType pcmType = PneumaticsModuleType.CTREPCM;
     public static final int kSolenoid1 = 0;
     public static final int kSolenoid2 = 1;
     public static final double defaultOutput = .8;  //default max power to shooter

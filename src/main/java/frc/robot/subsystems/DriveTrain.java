@@ -11,27 +11,25 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class DriveTrain extends SubsystemBase {
-  /** Creates a new DriveTrainExample. */
-  public DriveTrain() {}
 
   private TalonSRX rearLeft = new TalonSRX(DriveConstants.kRearLeftDrivingCanId);
   private TalonSRX rearRight = new TalonSRX(DriveConstants.kRearRightDrivingCanId);
   private TalonSRX frontLeft = new TalonSRX(DriveConstants.kFrontLeftDrivingCanId);
   private TalonSRX frontRight = new TalonSRX(DriveConstants.kFrontRightDrivingCanId);
   
-  boolean isSlowMode = false; 
-  @Override
+  boolean isSlowMode = false;
+  /** Creates a new DriveTrainExample. */
+  public DriveTrain() {  }
+
   public void periodic() {
     // This method will be called once per scheduler run
   }
   public void drive(double left, double right) {
-    //drive all the motors
-    rearLeft.set(TalonSRXControlMode.PercentOutput,left);
-    frontLeft.set(TalonSRXControlMode.PercentOutput,left);
+    //drive all the motors]
+    rearLeft.set(TalonSRXControlMode.PercentOutput,-left);
+    frontLeft.set(TalonSRXControlMode.PercentOutput,-left);
     rearRight.set(TalonSRXControlMode.PercentOutput,right);
     frontRight.set(TalonSRXControlMode.PercentOutput,right);
   }
-
-
 }
 
