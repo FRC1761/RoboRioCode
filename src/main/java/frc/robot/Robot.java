@@ -119,8 +119,6 @@ if (isReal()) {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //TODO we are getting warnings that there is periodic time is going over time
-    //   expected is 20 ms and we are now running at 29ms on 3/21
   }
 
   @Override

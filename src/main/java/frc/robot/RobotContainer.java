@@ -6,12 +6,9 @@ package frc.robot;
 
 
 import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.DriveTrainExample;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -25,9 +22,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final DriveTrain m_robotDrive = new DriveTrain();
   private ShooterSubsystem m_shooterDrive;
-  private DriveTrainExample m_DriveTrainExample;
+
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
   XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
@@ -44,19 +41,6 @@ public class RobotContainer {
       new RunCommand(()->
         m_shooterDrive.drive(m_driverController.getRightTriggerAxis())
       ,m_shooterDrive));
-
-
-    m_DriveTrainExample = new DriveTrainExample();
-    m_DriveTrainExample.setDefaultCommand(
-      new RunCommand(()->
-        m_DriveTrainExample.drive(
-          m_driverController.getLeftY(),
-          m_driverController.getRightY()
-        ), m_DriveTrainExample)
-      );
-
-
-
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -81,17 +65,15 @@ public class RobotContainer {
    * passing it to a
    * {@link JoystickButton}.
    */
-  private void configureButtonBindings() {
-
-            
-  new JoystickButton(m_driverController, OIConstants.kFireButton)
+  private void configureButtonBindings() {            
+    new JoystickButton(m_driverController, OIConstants.kFireButton)
      .onTrue(new RunCommand(
       () -> m_shooterDrive.fire(true),
       m_shooterDrive));
-  }
-  new JoystickButton(m_driverController, OIConstants.kReleaseButton)
+  
+    new JoystickButton(m_driverController, OIConstants.kReleaseButton)
      .onTrue(new RunCommand(
        () -> m_shooterDrive.fire(false),
        m_shooterDrive));
-
+  }
 }

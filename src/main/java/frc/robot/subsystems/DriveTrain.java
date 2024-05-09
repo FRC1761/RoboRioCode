@@ -10,9 +10,9 @@ import frc.robot.Constants.DriveConstants;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-public class DriveTrainExample extends SubsystemBase {
+public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrainExample. */
-  public DriveTrainExample() {}
+  public DriveTrain() {}
 
   private TalonSRX rearLeft = new TalonSRX(DriveConstants.kRearLeftDrivingCanId);
   private TalonSRX rearRight = new TalonSRX(DriveConstants.kRearRightDrivingCanId);
@@ -25,17 +25,6 @@ public class DriveTrainExample extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public void drive(double left, double right) {
-    /* Simple example of an if statement 
-    if (isSlowMode) {
-      left = left / 2;
-      right = right / 2;
-    } else {
-        // Do nothing
-        slowMode = "off";
-        System.out.println("\"That's what\",\n she said.");
-        
-    }
-    /**/
     //drive all the motors
     rearLeft.set(TalonSRXControlMode.PercentOutput,left);
     frontLeft.set(TalonSRXControlMode.PercentOutput,left);
