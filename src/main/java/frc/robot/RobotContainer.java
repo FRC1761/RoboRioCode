@@ -10,6 +10,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.DriveTrainExample;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -39,6 +40,10 @@ public class RobotContainer {
     // Configure the button bindings
     m_shooterDrive = new ShooterSubsystem();
     configureButtonBindings();
+    m_shooterDrive.setDefaultCommand(
+      new RunCommand(()->
+        m_shooterDrive.drive(m_driverController.getRightTriggerAxis())
+      ,m_shooterDrive));
 
 
     m_DriveTrainExample = new DriveTrainExample();
@@ -49,6 +54,7 @@ public class RobotContainer {
           m_driverController.getRightY()
         ), m_DriveTrainExample)
       );
+
 
 
 
@@ -78,10 +84,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
             
-    // new JoystickButton(m_driverController, Button.kL1.value)
-    //     .whileTrue(new RunCommand(
-    //         () -> m_shooterDrive.drive(1),
-    //         m_shooterDrive));
+  new JoystickButton(m_driverController, OIConstants.kFireButton)
+     .onTrue(new RunCommand(
+      () -> m_shooterDrive.fire(true),
+      m_shooterDrive));
   }
+  new JoystickButton(m_driverController, OIConstants.kReleaseButton)
+     .onTrue(new RunCommand(
+       () -> m_shooterDrive.fire(false),
+       m_shooterDrive));
 
 }
