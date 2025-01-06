@@ -35,9 +35,17 @@ public final class Constants {
     public static final double kRotationalSlewRate = 2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(22.5);
+    //TODO need to set track width and wheel base in inches here once 
+    // perimeter size is set for robot. Initially set for 30 inch square robot
+    // tires are inset 1.75 inches from each corner
+    private static final double kSideLength = 30;   
+    private static final double kWheelInset = 1.75;
+    private static final double kTrackWidthInches = kSideLength - (2 * kWheelInset);
+    private static final double kWheelBaseInches = kSideLength - (2 * kWheelInset);
+    
+    public static final double kTrackWidth = Units.inchesToMeters(kTrackWidthInches);
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(22.5);
+    public static final double kWheelBase = Units.inchesToMeters(kWheelBaseInches);
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -52,6 +60,7 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
+    //TODO set ID's for all motor controllers.
     public static final int kFrontLeftDrivingCanId = 1;
     public static final int kRearLeftDrivingCanId = 3;
     public static final int kFrontRightDrivingCanId = 2;
@@ -63,83 +72,13 @@ public final class Constants {
     public static final int kRearRightTurningCanId = 28;
     public static final boolean kGyroReversed = true;    
   }
-  public static final class ShooterConstants{
-    public static final int kLeftShooterCanId = 12; //spark driving neo
-    public static final int kRightShooterCanId = 13; //spark driving neo
-    
-    public static final double kShooterP = 0.0005;
-    public static final double kShooterI = 0.0000001;
-    public static final double kShooterD = 0.0;
-    public static final double kShooterFF = 0.0002;
-    public static boolean isTuning = true;
   
-    public static final double kShooterMinOutput = 0;
-    public static final double kShooterMaxOutput = 1;
-    
-    public static final double kShooterOutput = .75; //percentage output for ShooterSubsystem class
-    public static final double kShooterSpeed = 3500; //RPM for SCShooter (speed controlled)
-    public static final double kShooterSlowSpeed = 3000; //RPM for SCShooter (speed controlled)
-    
-  }
-
-  public static final class IntakeConstants {
-    public static final int kArmPivotCanId = 21; //spark driving neo
-    // the following encoder ID would only be used if we used roborio inputs
-    //but we are currently using encoder off SparkMax ArmPivotCanId
-    //public static final int kArmPivotEncoderId = 21; //spark driving neo
-
-    public static final int kIntakeCanId = 25;
-    public static final int kIntakeLimitSwitchId=3;
-
-    public static final double k_pivotAngleGround = 0.074; //
-    public static final double k_pivotAngleAmp = .472; //need an amp to test for best angle for this
-    public static final double k_pivotAngleSource = k_pivotAngleAmp; //assuming same as amp for now 
-    public static final double k_pivotAngleStow = .683; //279 degreesfrom encoder
-
-    //speed for intake based on values from -1 to 1
-    public static final double k_intakeSpeed = .45;
-    public static final double k_pulseSpeed = 0.1;
-    public static final double kEjectPowerDefault    = -.85;
-    public static final double kEjectPowerAmp        = -.85;
-    public static final double kEjectPowerSpeaker    = -.85;    
-    public static final double k_feedShooterSpeed = -.50;
-
-    //basing Shooter Feed 
-    public static final double kPivotPercentage = .25;
-    public static final double kPivotSlowPercentage = .04;
-
-    //not sure we will use this as we used the SparkMax to set offset of encoder to 0
-    // in the ground position
-    public static final double k_pivotEncoderOffset= 0;
-  }
-  
-  public static final class ClimberConstants {
-      // Climber
-      public static final int kClimberLeftMotorId = 6;
-      public static final int kClimberRightMotorId = 7;
-      public static final double kClimberClimbPower = -.8; // Power Output
-      public static final double kClimberReleasePower = +.5; // Power Output
-
-      public static final double kClimberGearRatio = 1.0 / 12.0;
-/* 
-      public static final double kClimberP = 0.001;
-      public static final double kClimberI = 0.0;
-      public static final double kClimberD = 0.0;
-      public static final double kClimberMinOutput = -0.5;
-/* */
-      public static final double kClimberMaxOutput = 0.5;
-  }
-
-  public static final class LEDConstants{
-    public static final int RedIOPort   = 0;
-    public static final int GreenIOPort = 1;
-    public static final int BlueIOPort  = 2;
-  }
-
   public static final class ModuleConstants {
     // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
     // This changes the drive speed of the module (a pinion gear with more teeth will result in a
     // robot that drives faster).
+    //TODO must be set depending on installed swerve drives. Also need to make sure they 
+    // are all installed the same 
     public static final int kDrivingMotorPinionTeeth = 13;
 
     // Invert the turning encoder, since the output shaft rotates in the opposite direction of

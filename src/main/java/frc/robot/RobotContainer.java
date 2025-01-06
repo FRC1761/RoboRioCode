@@ -18,11 +18,8 @@ import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.SCShooter;
+
 //import frc.robot.RobotPreferences;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
@@ -45,8 +42,6 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private ShooterSubsystem m_shooterDrive;
-  private SCShooter m_speedControlledShooter;
   private Intake m_intake;
   private static final boolean isSpeedControlled = true;
   // The driver's controller
@@ -59,11 +54,6 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    if(!isSpeedControlled) {
-        m_shooterDrive = new ShooterSubsystem();
-    } else {
-        m_speedControlledShooter = SCShooter.getInstance();
-    }
     m_intake = Intake.getInstance();
     configureButtonBindings();
 
@@ -98,64 +88,12 @@ public class RobotContainer {
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-    new JoystickButton(m_operatorController, Button.kL1.value)
-        .whileTrue(new FunctionalCommand(
-              () -> {},
-              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getSpeakerSpeed());},
-              (interrupted) -> {m_speedControlledShooter.stopShooter();},
-              ()->{return false;},
-               m_speedControlledShooter)
-        );
-
-    new JoystickButton(m_operatorController, Button.kR1.value)
-        .whileTrue(new FunctionalCommand(
-              () -> {},
-              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getAmpSpeed());},
-              (interrupted) -> {m_speedControlledShooter.stopShooter();},
-              ()->{return false;},
-               m_speedControlledShooter)
-        );
-    
-    WaitUntilCommand testForSpeed = new WaitUntilCommand(m_speedControlledShooter::isAtSpeed);
-    RunCommand eject = new RunCommand(()->{m_intake.eject();}, m_intake);
-    FunctionalCommand shoot = new FunctionalCommand(
-              () -> {},
-              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getSpeakerSpeed());},
-              (interrupted) -> {},
-              m_speedControlledShooter::isAtSpeed,
-               m_speedControlledShooter);
-    new JoystickButton(m_operatorController, Button.kCircle.value)
-        .onTrue(shoot.alongWith(testForSpeed.andThen(eject))
-                .withTimeout(5)
-                .andThen(()->{m_intake.stopIntake();m_speedControlledShooter.stop();}));
-    
-            
-    // new JoystickButton(m_driverController, Button.kL1.value)
-    //     .whileTrue(new RunCommand(
-    //         () -> m_shooterDrive.drive(1),
-    //         m_shooterDrive));
-  }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //Create auto speed shoot command
-    WaitUntilCommand testForSpeed = new WaitUntilCommand(m_speedControlledShooter::isAtSpeed);
-    RunCommand eject = new RunCommand(()->{m_intake.eject();}, m_intake);
-    FunctionalCommand shoot = new FunctionalCommand(
-              () -> {},
-              () -> {m_speedControlledShooter.setSpeed(RobotPreferences.getSpeakerSpeed());},
-              (interrupted) -> {},
-              m_speedControlledShooter::isAtSpeed,
-               m_speedControlledShooter);
-    
-    Command auto_shoot = shoot.alongWith(testForSpeed.andThen(eject))
-                .withTimeout(5)
-                .andThen(()->{m_intake.stopIntake();m_speedControlledShooter.stop();});
-
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
         AutoConstants.kMaxSpeedMetersPerSecond,
