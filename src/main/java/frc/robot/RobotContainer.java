@@ -22,12 +22,14 @@ import frc.robot.subsystems.DriveSubsystem;
 
 //import frc.robot.RobotPreferences;
 import edu.wpi.first.wpilibj2.command.Command;
+/* imports for different types of commands not used (yet) 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+/* end of command imports */
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 
@@ -42,8 +44,6 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private Intake m_intake;
-  private static final boolean isSpeedControlled = true;
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
   XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
@@ -54,7 +54,6 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    m_intake = Intake.getInstance();
     configureButtonBindings();
 
     // Configure default commands
@@ -87,6 +86,7 @@ public class RobotContainer {
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -131,6 +131,6 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return auto_shoot.andThen(swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false)));
+    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
   }
 }

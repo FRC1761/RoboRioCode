@@ -19,12 +19,8 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.controls.controllers.DriverController;
 //import frc.robot.controls.controllers.DriverController;
-import frc.robot.controls.controllers.OperatorController;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Intake.IntakeState;
+//import frc.robot.controls.controllers.OperatorController;
 //import edu.wpi.first.wpilibj2.command.Subsystem;
 //import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.subsystems.ShooterSubsystem;
@@ -40,14 +36,10 @@ public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private Intake m_intake;
-  private boolean isIntakeAttached = true; 
-  private Climber m_climber;
-  private boolean isClimberAttached = true;
   private PowerDistribution PD;
-  
-  private DriverController m_driverController = new DriverController(0);
-  private OperatorController m_operatorController = new OperatorController(1);
+  // controllers will eventually be needed for teleop
+  //private DriverController m_driverController = new DriverController(0);
+  //private OperatorController m_operatorController = new OperatorController(1);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -63,12 +55,6 @@ public class Robot extends LoggedRobot {
 		frontCamera = CameraServer.startAutomaticCapture(0);
 		frontCamera.setFPS(30);
 		frontCamera.setResolution(160,120);
-if(isIntakeAttached){
-  m_intake = Intake.getInstance();  
-}
-if(isClimberAttached){
-  m_climber = Climber.getInstance();
-}
 if (isReal()) {
     //Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
     //Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
@@ -143,46 +129,8 @@ if (isReal()) {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    //TODO we are getting warnings that there is periodic time is going over time
-    //   expected is 20 ms and we are now running at 29ms on 3/21
-    if(isIntakeAttached){    
-      if (m_operatorController.getWantsFullIntake()) {
-        m_intake.goToGround();
-      } else if (m_operatorController.getWantsIntake()) {
-        if (m_intake.getIntakeHasNote()) {
-          m_intake.pulse();
-        } else {
-          m_intake.intake();
-        }
-      } else if (m_operatorController.getWantsEject()) {
-        m_intake.eject();
-      } else if (m_operatorController.getWantsSource()) {
-        m_intake.goToSource();
-      } else if (m_operatorController.getWantsStow()) {
-        m_intake.goToStow();
-      } 
-      /*else if (m_intake.getIntakeState() != IntakeState.INTAKE) {
-        m_intake.stopIntake();
-      } /**/
-    }
+  public void teleopPeriodic() {    
     
-    if(isClimberAttached){
-      // Climber
-      if (m_driverController.getWantsClimberClimb()) {
-        m_climber.climb();
-      }/* TODO disabled tilting and release because we use ratchets now
-      else if (m_driverController.getWantsClimberRelease()) {
-        //release disabled during match
-        //m_climber.release();
-      } else if (m_driverController.getWantsClimberTiltLeft()) {
-        m_climber.tiltLeft();
-      } else if (m_driverController.getWantsClimberTiltRight()) {
-        m_climber.tiltRight();
-      } /**/ else {
-        m_climber.stopClimber();
-      }
-    }
   }
 
   @Override
@@ -194,11 +142,5 @@ if (isReal()) {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    if (m_driverController.getWantsClimberRelease()) {
-        //only enabled during test
-        m_climber.release();
-      } else {
-        m_climber.stopClimber();
-      }
   }
 }

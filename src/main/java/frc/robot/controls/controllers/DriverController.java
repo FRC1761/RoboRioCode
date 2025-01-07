@@ -14,6 +14,7 @@ public class DriverController extends FilteredController {
   }
 
   // Axis
+  @SuppressWarnings("unused")
   private final double k_triggerActivationThreshold = 0.5;
 
   public double getForwardAxis() {
@@ -34,41 +35,7 @@ public class DriverController extends FilteredController {
 
   // D pad
 
-  public boolean getWantsClimberRelease() {
-    return this.getHatUp();
-  }
-
-  public boolean getWantsClimberTiltRight() {
-    return this.getHatRight();
-  }
-
-  public boolean getWantsClimberClimb() {
-    return this.getHatDown();
-  }
-
-  public boolean getWantsClimberTiltLeft() {
-    return this.getHatLeft();
-  }
-/* TODO extra speed disabled so Driver can contol climber
-  public boolean getWantsMoreSpeed() {
-    return this.getHatUp();
-  }
-
-  public boolean getWantsLessSpeed() {
-    return this.getHatDown();
-  }
 /**/
-  public boolean getWantsShooterStop() {
-    return this.getRawButton(5);
-  }
-
-  public boolean getWantsSpeedMode() {
-    return this.getFilteredAxis(2) > k_triggerActivationThreshold;
-  }
-
-  public boolean getWantsSlowMode() {
-    return this.getFilteredAxis(3) > k_triggerActivationThreshold;
-  }
 
   // Buttons
   public boolean getWantsSomethingToggle() {

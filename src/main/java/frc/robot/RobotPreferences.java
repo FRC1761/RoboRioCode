@@ -8,7 +8,7 @@ import frc.robot.Constants.OIConstants;
 /**/
 public class RobotPreferences {
 
-  /* Example of preferences from SmartDashboard
+  /* Example of preferences from SmartDashboard*/
   public static double getAuto1stDelay() {
     double temp = Preferences.getDouble("auto1stDelay", AutoConstants.kFirstAutoDelayDefault);
     Preferences.setDouble("auto1stDelay", temp);
