@@ -5,7 +5,12 @@ import frc.robot.Constants.LEDConstants;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+//NO coral -> team color (red or blue)
+//Coral loaded and at loading/shooting level 1->  yellow?
+//DIfferent color per level climbed to 1-4:
+//Level 2 -> Green
+//Level 3 -> Cyan
+//Level 4 -> Magenta
 public class LEDs extends SubsystemBase {
   private static LEDs m_instance;
 
@@ -54,29 +59,45 @@ public class LEDs extends SubsystemBase {
   public void goRed(){
     setColorMode(true,false,false);
   }
+  
+  public void goLevelOne(){
+     goYellow();
+  }
+  public void goYellow(){
+    setColorMode(true,true,false);
+  }
+
+  public void goLevelTwo(){
+    goGreen();
+  }
 
   public void goGreen(){
     setColorMode(false,true,false);
+  }
+
+  public void goLevelThree(){
+    goCyan();
+  }
+
+  public void goCyan(){
+    setColorMode(false,true,true);
+  }
+
+  public void goLevelFour(){
+    goMagenta();
   }
 
   public void goMagenta(){
     setColorMode(true,false,true);
   }
 
-  public void goYellow(){
-    setColorMode(true,true,false);
- }
 
- public void goCyan(){
-    setColorMode(false,true,true);
- }
-
- public void goTeamColor(){
+  public void goTeamColor(){
     if(DriverStation.getAlliance().isPresent() && 
        DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
       goBlue();
     } else {
       goRed();
     }
- }
+  }
 }
