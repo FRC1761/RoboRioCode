@@ -164,5 +164,25 @@ public final class Constants {
     public static final int GreenIOPort = 1;
     public static final int BlueIOPort  = 2;
   }
+//TODO update elevator  CANID addresses
+
+  public static final class ElevatorConstants {
+    public static final int ElevatorCanID = 0;
+  }
+
+//TODO update left and right shooter CANID and Limit Switch DIO
+
+  public static final class ShooterConstants {
+    public static final int LeftShooter = 0;
+    public static final int RightShooter = 0;
+    public static final int LimitSwitch = 0;
+  }
+
+//TODO update Climber moter CANID
+
+  public static final class ClimberConstants {
+    public static final int ClimberMoterCanID = 0;
+  }
+
 
 }
