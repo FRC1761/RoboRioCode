@@ -29,9 +29,9 @@ public class LEDs extends SubsystemBase {
 
   private LEDs() {
     super("LEDs");
-    mRedLED   = new DigitalOutput(LEDConstants.RedIOPort);
-    mGreenLED = new DigitalOutput(LEDConstants.GreenIOPort);
-    mBlueLED  = new DigitalOutput(LEDConstants.BlueIOPort); 
+    mRedLED   = new DigitalOutput(LEDConstants.redIOPort);
+    mGreenLED = new DigitalOutput(LEDConstants.greenIOPort);
+    mBlueLED  = new DigitalOutput(LEDConstants.blueIOPort); 
 }
 
   public void periodic() {
