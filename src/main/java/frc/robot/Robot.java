@@ -55,6 +55,12 @@ public class Robot extends LoggedRobot {
 		frontCamera = CameraServer.startAutomaticCapture(0);
 		frontCamera.setFPS(30);
 		frontCamera.setResolution(160,120);
+
+    //setup AprilTags Thread
+    /*var visionThread = new Thread(this::apriltagVisionThreadProc);
+    visionThread.setDaemon(true);
+    visionThread.start();
+    /**/
 if (isReal()) {
     //Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
     //Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables

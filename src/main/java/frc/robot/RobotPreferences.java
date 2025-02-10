@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Preferences;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.ShooterConstants;
 /*
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.OIConstants;
@@ -16,5 +17,16 @@ public class RobotPreferences {
   }
     /* end example of preferences */
 
+    public static double getShooterSpeedHigh(){
+      double temp = Preferences.getDouble("shooterSpeedHigh", ShooterConstants.shooterSpeedHigh);
+      Preferences.setDouble("shooterSpeedHigh", temp);
+      return temp;
+    }
 
+    public static double getShooterSpeedLow(){
+      double temp = Preferences.getDouble("shooterSpeedLow", ShooterConstants.shooterSpeedLow);
+      Preferences.setDouble("shooterSpeedLow", temp);
+      return temp;
+    }
+    
 }

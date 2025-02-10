@@ -173,9 +173,13 @@ public final class Constants {
 //TODO update left and right shooter CANID and Limit Switch DIO
 
   public static final class ShooterConstants {
-    public static final int leftShooterCANID = 0;
-    public static final int rightShooterCANID = 0;
+    public static final int leftShooterCANID = 11;
+    public static final int rightShooterCANID = 12;
     public static final int limitSwitchDioID = 0;
+
+    public static final double shooterSpeedLow = .45;
+    public static final double shooterSpeedHigh = .75;
+    
   }
 
 //TODO update Climber moter CANID
