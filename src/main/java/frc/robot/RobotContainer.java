@@ -13,13 +13,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.Shooter;
 //import frc.robot.RobotPreferences;
 import edu.wpi.first.wpilibj2.command.Command;
 /* imports for different types of commands not used (yet) 
@@ -30,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 /* end of command imports */
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
 
@@ -44,10 +43,11 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final Shooter m_Shooter = Shooter.getInstance();
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-  XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
-  XboxController m_TestController = new XboxController(OIConstants.kTestControllerPort);
+  CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
+  CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
+  CommandXboxController m_TestController = new CommandXboxController(OIConstants.kTestControllerPort);
   
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -73,20 +73,25 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
-   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its
-   * subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling
-   * passing it to a
-   * {@link JoystickButton}.
+   * Use this method to define your button->command mappings.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, Button.kR1.value)
+    /*Example code
+        m_driverController.button(0)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
+    /**/
+    //Threshold of .5 is not necessary as its default, 
+    // but left it in so that it was obvious it could be changed. 
+    m_operatorController.leftTrigger(.5)
+        .whileTrue(new RunCommand(
+            ()-> m_Shooter.shootHigh(),m_Shooter));
+    m_operatorController.rightTrigger(.5)
+        .whileTrue(new RunCommand(
+            ()-> m_Shooter.shootLow(),m_Shooter));
   }
+    
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
