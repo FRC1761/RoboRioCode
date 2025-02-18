@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 //include libraries we will use 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -18,13 +19,16 @@ public class Shooter extends SubsystemBase {
   private static Shooter m_instance; 
   private final SparkMax leftShooter;
   private final SparkMax rightShooter;
+  private final RelativeEncoder leftEncoder,rightEncoder;
   private final DigitalOutput limitSwitch;
 
   /** Creates a new Shooter. */
   private Shooter() {
 
-    leftShooter = new SparkMax(ShooterConstants.leftShooterCANID,MotorType.kBrushed);
-    rightShooter = new SparkMax(ShooterConstants.rightShooterCANID, MotorType.kBrushed);
+    leftShooter = new SparkMax(ShooterConstants.leftShooterCANID,MotorType.kBrushless);
+    rightShooter = new SparkMax(ShooterConstants.rightShooterCANID, MotorType.kBrushless);
+    leftEncoder = leftShooter.getEncoder();
+    rightEncoder = rightShooter.getEncoder();
     limitSwitch = new DigitalOutput(ShooterConstants.limitSwitchDioID);
   }
 
@@ -48,5 +52,6 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    RobotPreferences.setShooterSpeeds(leftEncoder.getVelocity(),rightEncoder.getVelocity());
   }
 }

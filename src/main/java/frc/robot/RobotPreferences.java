@@ -28,5 +28,14 @@ public class RobotPreferences {
       Preferences.setDouble("shooterSpeedLow", temp);
       return temp;
     }
+
+    public static void setHeightDisplay(double height) {
+      Preferences.setDouble("Elevator Height",height);
+    }
+
+    public static void setShooterSpeeds(double left, double right){
+      Preferences.setDouble("Left ShooterSpeed",left);
+      Preferences.setDouble("Right ShooterSpeed",right);
+    }
     
 }
