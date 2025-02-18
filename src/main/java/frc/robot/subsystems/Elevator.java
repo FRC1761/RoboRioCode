@@ -15,7 +15,7 @@ public class Elevator extends SubsystemBase {
   private final SparkMax elevMotor;
   private final RelativeEncoder elevEncoder;
 
-  public Elevator getInstance(){
+  public static Elevator getInstance(){
      if(m_instance == null){
       m_instance = new Elevator();
      }

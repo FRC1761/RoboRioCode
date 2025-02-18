@@ -17,6 +17,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
 //import frc.robot.RobotPreferences;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,6 +45,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Shooter m_Shooter = Shooter.getInstance();
+  private final Elevator m_Elevator = Elevator.getInstance();
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
@@ -67,6 +69,12 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 true, true),
             m_robotDrive));
+
+    m_Elevator.setDefaultCommand(
+        new RunCommand(
+            ()-> m_Elevator.drive(
+                -MathUtil.applyDeadband(m_operatorController.getRightY(), OIConstants.kDriveDeadband)),
+            m_Elevator));
 /*
 
     /**/
@@ -90,6 +98,7 @@ public class RobotContainer {
     m_operatorController.rightTrigger(.5)
         .whileTrue(new RunCommand(
             ()-> m_Shooter.shootLow(),m_Shooter));
+    
   }
     
 
