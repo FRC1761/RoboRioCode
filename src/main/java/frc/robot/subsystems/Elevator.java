@@ -29,7 +29,8 @@ public class Elevator extends SubsystemBase {
     //  also something to stop the power if the encoder stops moving.
     elevMotor = new SparkMax(ElevatorConstants.ElevatorCanID, MotorType.kBrushless);
     elevEncoder = elevMotor.getEncoder();
-    elevEncoder.setPosition(0.0);
+    //let's not reinitialize elevaotr position and see if it persists
+    //elevEncoder.setPosition(0.0);
   }
 
   public double getHeight(){
