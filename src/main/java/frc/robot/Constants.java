@@ -134,6 +134,7 @@ public final class Constants {
     public static final int kTestControllerPort = 3;
     
     public static final double kDriveDeadband = 0.05;
+    public static final double kElevatorDeadband = .25;
   }
 
   public static final class AutoConstants {
