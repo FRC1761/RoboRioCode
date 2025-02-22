@@ -73,7 +73,7 @@ public class RobotContainer {
     m_Elevator.setDefaultCommand(
         new RunCommand(
             ()-> m_Elevator.drive(
-                -MathUtil.applyDeadband(m_operatorController.getRightY(), OIConstants.kDriveDeadband)),
+                -MathUtil.applyDeadband(m_operatorController.getRightY(), OIConstants.kElevatorDeadband)),
             m_Elevator));
 /*
 
@@ -92,13 +92,14 @@ public class RobotContainer {
     /**/
     //Threshold of .5 is not necessary as its default, 
     // but left it in so that it was obvious it could be changed. 
+    /*TODO reenable once shooter is wired */
     m_operatorController.leftTrigger(.5)
         .whileTrue(new RunCommand(
             ()-> m_Shooter.shootHigh(),m_Shooter));
     m_operatorController.rightTrigger(.5)
         .whileTrue(new RunCommand(
             ()-> m_Shooter.shootLow(),m_Shooter));
-    
+    /**/
   }
     
 
