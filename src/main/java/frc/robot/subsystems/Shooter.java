@@ -48,6 +48,11 @@ public class Shooter extends SubsystemBase {
     leftShooter.set(RobotPreferences.getShooterSpeedLow());
     rightShooter.set(RobotPreferences.getShooterSpeedLow());
   }
+
+  public void stop(){
+    leftShooter.set(0);
+    rightShooter.set(0);
+  }
   
   @Override
   public void periodic() {

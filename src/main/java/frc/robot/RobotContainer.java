@@ -95,10 +95,12 @@ public class RobotContainer {
     /*TODO reenable once shooter is wired */
     m_operatorController.leftTrigger(.5)
         .whileTrue(new RunCommand(
-            ()-> m_Shooter.shootHigh(),m_Shooter));
+            ()-> m_Shooter.shootHigh(),m_Shooter))
+        .andThen(()-> m_Shooter.stop());
     m_operatorController.rightTrigger(.5)
         .whileTrue(new RunCommand(
-            ()-> m_Shooter.shootLow(),m_Shooter));
+            ()-> m_Shooter.shootLow(),m_Shooter))
+        .andThen(()-> m_Shooter.stop());
     /**/
   }
     
