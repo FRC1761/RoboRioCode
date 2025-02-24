@@ -61,14 +61,14 @@ public class LEDs extends SubsystemBase {
   }
   
   public void goLevelOne(){
-     goYellow();
+     goGreen();
   }
   public void goYellow(){
     setColorMode(true,true,false);
   }
 
   public void goLevelTwo(){
-    goGreen();
+    goYellow();
   }
 
   public void goGreen(){
@@ -76,21 +76,21 @@ public class LEDs extends SubsystemBase {
   }
 
   public void goLevelThree(){
-    goCyan();
+    goMagenta();
   }
 
   public void goCyan(){
     setColorMode(false,true,true);
   }
 
-  public void goLevelFour(){
-    goMagenta();
-  }
-
   public void goMagenta(){
     setColorMode(true,false,true);
   }
 
+  public void goBetweenLevels(){
+    //white between levels.
+    setColorMode(true,true,true);
+  }
 
   public void goTeamColor(){
     if(DriverStation.getAlliance().isPresent() && 
