@@ -49,12 +49,12 @@ public class Elevator extends SubsystemBase {
     double height = getHeight();
     RobotPreferences.setHeightDisplay(getHeight());
     if(height < ElevatorConstants.resolution) m_leds.goTeamColor();
-    else if(height < ElevatorConstants.lvlOneHeight) m_leds.goBetweenLevels();
-    else if(height > ElevatorConstants.lvlOneHeight) m_leds.goLevelOne();
-    else if(height > ElevatorConstants.lvlOneHeight+ ElevatorConstants.resolution) m_leds.goBetweenLevels();
-    else if(height > ElevatorConstants.lvlTwoHeight) m_leds.goLevelTwo();
-    else if(height > ElevatorConstants.lvlTwoHeight+ ElevatorConstants.resolution) m_leds.goBetweenLevels();
-    else if(height > ElevatorConstants.lvlThreeHeight) m_leds.goLevelThree();
+    else if(height < ElevatorConstants.levelOne) m_leds.goBetweenLevels();
+    else if(height > ElevatorConstants.levelOne) m_leds.goLevelOne();
+    else if(height > ElevatorConstants.levelOne + ElevatorConstants.resolution) m_leds.goBetweenLevels();
+    else if(height > ElevatorConstants.levelTwo) m_leds.goLevelTwo();
+    else if(height > ElevatorConstants.levelTwo+ ElevatorConstants.resolution) m_leds.goBetweenLevels();
+    else if(height > ElevatorConstants.levelThree) m_leds.goLevelThree();
 }
 
 
