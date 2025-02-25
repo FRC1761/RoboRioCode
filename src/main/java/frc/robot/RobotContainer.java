@@ -16,11 +16,13 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
 //import frc.robot.RobotPreferences;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 /* imports for different types of commands not used (yet) 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -46,6 +48,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Shooter m_Shooter = Shooter.getInstance();
   private final Elevator m_Elevator = Elevator.getInstance();
+  private final Climber m_Climber = Climber.getInstance();
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
@@ -94,13 +97,33 @@ public class RobotContainer {
     // but left it in so that it was obvious it could be changed. 
     /*TODO reenable once shooter is wired */
     m_operatorController.leftTrigger(.5)
-        .whileTrue(new RunCommand(
-            ()-> m_Shooter.shootHigh(),m_Shooter))
-        .andThen(()-> m_Shooter.stop());
+        .whileTrue(
+            new FunctionalCommand(
+              () -> {},
+              () -> {m_Shooter.shootHigh();},
+              (interrupted) -> {m_Shooter.stop();},
+              ()->{return false;},
+               m_Shooter)
+        );
+            
     m_operatorController.rightTrigger(.5)
-        .whileTrue(new RunCommand(
-            ()-> m_Shooter.shootLow(),m_Shooter))
-        .andThen(()-> m_Shooter.stop());
+        .whileTrue(
+            new FunctionalCommand(
+            () -> {},
+            () -> {m_Shooter.shootHigh();},
+            (interrupted) -> {m_Shooter.stop();},
+            ()->{return false;},
+            m_Shooter)
+        );
+
+    m_operatorController.leftBumper().whileTrue(
+        new FunctionalCommand(
+            () -> {},
+            () -> {m_Climber.climb();},
+            (interrupted) -> {m_Climber.stop();},
+            () -> {return false;},
+            m_Climber)
+    );
     /**/
   }
     

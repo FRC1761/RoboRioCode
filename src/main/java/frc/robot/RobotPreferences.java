@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Preferences;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ShooterConstants;
 /*
 import frc.robot.Constants.ClimberConstants;
@@ -31,6 +32,15 @@ public class RobotPreferences {
 
     public static void setHeightDisplay(double height) {
       Preferences.setDouble("Elevator Height",height);
+    }
+
+    public static void setClimberDisplay(double climb){
+      Preferences.setDouble("ClimberRotations",climb);
+    }
+
+    public static double getClimbSpeed(){
+      double temp = Preferences.getDouble("ClimberRotations",ClimberConstants.defSpeed);
+      return temp;
     }
 
     public static void setShooterSpeeds(double left, double right){

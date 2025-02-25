@@ -193,7 +193,10 @@ public final class Constants {
 //updated Climber moter CANID
 
   public static final class ClimberConstants {
-    public static final int climberMoterCanID = 10;
+    public static final int climberMotorCanID = 10;
+    //currently the def Speed is negative to run backwards
+    // the direction of the ratchet.  
+    public static final double defSpeed = -.50;
   }
 
 }
