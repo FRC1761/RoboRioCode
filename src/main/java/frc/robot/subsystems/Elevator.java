@@ -14,6 +14,7 @@ public class Elevator extends SubsystemBase {
   private static Elevator m_instance;
   private final SparkMax elevMotor;
   private final RelativeEncoder elevEncoder;
+  private final LEDs m_leds;
 
   public static Elevator getInstance(){
      if(m_instance == null){
@@ -29,8 +30,8 @@ public class Elevator extends SubsystemBase {
     //  also something to stop the power if the encoder stops moving.
     elevMotor = new SparkMax(ElevatorConstants.ElevatorCanID, MotorType.kBrushless);
     elevEncoder = elevMotor.getEncoder();
-    //let's not reinitialize elevaotr position and see if it persists
-    //elevEncoder.setPosition(0.0);
+    m_leds = LEDs.getInstance();
+    elevEncoder.setPosition(0.0);
   }
 
   public double getHeight(){
@@ -45,8 +46,16 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    double height = getHeight();
     RobotPreferences.setHeightDisplay(getHeight());
-  }
+    if(height < ElevatorConstants.resolution) m_leds.goTeamColor();
+    else if(height < ElevatorConstants.lvlOneHeight) m_leds.goBetweenLevels();
+    else if(height > ElevatorConstants.lvlOneHeight) m_leds.goLevelOne();
+    else if(height > ElevatorConstants.lvlOneHeight+ ElevatorConstants.resolution) m_leds.goBetweenLevels();
+    else if(height > ElevatorConstants.lvlTwoHeight) m_leds.goLevelTwo();
+    else if(height > ElevatorConstants.lvlTwoHeight+ ElevatorConstants.resolution) m_leds.goBetweenLevels();
+    else if(height > ElevatorConstants.lvlThreeHeight) m_leds.goLevelThree();
+}
 
 
 }
