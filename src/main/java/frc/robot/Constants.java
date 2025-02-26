@@ -183,7 +183,7 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final int leftShooterCANID = 11;
     public static final int rightShooterCANID = 12;
-    public static final int limitSwitchDioID = 0;
+    public static final int limitSwitchDioID = 9;
 
     public static final double shooterSpeedLow = .45;
     public static final double shooterSpeedHigh = .75;
