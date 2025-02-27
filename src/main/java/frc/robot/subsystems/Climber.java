@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import frc.robot.RobotPreferences;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ElevatorConstants;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase {
@@ -31,6 +32,12 @@ public class Climber extends SubsystemBase {
 
   public void climb(){
     climberMotor.set(RobotPreferences.getClimbSpeed());
+  }
+
+  public void release(){
+    if(DriverStation.isTest()) {
+      climberMotor.set(-RobotPreferences.getClimbSpeed());
+    }
   }
 
   public void stop() {

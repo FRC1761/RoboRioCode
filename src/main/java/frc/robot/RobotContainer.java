@@ -116,14 +116,23 @@ public class RobotContainer {
             m_Shooter)
         );
 
-    m_operatorController.leftBumper().whileTrue(
-        new FunctionalCommand(
-            () -> {},
-            () -> {m_Climber.climb();},
-            (interrupted) -> {m_Climber.stop();},
-            () -> {return false;},
-            m_Climber)
-    );
+        m_operatorController.leftBumper().whileTrue(
+            new FunctionalCommand(
+                () -> {},
+                () -> {m_Climber.climb();},
+                (interrupted) -> {m_Climber.stop();},
+                () -> {return false;},
+                m_Climber)
+        );
+
+        m_operatorController.rightBumper().whileTrue(
+            new FunctionalCommand(
+                () -> {},
+                () -> {m_Climber.release();},
+                (interrupted) -> {m_Climber.stop();},
+                () -> {return false;},
+                m_Climber)
+        );
     /**/
   }
     

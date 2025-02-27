@@ -39,7 +39,7 @@ public class RobotPreferences {
     }
 
     public static double getClimbSpeed(){
-      double temp = Preferences.getDouble("ClimberRotations",ClimberConstants.defSpeed);
+      double temp = Preferences.getDouble("ClimberSpeed",ClimberConstants.defSpeed);
       return temp;
     }
 
