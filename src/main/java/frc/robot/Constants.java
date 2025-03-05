@@ -161,9 +161,9 @@ public final class Constants {
   }
 
   public static final class LEDConstants{
-    public static final int redIOPort   = 0;
-    public static final int greenIOPort = 1;
-    public static final int blueIOPort  = 2;
+    public static final int redIOPort   = 1;
+    public static final int greenIOPort = 2;
+    public static final int blueIOPort  = 0;
   }
 //updated elevator  CANID addresses
 
@@ -185,8 +185,8 @@ public final class Constants {
     public static final int rightShooterCANID = 12;
     public static final int limitSwitchDioID = 9;
 
-    public static final double shooterSpeedLow = .45;
-    public static final double shooterSpeedHigh = .75;
+    public static final double shooterSpeedLow = .15;
+    public static final double shooterSpeedHigh = .45;
     
   }
 
