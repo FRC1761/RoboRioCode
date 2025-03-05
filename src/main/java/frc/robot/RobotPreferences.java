@@ -40,6 +40,7 @@ public class RobotPreferences {
 
     public static double getClimbSpeed(){
       double temp = Preferences.getDouble("ClimberSpeed",ClimberConstants.defSpeed);
+      Preferences.setDouble("ClimberSpeed",temp);
       return temp;
     }
 
@@ -47,5 +48,16 @@ public class RobotPreferences {
       Preferences.setDouble("Left ShooterSpeed",left);
       Preferences.setDouble("Right ShooterSpeed",right);
     }
-    
+
+    public static double getAutoX(){
+      double x = Preferences.getDouble("AutonomousX",3);
+      Preferences.setDouble("AutonomousX",x);
+      return x;
+    }
+
+    public static double getAutoY(){
+      double y = Preferences.getDouble("AutonomousY",0);
+      Preferences.setDouble("AutonomousY",y);
+      return y;
+    }
 }
