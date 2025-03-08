@@ -134,6 +134,15 @@ public class RobotContainer {
             () -> {return false;},
             m_Climber)
     );
+
+    m_operatorController.povUp().onTrue(
+        new FunctionalCommand(
+            () -> {},
+            () -> {m_Elevator.drive(1.0);},
+            (interrupted) -> {m_Elevator.drive(0.0);},
+            () -> {return m_Elevator.getHeight()>Constants.ElevatorConstants.levelThree;},
+            m_Climber)
+    )
     /**/
   }
     
