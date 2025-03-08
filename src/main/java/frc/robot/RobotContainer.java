@@ -142,7 +142,7 @@ public class RobotContainer {
             (interrupted) -> {m_Elevator.drive(0.0);},
             () -> {return m_Elevator.getHeight()>Constants.ElevatorConstants.levelThree;},
             m_Climber)
-    )
+    );
     /**/
   }
     
