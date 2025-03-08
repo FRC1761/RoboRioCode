@@ -35,9 +35,7 @@ public class Climber extends SubsystemBase {
   }
 
   public void release(){
-    if(DriverStation.isTest()) {
       climberMotor.set(-RobotPreferences.getClimbSpeed());
-    }
   }
 
   public void stop() {
