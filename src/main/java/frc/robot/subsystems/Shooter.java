@@ -57,6 +57,6 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    RobotPreferences.setShooterSpeeds(leftEncoder.getVelocity(),rightEncoder.getVelocity());
+    RobotPreferences.setShooterSpeeds(leftEncoder.getVelocity(),rightEncoder.getVelocity()/**/);
   }
 }
