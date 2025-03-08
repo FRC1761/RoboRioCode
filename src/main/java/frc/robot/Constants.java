@@ -169,10 +169,10 @@ public final class Constants {
 
   public static final class ElevatorConstants {
     public static final int ElevatorCanID = 15;
-    public static final double levelThree = 0.0;
-    public static final double levelTwo = 385.0;
-    public static final double levelOne =540.0;
-    public static final double levelBase = 615.0;
+    public static final double levelThree = 1127;
+    public static final double levelTwo = 424;
+    public static final double levelOne =97;
+    public static final double levelBase = 0.0;
     //how close to target to be accurate enough
     public static final double resolution = 15;
     

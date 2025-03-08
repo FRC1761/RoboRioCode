@@ -36,7 +36,7 @@ public class Elevator extends SubsystemBase {
 
   public double getHeight(){
     //gear ratio is 9:1 , 5:1 (45 times)
-    return elevEncoder.getPosition();
+    return Math.abs(elevEncoder.getPosition());
   }
 
   public void drive(double input){
