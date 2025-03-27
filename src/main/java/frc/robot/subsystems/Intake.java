@@ -47,7 +47,7 @@ public class Intake extends SubsystemBase {
   }
 
   //private TalonSRX mIntakeMotor;
-  private TalonSRX mIntakeMotor;
+  private CANSparkMax mIntakeMotor;
   private CANSparkMax mPivotMotor;
 
   private Intake() {
@@ -57,9 +57,9 @@ public class Intake extends SubsystemBase {
     //mIntakeMotor.restoreFactoryDefaults();
     //mIntakeMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
     // Talon Settings
-    mIntakeMotor = new TalonSRX(IntakeConstants.kIntakeCanId);
-    mIntakeMotor.configFactoryDefault();
-    mIntakeMotor.setNeutralMode(NeutralMode.Coast);
+    mIntakeMotor = new CANSparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
+    mIntakeMotor.restoreFactoryDefaults();
+    mIntakeMotor.setIdleMode(CANSparkMax.IdleMode.kCoast));
 
     mPivotMotor = new CANSparkMax(IntakeConstants.kArmPivotCanId, MotorType.kBrushless);
     mPivotMotor.restoreFactoryDefaults();

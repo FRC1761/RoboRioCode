@@ -88,7 +88,7 @@ public final class Constants {
     //but we are currently using encoder off SparkMax ArmPivotCanId
     //public static final int kArmPivotEncoderId = 21; //spark driving neo
 
-    public static final int kIntakeCanId = 25;
+    public static final int kIntakeCanId = 22;
     public static final int kIntakeLimitSwitchId=3;
 
     public static final double k_pivotAngleGround = 0.074; //
