@@ -1,14 +1,13 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkBase.ControlType;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.*;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkBase.ControlType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.util.Color;
@@ -26,7 +25,7 @@ public class Intake extends SubsystemBase {
   private static final double k_pivotMotorD = 0.001; 
 
   private static final boolean isPIDcontrolled = false;
-  private final SparkPIDController mPivotPID;
+  private final SparkClosedLoopController mPivotPID;
   //private final PIDController m_pivotPID = new PIDController(k_pivotMotorP, k_pivotMotorI, k_pivotMotorD);
 
   //private final DutyCycleEncoder m_pivotEncoder = new DutyCycleEncoder(IntakeConstants.kArmPivotEncoderId);
@@ -47,34 +46,29 @@ public class Intake extends SubsystemBase {
   }
 
   //private TalonSRX mIntakeMotor;
-  private CANSparkMax mIntakeMotor;
-  private CANSparkMax mPivotMotor;
+  private SparkMax mIntakeMotor;
+  private SparkMax mPivotMotor;
 
   private Intake() {
     super("Intake");
     // CANSparK Settings
-    //mIntakeMotor = new CANSparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
-    //mIntakeMotor.restoreFactoryDefaults();
-    //mIntakeMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
-    // Talon Settings
-    mIntakeMotor = new CANSparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
-    mIntakeMotor.restoreFactoryDefaults();
-    mIntakeMotor.setIdleMode(CANSparkMax.IdleMode.kCoast));
-
-    mPivotMotor = new CANSparkMax(IntakeConstants.kArmPivotCanId, MotorType.kBrushless);
-    mPivotMotor.restoreFactoryDefaults();
-    mPivotMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-    mPivotMotor.setSmartCurrentLimit(40);
-    m_pivotEncoder = mPivotMotor.getAbsoluteEncoder(Type.kDutyCycle);
+    mIntakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
+    SparkMaxConfig intakeConfig = new SparkMaxConfig(),
+                   pivotConfig  = new SparkMaxConfig();
+    intakeConfig.idleMode(SparkBaseConfig.IdleMode.kCoast);
+    mIntakeMotor.configure(intakeConfig,SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
+    mPivotMotor = new SparkMax(IntakeConstants.kArmPivotCanId, MotorType.kBrushless);
+    pivotConfig.idleMode(SparkBaseConfig.IdleMode.kBrake);
+    pivotConfig.smartCurrentLimit(40);
+    mPivotMotor.configure(pivotConfig, SparkBase.ResetMode.kNoResetSafeParameters,SparkBase.PersistMode.kPersistParameters);
+    m_pivotEncoder = mPivotMotor.getAbsoluteEncoder();
 
     m_leds = LEDs.getInstance();
 
     if(isPIDcontrolled){
-      mPivotPID = mPivotMotor.getPIDController();
-      mPivotPID.setP(k_pivotMotorP);
-      mPivotPID.setI(k_pivotMotorI);
-      mPivotPID.setD(k_pivotMotorD);
-      mPivotPID.setFeedbackDevice(mPivotMotor.getAbsoluteEncoder());      
+      pivotConfig.closedLoop.pid(k_pivotMotorP, k_pivotMotorI, k_pivotMotorD);
+      pivotConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
+      mPivotMotor.configure(pivotConfig,SparkBase.ResetMode.kNoResetSafeParameters,SparkBase.PersistMode.kPersistParameters);
     } else {
       mPivotPID = null;
     }
@@ -144,12 +138,11 @@ public class Intake extends SubsystemBase {
 
   public void writePeriodicOutputs() {
     if(isPIDcontrolled){
-      mPivotPID.setReference(m_periodicIO.intake_pivot_voltage,CANSparkMax.ControlType.kVoltage);
+      mPivotPID.setReference(m_periodicIO.intake_pivot_voltage,SparkMax.ControlType.kVoltage);
     } else {
       mPivotMotor.set(m_periodicIO.intake_pivot_voltage);
     }
-    //mPivotMotor.setVoltage(m_periodicIO.intake_pivot_voltage);
-    mIntakeMotor.set(TalonSRXControlMode.PercentOutput,m_periodicIO.intake_speed); //Talon
+    mIntakeMotor.set(m_periodicIO.intake_speed);
   }
 
   public void stop() {

@@ -1,11 +1,16 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.CANSparkFlex;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
 
 import frc.robot.RobotPreferences;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -27,14 +32,13 @@ public class SCShooter extends SubsystemBase {
     return mInstance;
   }
 
-  private CANSparkFlex mLeftShooterMotor;
-  private CANSparkFlex mRightShooterMotor;
+  private SparkMax mLeftShooterMotor, mRightShooterMotor;
 
-  private SparkPIDController mLeftShooterPID;
-  private SparkPIDController mRightShooterPID;
+  private SparkBaseConfig mLeftConfig,mRightConfig;
 
-  private RelativeEncoder mLeftShooterEncoder;
-  private RelativeEncoder mRightShooterEncoder;
+  private SparkClosedLoopController mLeftShooterPID, mRightShooterPID;
+
+  private RelativeEncoder mLeftShooterEncoder, mRightShooterEncoder;
 
   private SlewRateLimiter mSpeedLimiter = new SlewRateLimiter(1000);
   private   XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
@@ -44,34 +48,33 @@ public class SCShooter extends SubsystemBase {
 
     mPeriodicIO = new PeriodicIO();
 
-    mLeftShooterMotor = new CANSparkFlex(ShooterConstants.kLeftShooterCanId, MotorType.kBrushless);
-    mRightShooterMotor = new CANSparkFlex(ShooterConstants.kRightShooterCanId, MotorType.kBrushless);
-    mLeftShooterMotor.restoreFactoryDefaults();
-    mRightShooterMotor.restoreFactoryDefaults();
+    mLeftShooterMotor = new SparkMax(ShooterConstants.kLeftShooterCanId, MotorType.kBrushless);
+    mRightShooterMotor = new SparkMax(ShooterConstants.kRightShooterCanId, MotorType.kBrushless);
 
-    mLeftShooterPID = mLeftShooterMotor.getPIDController();
-    mLeftShooterPID.setP(RobotPreferences.getShooterP());
-    mLeftShooterPID.setI(RobotPreferences.getShooterI());
-    mLeftShooterPID.setD(RobotPreferences.getShooterD());
-    mLeftShooterPID.setFF(RobotPreferences.getShooterFF());
-    mLeftShooterPID.setOutputRange(ShooterConstants.kShooterMinOutput, ShooterConstants.kShooterMaxOutput);
-
-    mRightShooterPID = mRightShooterMotor.getPIDController();
-    mRightShooterPID.setP(RobotPreferences.getShooterP());
-    mRightShooterPID.setI(RobotPreferences.getShooterI());
-    mRightShooterPID.setD(RobotPreferences.getShooterD());
-    mRightShooterPID.setFF(RobotPreferences.getShooterFF());
-    mRightShooterPID.setOutputRange(ShooterConstants.kShooterMinOutput, ShooterConstants.kShooterMaxOutput);
+    mLeftConfig = new SparkMaxConfig();
+    mLeftConfig.idleMode(IdleMode.kCoast);
+    mLeftConfig.inverted(false);
+    mLeftConfig.closedLoop.p(RobotPreferences.getShooterP());
+    mLeftConfig.closedLoop.i(RobotPreferences.getShooterI());
+    mLeftConfig.closedLoop.d(RobotPreferences.getShooterD());
+    mLeftConfig.closedLoop.velocityFF(RobotPreferences.getShooterFF());
+    mLeftConfig.closedLoop.outputRange(ShooterConstants.kShooterMinOutput, ShooterConstants.kShooterMaxOutput);
+    mLeftShooterMotor.configure(mLeftConfig,
+                                ResetMode.kResetSafeParameters,
+                                PersistMode.kPersistParameters);
+    //Right is same as left config except for Inverted state
+    mRightConfig = new SparkMaxConfig();
+    mRightConfig.apply(mLeftConfig);
+    mRightConfig.inverted(true);
+    mRightShooterMotor.configure(mRightConfig,
+                                 ResetMode.kResetSafeParameters,
+                                 PersistMode.kPersistParameters);
 
     mLeftShooterEncoder = mLeftShooterMotor.getEncoder();
     mRightShooterEncoder = mRightShooterMotor.getEncoder();
 
-    mLeftShooterMotor.setIdleMode(CANSparkFlex.IdleMode.kCoast);
-    mRightShooterMotor.setIdleMode(CANSparkFlex.IdleMode.kCoast);
-
-    mLeftShooterMotor.setInverted(false);
-    mRightShooterMotor.setInverted(true);
-
+    mLeftShooterPID = mLeftShooterMotor.getClosedLoopController();
+    mRightShooterPID = mRightShooterMotor.getClosedLoopController();
   }
 
   private static class PeriodicIO {
@@ -95,15 +98,14 @@ public class SCShooter extends SubsystemBase {
 
   public void setPIDfromPreferences(){
     if(RobotPreferences.getPIDTuning()){
-    mLeftShooterPID.setP(RobotPreferences.getShooterP());
-    mLeftShooterPID.setI(RobotPreferences.getShooterI());
-    mLeftShooterPID.setD(RobotPreferences.getShooterD());
-    mLeftShooterPID.setFF(RobotPreferences.getShooterFF());
+      mLeftConfig.closedLoop.p(RobotPreferences.getShooterP());
+      mLeftConfig.closedLoop.i(RobotPreferences.getShooterI());
+      mLeftConfig.closedLoop.d(RobotPreferences.getShooterD());
+      mLeftConfig.closedLoop.velocityFF(RobotPreferences.getShooterFF());
     
-    mRightShooterPID.setP(RobotPreferences.getShooterP());
-    mRightShooterPID.setI(RobotPreferences.getShooterI());
-    mRightShooterPID.setD(RobotPreferences.getShooterD());
-    mRightShooterPID.setFF(RobotPreferences.getShooterFF());
+      //both motors use the same PID settings. 
+      mLeftShooterMotor.configure(mLeftConfig, null, null);
+      mRightShooterMotor.configure(mLeftConfig, null, null);
     }
   }
   public void stop() {

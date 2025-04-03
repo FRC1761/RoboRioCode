@@ -16,9 +16,9 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
-import com.kauailabs.navx.frc.AHRS;
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
 
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
@@ -51,7 +51,7 @@ public class DriveSubsystem extends SubsystemBase {
   // default KoP gyro
   // public final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
   // navX MXP using SPI
-  AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  AHRS m_gyro = new AHRS(NavXComType.kMXP_SPI);
   // Slew rate filter variables for controlling lateral acceleration
   public double m_currentRotation = 0.0;
   public double m_currentTranslationDir = 0.0;
