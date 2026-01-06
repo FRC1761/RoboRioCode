@@ -194,5 +194,5 @@ public class RobotContainer {
 
     // Run path following command, then stop at the end.
     return auto_shoot.andThen(swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false)));
-  }
+   }
 }
