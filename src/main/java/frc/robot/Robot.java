@@ -4,27 +4,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.*;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-import org.littletonrobotics.junction.*;
-/*import org.littletonrobotics.junction.LogFileUtil;
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-/**/
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-//import frc.robot.controls.controllers.DriverController;
-//import frc.robot.controls.controllers.OperatorController;
-//import edu.wpi.first.wpilibj2.command.Subsystem;
-//import frc.robot.subsystems.DriveSubsystem;
-//import frc.robot.subsystems.ShooterSubsystem;
-//import edu.wpi.first.wpilibj.XboxController.Button;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -32,43 +16,24 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends LoggedRobot {
+public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private PowerDistribution PD;
-  // controllers will eventually be needed for teleop
-  //private DriverController m_driverController = new DriverController(0);
-  //private OperatorController m_operatorController = new OperatorController(1);
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-  @Override 
+  @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    //m_driverController = new DriverController(0);
-    Logger.recordMetadata("ProjectName", "Crescendo2024"); // Set a metadata value
     UsbCamera frontCamera;
 		frontCamera = CameraServer.startAutomaticCapture(0);
 		frontCamera.setFPS(30);
 		frontCamera.setResolution(160,120);
-if (isReal()) {
-    //Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
-    //Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
-    PD = new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
-    PD.clearStickyFaults();
-} else {
-    setUseTiming(false); // Run as fast as possible
-    //String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
-    //Logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
-    //Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
-}
-
-// Logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the "Understanding Data Flow" page
-//Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
   }
 
   /**
@@ -108,7 +73,7 @@ if (isReal()) {
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+      CommandScheduler.getInstance().schedule(m_autonomousCommand);
     }
   }
 
@@ -129,9 +94,7 @@ if (isReal()) {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {    
-    
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {
@@ -141,6 +104,5 @@ if (isReal()) {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-  }
+  public void testPeriodic() {}
 }
