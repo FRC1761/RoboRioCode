@@ -26,6 +26,7 @@ import frc.robot.subsystems.SCShooter;
 //import frc.robot.RobotPreferences;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 //import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -33,8 +34,6 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
-
-//import org.littletonrobotics.junction.AutoLog;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -76,7 +75,12 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
-                true, true),
+                true),
+            m_robotDrive));
+
+        new JoystickButton(m_driverController, XboxController.Button.kStart.value)
+            .onTrue(new InstantCommand(
+            () -> m_robotDrive.zeroHeading(),
             m_robotDrive));
 /*
 
@@ -193,6 +197,6 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return auto_shoot.andThen(swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false)));
+    return auto_shoot.andThen(swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false)));
    }
 }

@@ -3,7 +3,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.*;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -110,7 +110,7 @@ public class Intake extends SubsystemBase {
     // Pivot control
     if(isPIDcontrolled){
       double pivot_angle = pivotTargetToAngle(m_periodicIO.pivot_target);
-      mPivotPID.setReference(pivot_angle,ControlType.kPosition);
+      mPivotPID.setSetpoint(pivot_angle,ControlType.kPosition);
     } else {
       m_periodicIO.intake_pivot_voltage = getPivotPercentage();
       //mPivotMotor.set(m_periodicIO.intake_pivot_voltage);
@@ -120,7 +120,7 @@ public class Intake extends SubsystemBase {
     // If the pivot is at exactly 0.0, it's probably not connected, so disable it
     if (m_pivotEncoder.getPosition() == 0.0) {
       if(isPIDcontrolled){
-        mPivotPID.setReference(0.0,ControlType.kPosition);
+        mPivotPID.setSetpoint(0.0,ControlType.kPosition);
       } else {
         mPivotMotor.set(0.0);
       }
@@ -138,7 +138,7 @@ public class Intake extends SubsystemBase {
 
   public void writePeriodicOutputs() {
     if(isPIDcontrolled){
-      mPivotPID.setReference(m_periodicIO.intake_pivot_voltage,SparkMax.ControlType.kVoltage);
+      mPivotPID.setSetpoint(m_periodicIO.intake_pivot_voltage,SparkMax.ControlType.kVoltage);
     } else {
       mPivotMotor.set(m_periodicIO.intake_pivot_voltage);
     }

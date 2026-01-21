@@ -92,8 +92,8 @@ public class SCShooter extends SubsystemBase {
 
   public void writePeriodicOutputs() {
     double limitedSpeed = mSpeedLimiter.calculate(mPeriodicIO.shooter_rpm);
-    mLeftShooterPID.setReference(limitedSpeed, ControlType.kVelocity);
-    mRightShooterPID.setReference(limitedSpeed, ControlType.kVelocity);
+    mLeftShooterPID.setSetpoint(limitedSpeed, ControlType.kVelocity);
+    mRightShooterPID.setSetpoint(limitedSpeed, ControlType.kVelocity);
   }
 
   public void setPIDfromPreferences(){
@@ -101,11 +101,11 @@ public class SCShooter extends SubsystemBase {
       mLeftConfig.closedLoop.p(RobotPreferences.getShooterP());
       mLeftConfig.closedLoop.i(RobotPreferences.getShooterI());
       mLeftConfig.closedLoop.d(RobotPreferences.getShooterD());
-      mLeftConfig.closedLoop.velocityFF(RobotPreferences.getShooterFF());
+      mLeftConfig.closedLoop.feedForward.kV(RobotPreferences.getShooterFF());
     
       //both motors use the same PID settings. 
-      mLeftShooterMotor.configure(mLeftConfig, null, null);
-      mRightShooterMotor.configure(mLeftConfig, null, null);
+      //mLeftShooterMotor.configure(mLeftConfig, null, null);
+      //mRightShooterMotor.configure(mLeftConfig, null, null);
     }
   }
   public void stop() {
