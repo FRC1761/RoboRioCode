@@ -26,7 +26,6 @@ import com.studica.frc.AHRS.NavXComType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
-import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -52,11 +51,11 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kBackRightChassisAngularOffset);
 
   // The gyro sensor
-  private final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
+  //private final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
   // default KoP gyro
   // public final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
   // navX MXP using SPI
-  //AHRS m_gyro = new AHRS(NavXComType.kMXP_SPI);
+  AHRS m_gyro = new AHRS(NavXComType.kMXP_SPI);
   // Slew rate filter variables for controlling lateral acceleration
   public double m_currentRotation = 0.0;
   public double m_currentTranslationDir = 0.0;
@@ -67,7 +66,7 @@ public class DriveSubsystem extends SubsystemBase {
   // Odometry class for tracking robot pose
   SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
       DriveConstants.kDriveKinematics,
-      Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)),
+      Rotation2d.fromDegrees(m_gyro.getAngle()),
       new SwerveModulePosition[] {
           m_frontLeft.getPosition(),
           m_frontRight.getPosition(),
@@ -207,5 +206,17 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getTurnRate() {
     return m_gyro.getRate(IMUAxis.kZ) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  public double getAngle() {
+    //
+    Object gyro = m_gyro;
+    if (gyro instanceof AHRS)
+    {
+      AHRS my_gyro
+      return (AHRS) gyro.getAngle();
+    } else if (m_gyro instanceof ADIS16470_IMU) {
+      return m_gyro.getAngle(IMUAxis.kZ);
+    }
   }
 }
