@@ -19,6 +19,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -37,11 +38,11 @@ public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Shooter m_Shooter = Shooter.getInstance();
+  private final Intake m_Intake = Intake.getInstance();
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
   CommandXboxController m_TestController = new CommandXboxController(OIConstants.kTestControllerPort);
-  
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -102,6 +103,17 @@ public class RobotContainer {
             ()->{return false;},
             m_Shooter)
         );
+
+    m_operatorController.rightTrigger(.5)
+        .whileTrue(
+            new FunctionalCommand(
+            () -> {},
+            () -> {m_Intake.feedBallsIn();},
+            (interrupted) -> {m_Intake.stop();},
+            ()->{return false;},
+            m_Shooter)
+        );
+
   }
 
   /**

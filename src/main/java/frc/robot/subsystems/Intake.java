@@ -13,42 +13,37 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.RobotPreferences;
-import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.IntakeConstants;
 
-public class Shooter extends SubsystemBase {
+public class Intake extends SubsystemBase {
 
-  private static Shooter m_instance; 
-  private final SparkFlex shooterMotor;
-  private final RelativeEncoder shooterEncoder;
+  private static Intake m_instance; 
+  private final SparkFlex intakeMotor;
+  private final RelativeEncoder intakeEncoder;
   /** Creates a new Shooter. */
-  public Shooter() {
-    shooterMotor = new SparkFlex(ShooterConstants.CANaddress,
+  public Intake() {
+    intakeMotor = new SparkFlex(IntakeConstants.FeederCAN,
                                  MotorType.kBrushless);
-    shooterEncoder = shooterMotor.getEncoder();
+    intakeEncoder = intakeMotor.getEncoder();
   }
 
-  public static Shooter getInstance() {
+  public static Intake getInstance() {
     if (m_instance == null) {
-      m_instance = new Shooter();
+      m_instance = new Intake();
     }
     return m_instance;
   }
 
-  
-  public void shootFar(){   
-    shooterMotor.set(RobotPreferences.getShooterFar());
-  }
-
-  public void shootShort(){   
-    shooterMotor.set(RobotPreferences.getShooterShort());
+  public void feedBallsIn(){   
+    intakeMotor.set(RobotPreferences.getIntakePower());
   }
 
   public void stop(){
-    shooterMotor.set(0);
+    intakeMotor.set(0);
   }
 
   @Override
   public void periodic() {
-    RobotPreferences.setShooterSpeedDisplay(shooterEncoder.getVelocity());
+    RobotPreferences.setIntakeSpeedDisplay(intakeEncoder.getVelocity());
   }
 }

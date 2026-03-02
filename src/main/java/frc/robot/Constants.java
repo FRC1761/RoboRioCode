@@ -113,8 +113,10 @@ public final class Constants {
     public static double kShootFar = .75;
     public static double kShootShort = .60;
   }
-  public static final class IntakeConsants {
+
+  public static final class IntakeConstants {
     public static final int FeederCAN = 20;
-    public static final int IntakeCAN = 21;
+    public static final int RetractCAN = 21;
+    public static final double feedPower = .60;
   }
 }

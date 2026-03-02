@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Preferences;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.IntakeConstants;
 /*
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.OIConstants;
@@ -28,8 +29,18 @@ public class RobotPreferences {
     return temp;
   }
     /* end example of preferences */
-  public static void setShooterSpeed(double speed) {
+  public static void setShooterSpeedDisplay(double speed) {
     Preferences.setDouble("shooterSpeed",speed);
+  }
+
+  public static double getIntakePower() {
+    double temp = Preferences.getDouble("intakePower", IntakeConstants.feedPower);
+    Preferences.setDouble("intakePower", temp);
+    return temp;
+  }
+
+  public static void setIntakeSpeedDisplay(double speed) {
+    Preferences.setDouble("intakeSpeed",speed);
   }
 
 }
