@@ -13,13 +13,14 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -35,11 +36,11 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-
+  private final Shooter m_Shooter = Shooter.getInstance();
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-  XboxController m_operatorController = new XboxController(OIConstants.kOperatorControllerPort);
-  XboxController m_TestController = new XboxController(OIConstants.kTestControllerPort);
+  CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
+  CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
+  CommandXboxController m_TestController = new CommandXboxController(OIConstants.kTestControllerPort);
   
 
   /**
@@ -72,15 +73,35 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, Button.kR1.value)
+    m_driverController.rightBumper()
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-    new JoystickButton(m_driverController, XboxController.Button.kStart.value)
+    m_driverController.start()
         .onTrue(new InstantCommand(
             () -> m_robotDrive.zeroHeading(),
             m_robotDrive));
+
+    m_operatorController.leftBumper()
+        .whileTrue(
+            new FunctionalCommand(
+              () -> {},
+              () -> {m_Shooter.shootShort();},
+              (interrupted) -> {m_Shooter.stop();},
+              ()->{return false;},
+               m_Shooter)
+        );
+            
+    m_operatorController.rightBumper()
+        .whileTrue(
+            new FunctionalCommand(
+            () -> {},
+            () -> {m_Shooter.shootFar();},
+            (interrupted) -> {m_Shooter.stop();},
+            ()->{return false;},
+            m_Shooter)
+        );
   }
 
   /**
