@@ -84,7 +84,7 @@ public class RobotContainer {
             () -> m_robotDrive.zeroHeading(),
             m_robotDrive));
 
-    m_operatorController.leftBumper()
+    m_operatorController.rightBumper()
         .whileTrue(
             new FunctionalCommand(
               () -> {},
@@ -94,7 +94,7 @@ public class RobotContainer {
                m_Shooter)
         );
             
-    m_operatorController.rightBumper()
+    m_operatorController.leftBumper()
         .whileTrue(
             new FunctionalCommand(
             () -> {},
@@ -104,14 +104,24 @@ public class RobotContainer {
             m_Shooter)
         );
 
-    m_operatorController.rightTrigger(.5)
+        m_operatorController.leftTrigger(.5)
+        .whileTrue(
+            new FunctionalCommand(
+            () -> {},
+            () -> {m_Shooter.shootReverse();},
+            (interrupted) -> {m_Shooter.stop();},
+            ()->{return false;},
+            m_Shooter)
+        );
+
+    m_operatorController.b()
         .whileTrue(
             new FunctionalCommand(
             () -> {},
             () -> {m_Intake.feedBallsIn();},
             (interrupted) -> {m_Intake.stop();},
             ()->{return false;},
-            m_Shooter)
+            m_Intake)
         );
 
   }

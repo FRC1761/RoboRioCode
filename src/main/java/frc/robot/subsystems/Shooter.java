@@ -43,6 +43,10 @@ public class Shooter extends SubsystemBase {
     shooterMotor.set(RobotPreferences.getShooterShort());
   }
 
+  public void shootReverse(){   
+    shooterMotor.set(-.90);
+  }
+
   public void stop(){
     shooterMotor.set(0);
   }
