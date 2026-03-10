@@ -109,8 +109,12 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static final int CANaddress = 10;
-    public static double kShootFar = .75;
+    public static final int ShooterAddress = 10;
+    public static final int GateAddress    = 11;
+    //this is not used but meant to reserve the CAN 
+    // in case we run two motors (one following the other for the shooter)
+    public static final int ShooterFollower = 12;
+    public static double kShootFar   = .75;
     public static double kShootShort = .60;
   }
 
