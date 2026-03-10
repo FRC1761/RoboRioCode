@@ -20,6 +20,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Retractor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -39,6 +40,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Shooter m_Shooter = Shooter.getInstance();
   private final Intake m_Intake = Intake.getInstance();
+  private final Retractor m_Retract = Retractor.getInstance();
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kOperatorControllerPort);
@@ -119,9 +121,29 @@ public class RobotContainer {
             new FunctionalCommand(
             () -> {},
             () -> {m_Intake.feedBallsIn();},
-            (interrupted) -> {m_Intake.stop();},
+            (interrupted) -> {m_Intake.stopBallsIn();},
             ()->{return false;},
             m_Intake)
+        );
+
+    m_operatorController.a()
+        .whileTrue(
+            new FunctionalCommand(
+                () -> {},
+                () -> {m_Retract.retractIntake();} ,
+                (interrupted) -> {},
+                () -> {return false;},
+                m_Retract)
+        );
+
+    m_operatorController.b()
+        .whileTrue(
+            new FunctionalCommand(
+                () -> {},
+                () -> {m_Retract.extendIntake();} ,
+                (interrupted) -> {},
+                () -> {return false;},
+                m_Retract)
         );
 
   }

@@ -38,9 +38,19 @@ public class RobotPreferences {
     Preferences.setDouble("intakePower", temp);
     return temp;
   }
+  
+  public static double getRetractPower() {
+    double temp = Preferences.getDouble("retractPower", IntakeConstants.feedPower);
+    Preferences.setDouble("retractPower", temp);
+    return temp;
+  }
 
   public static void setIntakeSpeedDisplay(double speed) {
     Preferences.setDouble("intakeSpeed",speed);
+  }
+
+  public static void setIntakePosition(double position){
+    Preferences.setDouble("intakePosition", position);
   }
 
 }

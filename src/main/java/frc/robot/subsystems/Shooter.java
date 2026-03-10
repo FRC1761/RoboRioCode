@@ -22,7 +22,7 @@ public class Shooter extends SubsystemBase {
   private final RelativeEncoder shooterEncoder;
   /** Creates a new Shooter. */
   public Shooter() {
-    shooterMotor = new SparkFlex(ShooterConstants.CANaddress,
+    shooterMotor = new SparkFlex(ShooterConstants.ShooterAddress,
                                  MotorType.kBrushless);
     shooterEncoder = shooterMotor.getEncoder();
   }

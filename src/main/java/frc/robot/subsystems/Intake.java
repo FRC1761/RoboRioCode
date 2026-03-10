@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -18,13 +19,19 @@ import frc.robot.Constants.IntakeConstants;
 public class Intake extends SubsystemBase {
 
   private static Intake m_instance; 
-  private final SparkFlex intakeMotor;
-  private final RelativeEncoder intakeEncoder;
+  private final SparkFlex intakeMotor, retractMotor;
+  private final RelativeEncoder intakeEncoder,retractEncoder;
+  private SparkClosedLoopController intakeController;
   /** Creates a new Shooter. */
   public Intake() {
     intakeMotor = new SparkFlex(IntakeConstants.FeederCAN,
                                  MotorType.kBrushless);
     intakeEncoder = intakeMotor.getEncoder();
+    intakeController = intakeMotor.getClosedLoopController();
+
+    retractMotor = new SparkFlex(IntakeConstants.RetractCAN,
+                                 MotorType.kBrushless);
+    retractEncoder = retractMotor.getEncoder();
   }
 
   public static Intake getInstance() {
@@ -36,14 +43,29 @@ public class Intake extends SubsystemBase {
 
   public void feedBallsIn(){   
     intakeMotor.set(RobotPreferences.getIntakePower());
+    //Set the setpoint of the PID controller in raw position mode
+    //intakeMotor.setSetpoint(RobotPreferences.getIntakePoint, ControlType.kVelocity);
   }
 
-  public void stop(){
+  public void retract(){
+    retractMotor.set(RobotPreferences.getRetractPower());
+    //Set the setpoint of the PID controller in raw position mode
+    //retractMotor.setSetpoint(RobotPreferences.getRetractPoint(), ControlType.kPosition);
+  }
+
+  public void extend(){
+    retractMotor.set(-RobotPreferences.getRetractPower());
+    //Set the setpoint of the PID controller in raw position mode
+    //retractMotor.setSetpoint(RobotPreferences.getRetractPoint(), ControlType.kPosition);
+  }
+
+  public void stopBallsIn(){
     intakeMotor.set(0);
   }
 
   @Override
   public void periodic() {
     RobotPreferences.setIntakeSpeedDisplay(intakeEncoder.getVelocity());
+    RobotPreferences.setIntakePosition(retractEncoder.getPosition());
   }
 }
