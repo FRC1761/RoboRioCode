@@ -121,6 +121,6 @@ public final class Constants {
   public static final class IntakeConstants {
     public static final int FeederCAN = 20;
     public static final int RetractCAN = 21;
-    public static final double feedPower = .60;
+    public static final double feedPower = .06;
   }
 }

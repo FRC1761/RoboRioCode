@@ -19,8 +19,8 @@ import frc.robot.Constants.IntakeConstants;
 public class Intake extends SubsystemBase {
 
   private static Intake m_instance; 
-  private final SparkFlex intakeMotor, retractMotor;
-  private final RelativeEncoder intakeEncoder,retractEncoder;
+  private final SparkFlex intakeMotor;
+  private final RelativeEncoder intakeEncoder;
   private SparkClosedLoopController intakeController;
   /** Creates a new Shooter. */
   public Intake() {
@@ -28,10 +28,6 @@ public class Intake extends SubsystemBase {
                                  MotorType.kBrushless);
     intakeEncoder = intakeMotor.getEncoder();
     intakeController = intakeMotor.getClosedLoopController();
-
-    retractMotor = new SparkFlex(IntakeConstants.RetractCAN,
-                                 MotorType.kBrushless);
-    retractEncoder = retractMotor.getEncoder();
   }
 
   public static Intake getInstance() {
@@ -47,18 +43,6 @@ public class Intake extends SubsystemBase {
     //intakeMotor.setSetpoint(RobotPreferences.getIntakePoint, ControlType.kVelocity);
   }
 
-  public void retract(){
-    retractMotor.set(RobotPreferences.getRetractPower());
-    //Set the setpoint of the PID controller in raw position mode
-    //retractMotor.setSetpoint(RobotPreferences.getRetractPoint(), ControlType.kPosition);
-  }
-
-  public void extend(){
-    retractMotor.set(-RobotPreferences.getRetractPower());
-    //Set the setpoint of the PID controller in raw position mode
-    //retractMotor.setSetpoint(RobotPreferences.getRetractPoint(), ControlType.kPosition);
-  }
-
   public void stopBallsIn(){
     intakeMotor.set(0);
   }
@@ -66,6 +50,5 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     RobotPreferences.setIntakeSpeedDisplay(intakeEncoder.getVelocity());
-    RobotPreferences.setIntakePosition(retractEncoder.getPosition());
   }
 }

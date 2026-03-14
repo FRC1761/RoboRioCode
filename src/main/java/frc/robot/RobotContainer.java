@@ -116,7 +116,7 @@ public class RobotContainer {
             m_Shooter)
         );
 
-    m_operatorController.b()
+    m_operatorController.x()
         .whileTrue(
             new FunctionalCommand(
             () -> {},
@@ -131,7 +131,7 @@ public class RobotContainer {
             new FunctionalCommand(
                 () -> {},
                 () -> {m_Retract.retractIntake();} ,
-                (interrupted) -> {},
+                (interrupted) -> {m_Retract.stop();},
                 () -> {return false;},
                 m_Retract)
         );
@@ -141,7 +141,7 @@ public class RobotContainer {
             new FunctionalCommand(
                 () -> {},
                 () -> {m_Retract.extendIntake();} ,
-                (interrupted) -> {},
+                (interrupted) -> {m_Retract.stop();},
                 () -> {return false;},
                 m_Retract)
         );
@@ -166,9 +166,9 @@ public class RobotContainer {
         // Start at the origin facing the +X direction
         new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        List.of(new Translation2d(.2, 0), new Translation2d(.4, 0)),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
+        new Pose2d(.5, 0, new Rotation2d(0)),
         config);
 
     var thetaController = new ProfiledPIDController(
@@ -191,6 +191,8 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
+    return swerveControllerCommand;
+    //.andThen(() -> m_robotDrive.drive(0, 0, 0, true));
   }
 }
+ 

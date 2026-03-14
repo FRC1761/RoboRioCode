@@ -53,4 +53,11 @@ public class RobotPreferences {
     Preferences.setDouble("intakePosition", position);
   }
 
+  public static void setRetractForwLimit(boolean isForwardPressed){
+    Preferences.setBoolean("Forward Limit Switch", isForwardPressed);
+  }
+
+  public static void setRetractReverseLimit(boolean isReversePressed){
+    Preferences.setBoolean("Reverse Limit Switch", isReversePressed);    
+  }
 }

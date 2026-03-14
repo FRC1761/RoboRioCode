@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -36,6 +37,12 @@ public class Retractor extends SubsystemBase {
       //retractMotor.setSetpoint(RobotPreferences.getRetractPoint(), ControlType.kPosition);
   }
 
+  public void stop(){
+      retractMotor.set(0);
+      //Set the setpoint of the PID controller in raw position mode
+      //retractMotor.setSetpoint(RobotPreferences.getRetractPoint(), ControlType.kPosition);
+  }
+
   public static Retractor getInstance() {
     if (m_instance == null) {
       m_instance = new Retractor();
@@ -46,5 +53,13 @@ public class Retractor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+      RobotPreferences.setIntakePosition(retractEncoder.getPosition());
+      SparkLimitSwitch forwardLimit = retractMotor.getForwardLimitSwitch();
+      SparkLimitSwitch reverseLimit = retractMotor.getReverseLimitSwitch();
+
+      boolean fwdPressed = forwardLimit.isPressed();
+      RobotPreferences.setRetractForwLimit(fwdPressed);
+      boolean revPressed = reverseLimit.isPressed();
+      RobotPreferences.setRetractReverseLimit(revPressed);
   }
 }
