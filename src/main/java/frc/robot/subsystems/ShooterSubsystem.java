@@ -22,16 +22,12 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterLeft.configure(config,
                               ResetMode.kResetSafeParameters,
                               PersistMode.kPersistParameters);
-
-        config.inverted(true);
-
-        shooterRight.configure(config,
-                               ResetMode.kResetSafeParameters,
-                               PersistMode.kPersistParameters);
+            
+        //second parameter true is needed to invert motor
+        shooterRight.follow(shooterLeft,true);
     }
     public void drive(double speed){
         shooterLeft.set(speed);
-        shooterRight.set(speed);
     }
 
     
