@@ -45,6 +45,12 @@ public class RobotPreferences {
     return temp;
   }
 
+  public static double getGatePower() {
+    double temp = Preferences.getDouble("gatePower", ShooterConstants.kGateMove);
+    Preferences.setDouble("gatePower", temp);
+    return temp;
+  }
+
   public static void setIntakeSpeedDisplay(double speed) {
     Preferences.setDouble("intakeSpeed",speed);
   }

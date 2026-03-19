@@ -8,6 +8,7 @@ package frc.robot.subsystems;
 //include libraries we will use 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -17,14 +18,19 @@ import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
 
+  //subsystem properties
   private static Shooter m_instance; 
-  private final SparkFlex shooterMotor;
+  private final SparkFlex shooterMotor,gateMotor;
   private final RelativeEncoder shooterEncoder;
+  private final AbsoluteEncoder gateEncoder;
   /** Creates a new Shooter. */
   public Shooter() {
     shooterMotor = new SparkFlex(ShooterConstants.ShooterAddress,
                                  MotorType.kBrushless);
     shooterEncoder = shooterMotor.getEncoder();
+
+    gateMotor = new SparkFlex(ShooterConstants.GateAddress,MotorType.kBrushless);
+    gateEncoder = gateMotor.getAbsoluteEncoder();
   }
 
   public static Shooter getInstance() {
@@ -44,12 +50,21 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shootReverse(){   
-    shooterMotor.set(-.90);
+    shooterMotor.set(-RobotPreferences.getShooterFar());
+  }
+
+  public void moveGate(){
+    gateMotor.set(RobotPreferences.getGatePower());
+  }
+
+  public double getGateAngle(){
+    return gateEncoder.getPosition();
   }
 
   public void stop(){
     shooterMotor.set(0);
   }
+
 
   @Override
   public void periodic() {

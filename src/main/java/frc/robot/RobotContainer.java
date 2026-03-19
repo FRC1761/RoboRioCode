@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final DriveSubsystem m_robotDrive = DriveSubsystem.getInstance();
   private final Shooter m_Shooter = Shooter.getInstance();
   private final Intake m_Intake = Intake.getInstance();
   private final Retractor m_Retract = Retractor.getInstance();
@@ -86,21 +86,31 @@ public class RobotContainer {
             () -> m_robotDrive.zeroHeading(),
             m_robotDrive));
 
-    m_operatorController.rightBumper()
+    m_operatorController.rightTrigger(.5)
         .whileTrue(
             new FunctionalCommand(
               () -> {},
-              () -> {m_Shooter.shootShort();},
+              () -> {m_Shooter.shootFar();},
               (interrupted) -> {m_Shooter.stop();},
               ()->{return false;},
                m_Shooter)
+        );
+
+    m_operatorController.rightBumper()
+        .whileTrue(
+            new FunctionalCommand(
+                ()-> {},
+                () -> {m_Shooter.shootReverse();},
+                (interrupted) -> {m_Shooter.stop();},
+                ()->{return false;},
+                m_Shooter)
         );
             
     m_operatorController.leftBumper()
         .whileTrue(
             new FunctionalCommand(
             () -> {},
-            () -> {m_Shooter.shootFar();},
+            () -> {m_Shooter.shootReverse();},
             (interrupted) -> {m_Shooter.stop();},
             ()->{return false;},
             m_Shooter)
@@ -110,11 +120,13 @@ public class RobotContainer {
         .whileTrue(
             new FunctionalCommand(
             () -> {},
-            () -> {m_Shooter.shootReverse();},
+            () -> {m_Shooter.shootShort();},
             (interrupted) -> {m_Shooter.stop();},
             ()->{return false;},
             m_Shooter)
         );
+
+        // getGatePosition() > .5
 
     m_operatorController.x()
         .whileTrue(
@@ -168,7 +180,7 @@ public class RobotContainer {
         // Pass through these two interior waypoints, making an 's' curve path
         List.of(new Translation2d(.2, 0), new Translation2d(.4, 0)),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(.5, 0, new Rotation2d(0)),
+        new Pose2d(0, 0, new Rotation2d(0)),
         config);
 
     var thetaController = new ProfiledPIDController(
@@ -191,8 +203,7 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand;
-    //.andThen(() -> m_robotDrive.drive(0, 0, 0, true));
+    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, true));
   }
 }
  
