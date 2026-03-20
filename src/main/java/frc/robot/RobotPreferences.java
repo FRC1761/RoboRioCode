@@ -66,4 +66,8 @@ public class RobotPreferences {
   public static void setRetractReverseLimit(boolean isReversePressed){
     Preferences.setBoolean("Reverse Limit Switch", isReversePressed);    
   }
+
+  public static void setGateState(String value) {
+    Preferences.setString("isOpen",value);
+  }
 }
