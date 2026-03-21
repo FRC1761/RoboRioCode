@@ -8,6 +8,8 @@ package frc.robot.subsystems;
 //include libraries we will use 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import java.time.Period;
+
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.PersistMode;
 import com.revrobotics.RelativeEncoder;
@@ -16,6 +18,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import frc.robot.Robot;
 import frc.robot.RobotPreferences;
 import frc.robot.Constants.ShooterConstants;
 
@@ -67,14 +70,50 @@ public class Shooter extends SubsystemBase {
     gateMotor.set(RobotPreferences.getGatePower());
   }
 
+  public void openGate() {
+    m_PeriodicIO.gateTarget = PeriodicIO.GateState.OPEN;
+  }
+  
+  public void closeGate() {
+    m_PeriodicIO.gateTarget = PeriodicIO.GateState.CLOSED;
+  }
+
+  private boolean isGateAtTarget(){
+    double angleDiff  = getGateAngle()-gateToTargetAngle(m_PeriodicIO); 
+    return Math.abs(angleDiff) < .01;
+  }
+
+  private double getGatePercentage() {
+    double gatePower = RobotPreferences.getGatePower();
+    double diffAngle = 0.0;
+    switch (m_PeriodicIO.gateTarget){
+      case CLOSED:
+        diffAngle = getGateAngle() - RobotPreferences.getGateCloseAngle();
+        break;
+      case OPEN:
+        diffAngle = getGateAngle() - RobotPreferences.getGateOpenAngle();
+        break;
+    }
+    return gatePower *diffAngle;
+  }
+
+  private double gateToTargetAngle(PeriodicIO state){
+    if(state.gateTarget == PeriodicIO.GateState.CLOSED) return 0.75;
+    else return .5; //thats 90 degrees
+  
+  }
+
   public void writePeriodicOutputs() {
-    //mGateMotor.set
+    if(!isGateAtTarget()){
+      gateMotor.set(getGatePercentage());
+    }
   }
 
   private static class PeriodicIO{
     ShooterTarget shooterTarget = ShooterTarget.NONE;
-    ShooterState shooterState = ShooterState.OFF;
-    GateState gateState = GateState.CLOSED;
+    ShooterState shooterState   = ShooterState.OFF;
+    GateState gateState         = GateState.CLOSED;
+    GateState gateTarget        = GateState.CLOSED; 
   
     public enum ShooterTarget {
       NONE,

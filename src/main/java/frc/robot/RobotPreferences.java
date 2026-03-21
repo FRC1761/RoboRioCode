@@ -46,8 +46,20 @@ public class RobotPreferences {
   }
 
   public static double getGatePower() {
-    double temp = Preferences.getDouble("gatePower", ShooterConstants.kGateMove);
+    double temp = Preferences.getDouble("gatePower", ShooterConstants.kGatePower);
     Preferences.setDouble("gatePower", temp);
+    return temp;
+  }
+
+  public static double getGateCloseAngle() {
+    double temp = Preferences.getDouble("gateCloseAngle", ShooterConstants.kGateCloseAngle);
+    Preferences.setDouble("gateCloseAngle", temp);
+    return temp;
+  }
+
+  public static double getGateOpenAngle() {
+    double temp = Preferences.getDouble("gateOpenAngle", ShooterConstants.kGateOpenAngle);
+    Preferences.setDouble("gateOpenAngle", temp);
     return temp;
   }
 

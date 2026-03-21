@@ -12,6 +12,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+//import com.revrobotics.spark.config.SparkMaxConfig;
 
 import frc.robot.RobotPreferences;
 import frc.robot.Constants.IntakeConstants;
@@ -22,6 +23,7 @@ public class Intake extends SubsystemBase {
   private final SparkFlex intakeMotor;
   private final RelativeEncoder intakeEncoder;
   private SparkClosedLoopController intakeController;
+  
   /** Creates a new Shooter. */
   public Intake() {
     intakeMotor = new SparkFlex(IntakeConstants.FeederCAN,
@@ -39,6 +41,12 @@ public class Intake extends SubsystemBase {
 
   public void feedBallsIn(){   
     intakeMotor.set(RobotPreferences.getIntakePower());
+    //Set the setpoint of the PID controller in raw position mode
+    //intakeMotor.setSetpoint(RobotPreferences.getIntakePoint, ControlType.kVelocity);
+  }
+
+    public void feedBallsOut(){   
+    intakeMotor.set(-RobotPreferences.getIntakePower());
     //Set the setpoint of the PID controller in raw position mode
     //intakeMotor.setSetpoint(RobotPreferences.getIntakePoint, ControlType.kVelocity);
   }

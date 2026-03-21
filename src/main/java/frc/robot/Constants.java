@@ -115,9 +115,11 @@ public final class Constants {
     // in case we run two motors (one following the other for the shooter)
     public static final int ShooterFollower = 12;
     //set default power for actions
-    public static double kShootFar   = .75;
-    public static double kShootShort = .60;
-    public static double kGateMove   = .20;
+    public static double kShootFar       = .75;
+    public static double kShootShort     = .60;
+    public static double kGatePower      = .03;
+    public static double kGateCloseAngle = .75;  //units in rotations
+    public static double kGateOpenAngle  = .50;  //units in rotations
 
   }
 

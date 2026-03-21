@@ -116,7 +116,7 @@ public class RobotContainer {
             m_Shooter)
         );
 
-        m_operatorController.leftTrigger(.5)
+    m_operatorController.leftTrigger(.5)
         .whileTrue(
             new FunctionalCommand(
             () -> {},
@@ -133,6 +133,16 @@ public class RobotContainer {
             new FunctionalCommand(
             () -> {},
             () -> {m_Intake.feedBallsIn();},
+            (interrupted) -> {m_Intake.stopBallsIn();},
+            ()->{return false;},
+            m_Intake)
+        );
+
+    m_operatorController.y()
+        .whileTrue(
+            new FunctionalCommand(
+            () -> {},
+            () -> {m_Intake.feedBallsOut();},
             (interrupted) -> {m_Intake.stopBallsIn();},
             ()->{return false;},
             m_Intake)
@@ -157,8 +167,15 @@ public class RobotContainer {
                 () -> {return false;},
                 m_Retract)
         );
+    m_operatorController.povUp()
+        .onTrue(new RunCommand(()-> {m_Shooter.openGate();}, m_Shooter));
 
-  }
+    m_operatorController.povDown()
+        .onTrue(new RunCommand(()-> {m_Shooter.closeGate();}, m_Shooter));
+
+}
+
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
