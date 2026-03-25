@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.revrobotics.util.StatusLogger;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -29,6 +31,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    StatusLogger.disableAutoLogging();
+
     m_robotContainer = new RobotContainer();
     UsbCamera frontCamera;
 		frontCamera = CameraServer.startAutomaticCapture(0);

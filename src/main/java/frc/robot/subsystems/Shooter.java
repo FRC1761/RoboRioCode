@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.DigitalOutput;
 //include libraries we will use 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,6 +18,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import frc.robot.Robot;
@@ -27,23 +30,28 @@ public class Shooter extends SubsystemBase {
   //subsystem properties
   private static Shooter m_instance; 
   private static PeriodicIO m_PeriodicIO;
-  private final SparkFlex shooterMotor,gateMotor;
+  private final SparkFlex shooterMotor;
+  private final SparkMax  gateMotor;
   private final RelativeEncoder shooterEncoder;
   private final AbsoluteEncoder gateEncoder;
+  private final Timer clock;
+  private double gatePower;
   /** Creates a new Shooter. */
   public Shooter() {
     shooterMotor = new SparkFlex(ShooterConstants.ShooterAddress,
                                  MotorType.kBrushless);
     shooterEncoder = shooterMotor.getEncoder();
 
-    gateMotor = new SparkFlex(ShooterConstants.GateAddress,MotorType.kBrushless);
+    gateMotor = new SparkMax(ShooterConstants.GateAddress,MotorType.kBrushless);
     gateEncoder = gateMotor.getAbsoluteEncoder();
     SparkMaxConfig gateConfig = new SparkMaxConfig();
     gateConfig.idleMode(SparkMaxConfig.IdleMode.kBrake);
     gateConfig.smartCurrentLimit(30);
     gateMotor.configure(gateConfig,ResetMode.kNoResetSafeParameters,PersistMode.kPersistParameters);
-    
+    gatePower = RobotPreferences.getGatePower();
     m_PeriodicIO = new PeriodicIO();
+    clock = new Timer();
+    clock.start();
   }
 
   public static Shooter getInstance() {
@@ -79,31 +87,31 @@ public class Shooter extends SubsystemBase {
   }
 
   private boolean isGateAtTarget(){
-    double angleDiff  = getGateAngle()-gateToTargetAngle(m_PeriodicIO); 
-    return Math.abs(angleDiff) < .01;
+    double angleDiff  = getGateAngle()-gateToTargetAngle(); 
+    return Math.abs(angleDiff) < .1;
   }
 
   private double getGatePercentage() {
-    double gatePower = RobotPreferences.getGatePower();
     double diffAngle = 0.0;
     switch (m_PeriodicIO.gateTarget){
       case CLOSED:
-        diffAngle = getGateAngle() - RobotPreferences.getGateCloseAngle();
+        diffAngle = getGateAngle() - m_PeriodicIO.gateCloseAngle;
         break;
       case OPEN:
-        diffAngle = getGateAngle() - RobotPreferences.getGateOpenAngle();
+        diffAngle = getGateAngle() - m_PeriodicIO.gateOpenAngle;
         break;
     }
-    return gatePower *diffAngle;
+    return -1.0 * gatePower*diffAngle;
   }
 
-  private double gateToTargetAngle(PeriodicIO state){
-    if(state.gateTarget == PeriodicIO.GateState.CLOSED) return 0.75;
+  private double gateToTargetAngle(){
+    if(m_PeriodicIO.gateTarget == PeriodicIO.GateState.CLOSED) return 0.75;
     else return .5; //thats 90 degrees
   
   }
 
   public void writePeriodicOutputs() {
+
     if(!isGateAtTarget()){
       gateMotor.set(getGatePercentage());
     }
@@ -113,7 +121,10 @@ public class Shooter extends SubsystemBase {
     ShooterTarget shooterTarget = ShooterTarget.NONE;
     ShooterState shooterState   = ShooterState.OFF;
     GateState gateState         = GateState.CLOSED;
-    GateState gateTarget        = GateState.CLOSED; 
+    GateState gateTarget        = GateState.CLOSED;
+    double gatePower = RobotPreferences.getGatePower();
+    double gateOpenAngle =RobotPreferences.getGateOpenAngle(),
+           gateCloseAngle = RobotPreferences.getGateCloseAngle(); 
   
     public enum ShooterTarget {
       NONE,
@@ -146,12 +157,16 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     if(gateEncoder.getPosition()==0.0){
-      System.out.println("PivotEncoder is registering at Zero, check connection");
+      //System.out.println("PivotEncoder is registering at Zero, check connection");
     }
 
     writePeriodicOutputs();
-
-    RobotPreferences.setGateState(m_PeriodicIO.gateState.toString());
-    RobotPreferences.setShooterSpeedDisplay(shooterEncoder.getVelocity());
+    if(clock.hasElapsed)){
+      RobotPreferences.setGateState(m_PeriodicIO.gateTarget.toString());
+      RobotPreferences.setShooterSpeedDisplay(shooterEncoder.getVelocity());
+      Preferences.setDouble("gateAngle", getGateAngle());
+      Preferences.setDouble("gatePercentage",getGatePercentage());
+      clock.reset();
+    }
   }
 }

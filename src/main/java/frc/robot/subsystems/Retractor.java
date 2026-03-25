@@ -8,6 +8,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotPreferences;
@@ -15,12 +16,12 @@ import frc.robot.Constants.IntakeConstants;
 
 public class Retractor extends SubsystemBase {
   private static Retractor m_instance;
-  private final SparkFlex retractMotor;
+  private final SparkMax retractMotor;
   private final RelativeEncoder retractEncoder;
   
   /** Creates a new Retract. */
   public Retractor() {
-    retractMotor = new SparkFlex(IntakeConstants.RetractCAN,
+    retractMotor = new SparkMax(IntakeConstants.RetractCAN,
                                  MotorType.kBrushless);
     retractEncoder = retractMotor.getEncoder();
   }
