@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;

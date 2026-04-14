@@ -40,7 +40,7 @@ public class RobotPreferences {
   }
   
   public static double getRetractPower() {
-    double temp = Preferences.getDouble("retractPower", IntakeConstants.feedPower);
+    double temp = Preferences.getDouble("retractPower", IntakeConstants.retractPower);
     Preferences.setDouble("retractPower", temp);
     return temp;
   }

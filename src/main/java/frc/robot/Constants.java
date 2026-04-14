@@ -116,16 +116,26 @@ public final class Constants {
     public static final int ShooterFollower = 12;
     //set default power for actions
     public static double kShootFar       = .75;
+    public static double kShootFarSpeed  = 6000;
     public static double kShootShort     = .60;
+    public static double kShootShortSpeed  = 5000;
     public static double kGatePower      = .03;
-    public static double kGateCloseAngle = .75;  //units in rotations
-    public static double kGateOpenAngle  = .50;  //units in rotations
+    public static double kGateCloseAngle = 0;  //units in rotations of motor
+    public static double kGateOpenAngle  = 4.5;  //units in rotations of motor
+
+    public static double gateP = .11;
+    public static double gateD = 0.0;
+
+    public static double shooterP = .00045;
+    public static double shooterD = 0.00008;
+    public static double shooterK = .0001;
 
   }
 
   public static final class IntakeConstants {
     public static final int FeederCAN = 20;
     public static final int RetractCAN = 21;
-    public static final double feedPower = .06;
+    public static final double retractPower = .06;
+    public static final double feedPower = .6;
   }
 }
